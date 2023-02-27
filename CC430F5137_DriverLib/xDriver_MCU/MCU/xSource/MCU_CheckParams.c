@@ -1,0 +1,53 @@
+/**
+ *
+ * @file MCU_CheckParams.c
+ * @copyright
+ * @verbatim InDeviceMex 2020 @endverbatim
+ *
+ * @par Responsibility
+ * @verbatim InDeviceMex Developers @endverbatim
+ *
+ * @version
+ * @verbatim 1.0 @endverbatim
+ *
+ * @date
+ * @verbatim 24 ene. 2021 @endverbatim
+ *
+ * @author
+ * @verbatim vyldram @endverbatim
+ *
+ * @par Change History
+ * @verbatim
+ * Date           Author     Version     Description
+ * 24 ene. 2021     vyldram    1.0         initial Version@endverbatim
+ */
+#include <xDriver_MCU/MCU/xHeader/MCU_CheckParams.h>
+
+MCU_nERROR MCU__enCheckParams_RAM(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
+{
+    MCU_nERROR enErrorReg;
+    if(uxModuleMaxArg <= uxModuleArg)
+    {
+        enErrorReg = MCU_enERROR_RANGE;
+    }
+    else
+    {
+        enErrorReg = MCU_enERROR_OK;
+    }
+    return (enErrorReg);
+}
+
+
+MCU_nERROR MCU__enCheckParams(UBase_t uxModuleArg, UBase_t uxModuleMaxArg)
+{
+    MCU_nERROR enErrorReg;
+    if(uxModuleMaxArg <= uxModuleArg)
+    {
+        enErrorReg = MCU_enERROR_RANGE;
+    }
+    else
+    {
+        enErrorReg = MCU_enERROR_OK;
+    }
+    return (enErrorReg);
+}
