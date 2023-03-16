@@ -125,26 +125,39 @@ unsigned char transmitting = 0;
 unsigned char receiving = 0; 
 
 uint16_t PORT1_ISR(uintptr_t uptrPort, void* pvPinNumber);
+uint16_t TIMERA_ISR(uintptr_t uptrPort, void* pvPinNumber);
+void InitTimer(void);
 
 void main( void )
 {  
   // Stop watchdog timer to prevent time out reset 
-  WDTCTL = WDTPW + WDTHOLD; 
+
+  WDT->CTL = WDT_CTL_R_PW_WRITE | WDT_CTL_R_HOLD_STOP;
 
   // Increase PMMCOREV level to 2 for proper radio operation
   SetVCore(2);
-
+  RAM__enSetSectorState((UBase_t) (RAM_enSECTOR_7 | RAM_enSECTOR_6 | RAM_enSECTOR_5 | RAM_enSECTOR_4 | RAM_enSECTOR_3 | RAM_enSECTOR_2), RAM_enSTATE_DIS);
   MAP__enSetReconfig(MAP_enSTATE_ENA);
   MAP_PORT__enSetFunctionByMask(MAP_enMODULE_1, (MAP_nPINMASK) (MAP_enPINMASK_7 | MAP_enPINMASK_5 | MAP_enPINMASK_1), MAP_enFUNCTION_M_CLK);
+  InitTimer();
   ResetRadioCore();     
   InitRadio();
   InitButtonLeds();
   ReceiveOn(); 
   receiving = 1; 
 
-  while (1)
+  UBase_t uxResultByte;
+  UBase_t uxResultWord;
+
+  uxResultWord = 0;
+  uxResultByte = 0;
+
+  CRC__enComputeDataByteArray(CRC_enMODULE_0, 0xFFFFU, "123456789", 9, &uxResultByte);
+  CRC__enComputeDataByteArray_Opt(CRC_enMODULE_0, 0xFFFFU, "123456789", 9, &uxResultWord);
+
+  __bis_SR_register(GIE);
+  while (uxResultWord == uxResultByte)
   { 
-    __bis_SR_register( LPM3_bits + GIE );   
     __no_operation(); 
     
     if (buttonPressed & !transmitting)                      // Process a button press->transmit
@@ -190,6 +203,22 @@ void InitButtonLeds(void)
     PORT__enSetInterruptSourceStateByNumber(PORT_enMODULE_1, PORT_enPIN_7, PORT_enSTATE_ENA);
 }
 
+void InitTimer(void)
+{
+    TIMERA_ConfigExt_t stConfig;
+
+    stConfig.stConfig.enClockDivider = TIMERA_enCLOCK_DIV_20;
+    stConfig.stConfig.enClockSource = TIMERA_enCLOCK_SMCLK;
+    stConfig.stConfig.enOperationMode = TIMERA_enMODE_UP;
+    stConfig.stConfig.uxPeriodTicks = 49999U;
+    stConfig.enInterruptStatus = TIMERA_enSTATUS_INACTIVE;
+    stConfig.enInterruptEnable = TIMERA_enSTATE_ENA;
+
+    TIMERA__enRegisterIRQSourceHandler(TIMERA_enMODULE_0, &TIMERA_ISR);
+
+    TIMERA__enSetConfigExt(TIMERA_enMODULE_0, &stConfig);
+}
+
 void InitRadio(void)
 {
   // Set the High-Power Mode Request Enable bit so LPM3 can be entered
@@ -205,6 +234,14 @@ void InitRadio(void)
 
 
 
+uint16_t TIMERA_ISR(uintptr_t uptrPort, void* pvPinNumber)
+{
+    static UBase_t uxValue = 0U;
+
+    uxValue ^= 1U;
+    PORT__enSetOutputByNumber(PORT_enMODULE_1, PORT_enPIN_0, (PORT_nLEVEL) uxValue);
+    return (0);
+}
 
 uint16_t PORT1_ISR(uintptr_t uptrPort, void* pvPinNumber)
 {
@@ -311,6 +348,5 @@ __interrupt void CC1101_ISR(void)
     case 30: break;                         // RFIFG14
     case 32: break;                         // RFIFG15
   }  
-  __bic_SR_register_on_exit(LPM3_bits);     
 }
 

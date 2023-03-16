@@ -1,0 +1,159 @@
+/**
+ *
+ * @file RAM_RegisterDefines_CTL0.h
+ * @copyright
+ * @verbatim InDeviceMex 2021 @endverbatim
+ *
+ * @par Responsibility
+ * @verbatim InDeviceMex Developers @endverbatim
+ *
+ * @version
+ * @verbatim 1.0 @endverbatim
+ *
+ * @date
+ * @verbatim 24 feb. 2022 @endverbatim
+ *
+ * @author
+ * @verbatim InDeviceMex @endverbatim
+ *
+ * @par Change History
+ * @verbatim
+ * Date           Author     Version     Description
+ * 24 feb. 2022     InDeviceMex    1.0         initial Version@endverbatim
+ */
+
+#ifndef DRIVERLIB_RAM_PERIPHERAL_REGISTERDEFINES_HEADER_RAM_REGISTERDEFINES_CTL0_H_
+#define DRIVERLIB_RAM_PERIPHERAL_REGISTERDEFINES_HEADER_RAM_REGISTERDEFINES_CTL0_H_
+
+#include <xDriver_MCU/RAM/Peripheral/xHeader/RAM_Enum.h>
+
+/******************************************************************************************
+ ************************************ 3 CTL0 *********************************************
+ ******************************************************************************************/
+/*-----------*/
+#define RAM_CTL0_R_SECTOR_OFF_BIT ((UBase_t) 0U)
+
+#define RAM_CTL0_SECTOR_OFF_MASK ((UBase_t) 0x01U)
+#define RAM_CTL0_SECTOR_OFF_ENA ((UBase_t) 0x00U)
+#define RAM_CTL0_SECTOR_OFF_DIS ((UBase_t) 0x01U)
+
+#define RAM_CTL0_R_SECTOR_OFF_MASK (RAM_CTL0_SECTOR_OFF_MASK<< RAM_CTL0_R_SECTOR_OFF_BIT)
+#define RAM_CTL0_R_SECTOR_OFF_ENA (RAM_CTL0_SECTOR_OFF_ENA << RAM_CTL0_R_SECTOR_OFF_BIT)
+#define RAM_CTL0_R_SECTOR_OFF_DIS (RAM_CTL0_SECTOR_OFF_DIS << RAM_CTL0_R_SECTOR_OFF_BIT)
+/*-----------*/
+
+
+
+/*-----------*/
+#define RAM_CTL0_R_SECTOR0_OFF_BIT ((UBase_t) 0U)
+
+#define RAM_CTL0_SECTOR0_OFF_MASK ((UBase_t) 0x01U)
+#define RAM_CTL0_SECTOR0_OFF_ENA ((UBase_t) 0x00U)
+#define RAM_CTL0_SECTOR0_OFF_DIS ((UBase_t) 0x01U)
+
+#define RAM_CTL0_R_SECTOR0_OFF_MASK (RAM_CTL0_SECTOR0_OFF_MASK<< RAM_CTL0_R_SECTOR0_OFF_BIT)
+#define RAM_CTL0_R_SECTOR0_OFF_ENA (RAM_CTL0_SECTOR0_OFF_ENA << RAM_CTL0_R_SECTOR0_OFF_BIT)
+#define RAM_CTL0_R_SECTOR0_OFF_DIS (RAM_CTL0_SECTOR0_OFF_DIS << RAM_CTL0_R_SECTOR0_OFF_BIT)
+/*-----------*/
+
+
+/*-----------*/
+#define RAM_CTL0_R_SECTOR1_OFF_BIT ((UBase_t) 1U)
+
+#define RAM_CTL0_SECTOR1_OFF_MASK ((UBase_t) 0x01U)
+#define RAM_CTL0_SECTOR1_OFF_ENA ((UBase_t) 0x00U)
+#define RAM_CTL0_SECTOR1_OFF_DIS ((UBase_t) 0x01U)
+
+#define RAM_CTL0_R_SECTOR1_OFF_MASK (RAM_CTL0_SECTOR1_OFF_MASK<< RAM_CTL0_R_SECTOR1_OFF_BIT)
+#define RAM_CTL0_R_SECTOR1_OFF_ENA (RAM_CTL0_SECTOR1_OFF_ENA << RAM_CTL0_R_SECTOR1_OFF_BIT)
+#define RAM_CTL0_R_SECTOR1_OFF_DIS (RAM_CTL0_SECTOR1_OFF_DIS << RAM_CTL0_R_SECTOR1_OFF_BIT)
+/*-----------*/
+
+
+/*-----------*/
+#define RAM_CTL0_R_SECTOR2_OFF_BIT ((UBase_t) 2U)
+
+#define RAM_CTL0_SECTOR2_OFF_MASK ((UBase_t) 0x01U)
+#define RAM_CTL0_SECTOR2_OFF_ENA ((UBase_t) 0x00U)
+#define RAM_CTL0_SECTOR2_OFF_DIS ((UBase_t) 0x01U)
+
+#define RAM_CTL0_R_SECTOR2_OFF_MASK (RAM_CTL0_SECTOR2_OFF_MASK<< RAM_CTL0_R_SECTOR2_OFF_BIT)
+#define RAM_CTL0_R_SECTOR2_OFF_ENA (RAM_CTL0_SECTOR2_OFF_ENA << RAM_CTL0_R_SECTOR2_OFF_BIT)
+#define RAM_CTL0_R_SECTOR2_OFF_DIS (RAM_CTL0_SECTOR2_OFF_DIS << RAM_CTL0_R_SECTOR2_OFF_BIT)
+/*-----------*/
+
+/*-----------*/
+#define RAM_CTL0_R_SECTOR3_OFF_BIT ((UBase_t) 3U)
+
+#define RAM_CTL0_SECTOR3_OFF_MASK ((UBase_t) 0x01U)
+#define RAM_CTL0_SECTOR3_OFF_ENA ((UBase_t) 0x00U)
+#define RAM_CTL0_SECTOR3_OFF_DIS ((UBase_t) 0x01U)
+
+#define RAM_CTL0_R_SECTOR3_OFF_MASK (RAM_CTL0_SECTOR3_OFF_MASK<< RAM_CTL0_R_SECTOR3_OFF_BIT)
+#define RAM_CTL0_R_SECTOR3_OFF_ENA (RAM_CTL0_SECTOR3_OFF_ENA << RAM_CTL0_R_SECTOR3_OFF_BIT)
+#define RAM_CTL0_R_SECTOR3_OFF_DIS (RAM_CTL0_SECTOR3_OFF_DIS << RAM_CTL0_R_SECTOR3_OFF_BIT)
+/*-----------*/
+
+
+/*-----------*/
+#define RAM_CTL0_R_SECTOR4_OFF_BIT ((UBase_t) 4U)
+
+#define RAM_CTL0_SECTOR4_OFF_MASK ((UBase_t) 0x01U)
+#define RAM_CTL0_SECTOR4_OFF_ENA ((UBase_t) 0x00U)
+#define RAM_CTL0_SECTOR4_OFF_DIS ((UBase_t) 0x01U)
+
+#define RAM_CTL0_R_SECTOR4_OFF_MASK (RAM_CTL0_SECTOR4_OFF_MASK<< RAM_CTL0_R_SECTOR4_OFF_BIT)
+#define RAM_CTL0_R_SECTOR4_OFF_ENA (RAM_CTL0_SECTOR4_OFF_ENA << RAM_CTL0_R_SECTOR4_OFF_BIT)
+#define RAM_CTL0_R_SECTOR4_OFF_DIS (RAM_CTL0_SECTOR4_OFF_DIS << RAM_CTL0_R_SECTOR4_OFF_BIT)
+/*-----------*/
+
+/*-----------*/
+#define RAM_CTL0_R_SECTOR5_OFF_BIT ((UBase_t) 5U)
+
+#define RAM_CTL0_SECTOR5_OFF_MASK ((UBase_t) 0x01U)
+#define RAM_CTL0_SECTOR5_OFF_ENA ((UBase_t) 0x00U)
+#define RAM_CTL0_SECTOR5_OFF_DIS ((UBase_t) 0x01U)
+
+#define RAM_CTL0_R_SECTOR5_OFF_MASK (RAM_CTL0_SECTOR5_OFF_MASK<< RAM_CTL0_R_SECTOR5_OFF_BIT)
+#define RAM_CTL0_R_SECTOR5_OFF_ENA (RAM_CTL0_SECTOR5_OFF_ENA << RAM_CTL0_R_SECTOR5_OFF_BIT)
+#define RAM_CTL0_R_SECTOR5_OFF_DIS (RAM_CTL0_SECTOR5_OFF_DIS << RAM_CTL0_R_SECTOR5_OFF_BIT)
+/*-----------*/
+
+
+/*-----------*/
+#define RAM_CTL0_R_SECTOR6_OFF_BIT ((UBase_t) 6U)
+
+#define RAM_CTL0_SECTOR6_OFF_MASK ((UBase_t) 0x01U)
+#define RAM_CTL0_SECTOR6_OFF_ENA ((UBase_t) 0x00U)
+#define RAM_CTL0_SECTOR6_OFF_DIS ((UBase_t) 0x01U)
+
+#define RAM_CTL0_R_SECTOR6_OFF_MASK (RAM_CTL0_SECTOR6_OFF_MASK<< RAM_CTL0_R_SECTOR6_OFF_BIT)
+#define RAM_CTL0_R_SECTOR6_OFF_ENA (RAM_CTL0_SECTOR6_OFF_ENA << RAM_CTL0_R_SECTOR6_OFF_BIT)
+#define RAM_CTL0_R_SECTOR6_OFF_DIS (RAM_CTL0_SECTOR6_OFF_DIS << RAM_CTL0_R_SECTOR6_OFF_BIT)
+/*-----------*/
+
+/*-----------*/
+#define RAM_CTL0_R_SECTOR7_OFF_BIT ((UBase_t) 7U)
+
+#define RAM_CTL0_SECTOR7_OFF_MASK ((UBase_t) 0x01U)
+#define RAM_CTL0_SECTOR7_OFF_ENA ((UBase_t) 0x00U)
+#define RAM_CTL0_SECTOR7_OFF_DIS ((UBase_t) 0x01U)
+
+#define RAM_CTL0_R_SECTOR7_OFF_MASK (RAM_CTL0_SECTOR7_OFF_MASK<< RAM_CTL0_R_SECTOR7_OFF_BIT)
+#define RAM_CTL0_R_SECTOR7_OFF_ENA (RAM_CTL0_SECTOR7_OFF_ENA << RAM_CTL0_R_SECTOR7_OFF_BIT)
+#define RAM_CTL0_R_SECTOR7_OFF_DIS (RAM_CTL0_SECTOR7_OFF_DIS << RAM_CTL0_R_SECTOR7_OFF_BIT)
+/*-----------*/
+
+/*-----------*/
+#define RAM_CTL0_R_KEY_BIT ((UBase_t) 8U)
+
+#define RAM_CTL0_KEY_MASK ((UBase_t) 0xFFU)
+#define RAM_CTL0_KEY_READ ((UBase_t) 0x69U)
+#define RAM_CTL0_KEY_WRITE ((UBase_t) 0x5AU)
+
+#define RAM_CTL0_R_KEY_MASK (RAM_CTL0_KEY_MASK<< RAM_CTL0_R_KEY_BIT)
+#define RAM_CTL0_R_KEY_READ (RAM_CTL0_KEY_READ << RAM_CTL0_R_KEY_BIT)
+#define RAM_CTL0_R_KEY_WRITE (RAM_CTL0_KEY_WRITE << RAM_CTL0_R_KEY_BIT)
+/*-----------*/
+
+#endif /* DRIVERLIB_RAM_PERIPHERAL_REGISTERDEFINES_HEADER_RAM_REGISTERDEFINES_CTL0_H_ */

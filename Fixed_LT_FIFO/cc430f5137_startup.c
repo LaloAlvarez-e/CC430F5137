@@ -29,71 +29,71 @@ extern __interrupt void CC1101_ISR(void);
 
 #pragma RETAIN (INTERRUPT__pfvVector)
 #pragma DATA_SECTION(INTERRUPT__pfvVector, ".ramvect")
-void (* const INTERRUPT__pfvVector[63U])(void) =
+uint16_t INTERRUPT__pfvVector[63U] =
 {
-    &IntDefaultHandler,                /* The Reserved00 handler*/
-    &IntDefaultHandler,                /* The Reserved01 handler*/
-    &IntDefaultHandler,                /* The Reserved02 handler*/
-    &IntDefaultHandler,                /* The Reserved03 handler*/
-    &IntDefaultHandler,                /* The Reserved04 handler*/
-    &IntDefaultHandler,                /* The Reserved05 handler*/
-    &IntDefaultHandler,                /* The Reserved06 handler*/
-    &IntDefaultHandler,                /* The Reserved07 handler*/
-    &IntDefaultHandler,                /* The Reserved08 handler*/
-    &IntDefaultHandler,                /* The Reserved09 handler*/
-    &IntDefaultHandler,                /* The Reserved10 handler*/
-    &IntDefaultHandler,                /* The Reserved11 handler*/
-    &IntDefaultHandler,                /* The Reserved12 handler*/
-    &IntDefaultHandler,                /* The Reserved13 handler*/
-    &IntDefaultHandler,                /* The Reserved14 handler*/
-    &IntDefaultHandler,                /* The Reserved15 handler*/
-    &IntDefaultHandler,                /* The Reserved16 handler*/
-    &IntDefaultHandler,                /* The Reserved17 handler*/
-    &IntDefaultHandler,                /* The Reserved18 handler*/
-    &IntDefaultHandler,                /* The Reserved19 handler*/
-    &IntDefaultHandler,                /* The Reserved20 handler*/
-    &IntDefaultHandler,                /* The Reserved21 handler*/
-    &IntDefaultHandler,                /* The Reserved22 handler*/
-    &IntDefaultHandler,                /* The Reserved23 handler*/
-    &IntDefaultHandler,                /* The Reserved24 handler*/
-    &IntDefaultHandler,                /* The Reserved25 handler*/
-    &IntDefaultHandler,                /* The Reserved26 handler*/
-    &IntDefaultHandler,                /* The Reserved27 handler*/
-    &IntDefaultHandler,                /* The Reserved28 handler*/
-    &IntDefaultHandler,                /* The Reserved29 handler*/
-    &IntDefaultHandler,                /* The Reserved30 handler*/
-    &IntDefaultHandler,                /* The Reserved31 handler*/
-    &IntDefaultHandler,                /* The Reserved32 handler*/
-    &IntDefaultHandler,                /* The Reserved33 handler*/
-    &IntDefaultHandler,                /* The Reserved34 handler*/
-    &IntDefaultHandler,                /* The Reserved35 handler*/
-    &IntDefaultHandler,                /* The Reserved36 handler*/
-    &IntDefaultHandler,                /* The Reserved37 handler*/
-    &IntDefaultHandler,                /* The Reserved38 handler*/
-    &IntDefaultHandler,                /* The Reserved39 handler*/
-    &IntDefaultHandler,                /* The Reserved40 handler*/
-    &IntDefaultHandler,                /* The Reserved41 handler*/
-    &IntDefaultHandler,                /* The Reserved42 handler*/
-    &IntDefaultHandler,                /* The Reserved43 handler*/
-    &IntDefaultHandler,                /* The Reserved44 handler*/
-    &IntDefaultHandler,                /* The AES        handler*/
-    &IntDefaultHandler,                /* The RTC        handler*/
-    &IntDefaultHandler,                /* The Reserved47 handler*/
-    &PORT2__IRQVectorHandler,          /* The PORT2      handler*/
-    &PORT1__IRQVectorHandler,          /* The PORT1      handler*/
-    &IntDefaultHandler,                /* The TIMER1_A1  handler*/
-    &IntDefaultHandler,                /* The TIMER1_A0  handler*/
-    &DMA__IRQVectorHandler,            /* The DMA        handler*/
-    &CC1101_ISR,                       /* The CC1101     handler*/
-    &IntDefaultHandler,                /* The TIMER0_A1  handler*/
-    &IntDefaultHandler,                /* The TIMER0_A0  handler*/
-    &IntDefaultHandler,                /* The ADC12      handler*/
-    &IntDefaultHandler,                /* The USCI_B0    handler*/
-    &IntDefaultHandler,                /* The USCI_A0    handler*/
-    &IntDefaultHandler,                /* The WDT        handler*/
-    &IntDefaultHandler,                /* The COMP_B     handler*/
-    &SYSCTL_USERNMI__IRQVectorHandler, /* The UNMI       handler*/
-    &SYSCTL_SYSNMI__IRQVectorHandler,  /* The SYSNMI     handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved00 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved01 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved02 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved03 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved04 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved05 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved06 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved07 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved08 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved09 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved10 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved11 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved12 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved13 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved14 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved15 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved16 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved17 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved18 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved19 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved20 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved21 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved22 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved23 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved24 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved25 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved26 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved27 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved28 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved29 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved30 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved31 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved32 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved33 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved34 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved35 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved36 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved37 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved38 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved39 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved40 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved41 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved42 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved43 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved44 handler*/
+    (uint16_t) &IntDefaultHandler,                /* The AES        handler*/
+    (uint16_t) &IntDefaultHandler,                /* The RTC        handler*/
+    (uint16_t) &IntDefaultHandler,                /* The Reserved47 handler*/
+    (uint16_t) &PORT2__IRQVectorHandler,          /* The PORT2      handler*/
+    (uint16_t) &PORT1__IRQVectorHandler,          /* The PORT1      handler*/
+    (uint16_t) &TIMERA1__IRQVectorHandler,        /* The TIMER1_A1  handler*/
+    (uint16_t) &TIMERA1_CC0__IRQVectorHandler,    /* The TIMER1_A0  handler*/
+    (uint16_t) &DMA__IRQVectorHandler,            /* The DMA        handler*/
+    (uint16_t) &CC1101_ISR,                       /* The CC1101     handler*/
+    (uint16_t) &TIMERA0__IRQVectorHandler,        /* The TIMER0_A1  handler*/
+    (uint16_t) &TIMERA0_CC0__IRQVectorHandler,    /* The TIMER0_A0  handler*/
+    (uint16_t) &IntDefaultHandler,                /* The ADC12      handler*/
+    (uint16_t) &IntDefaultHandler,                /* The USCI_B0    handler*/
+    (uint16_t) &IntDefaultHandler,                /* The USCI_A0    handler*/
+    (uint16_t) &WDT__IRQVectorHandler,            /* The WDT        handler*/
+    (uint16_t) &IntDefaultHandler,                /* The COMP_B     handler*/
+    (uint16_t) &SYSCTL_USERNMI__IRQVectorHandler, /* The UNMI       handler*/
+    (uint16_t) &SYSCTL_SYSNMI__IRQVectorHandler,  /* The SYSNMI     handler*/
 };
 
 __interrupt void IntDefaultHandler(void)

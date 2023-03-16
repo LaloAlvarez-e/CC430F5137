@@ -28,10 +28,14 @@
 #include "xDriver_MCU/MCU/MCU.h"
 #include "xDriver_MCU/SFR/SFR.h"
 #include "xDriver_MCU/SYSCTL/SYSCTL.h"
+#include "xDriver_MCU/RAM/RAM.h"
 #include "xDriver_MCU/PMM/PMM.h"
 #include "xDriver_MCU/PORT/PORT.h"
 #include "xDriver_MCU/MAP/MAP.h"
 #include "xDriver_MCU/DMA/DMA.h"
+#include "xDriver_MCU/CRC/CRC.h"
+#include "xDriver_MCU/WDT/WDT.h"
+#include "xDriver_MCU/TIMERA/TIMERA.h"
 
 
 #endif /* XDRIVER_MCU_XDRIVER_MCU_H_ */

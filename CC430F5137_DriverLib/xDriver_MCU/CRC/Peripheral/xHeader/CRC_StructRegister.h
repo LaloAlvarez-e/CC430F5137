@@ -44,12 +44,12 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile UBase_t INI : 16;
+    volatile UBase_t INIT : 16;
 }CRC_INI_t;
 
 typedef volatile struct
 {
-    volatile const UBase_t RES : 16;
+    volatile const UBase_t RESULT : 16;
 }CRC_RES_t;
 
 typedef volatile struct

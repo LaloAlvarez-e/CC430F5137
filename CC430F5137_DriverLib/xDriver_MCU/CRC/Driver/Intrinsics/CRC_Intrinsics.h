@@ -26,6 +26,5 @@
 #define XDRIVER_MCU_CRC_DRIVER_INTRINSICS_CRC_INTRINSICS_H_
 
 #include <xDriver_MCU/CRC/Driver/Intrinsics/Primitives/CRC_Primitives.h>
-#include <xDriver_MCU/CRC/Driver/Intrinsics/Interrupt/CRC_Interrupt.h>
 
 #endif /* XDRIVER_MCU_CRC_DRIVER_INTRINSICS_CRC_INTRINSICS_H_ */

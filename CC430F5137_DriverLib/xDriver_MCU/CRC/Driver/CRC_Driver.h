@@ -27,7 +27,9 @@
 
 #include "xDriver_MCU/CRC/Driver/Intrinsics/CRC_Intrinsics.h"
 
-#include "xDriver_MCU/CRC/Driver/Channel/CRC_Channel.h"
-#include "xDriver_MCU/CRC/Driver/Global/CRC_Global.h"
+#include <xDriver_MCU/CRC/Driver/xHeader/CRC_Data.h>
+#include <xDriver_MCU/CRC/Driver/xHeader/CRC_Init.h>
+#include <xDriver_MCU/CRC/Driver/xHeader/CRC_Result.h>
+#include <xDriver_MCU/CRC/Driver/xHeader/CRC_DataArray.h>
 
 #endif /* CRC_DRIVER_CRC_DRIVER_H_ */

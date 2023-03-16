@@ -25,7 +25,7 @@
 #ifndef CRC_PERIPHERAL_REGISTERDEFINES_CRC_REGISTERDEFINES_H_
 #define CRC_PERIPHERAL_REGISTERDEFINES_CRC_REGISTERDEFINES_H_
 
-#include <xDriver_MCU/CRC/Peripheral/RegisterDefines/xHeader/CRC_RegisterDefines_CTL0.h>
-#include <xDriver_MCU/CRC/Peripheral/RegisterDefines/xHeader/CRC_RegisterDefines_CTL1.h>
+#include <xDriver_MCU/CRC/Peripheral/RegisterDefines/xHeader/CRC_RegisterDefines_DI.h>
+#include <xDriver_MCU/CRC/Peripheral/RegisterDefines/xHeader/CRC_RegisterDefines_INIRES.h>
 
 #endif /* CRC_PERIPHERAL_REGISTERDEFINES_CRC_REGISTERDEFINES_H_ */
