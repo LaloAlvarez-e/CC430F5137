@@ -31,8 +31,18 @@ WDT_nERROR WDT__enSetState(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg)
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
     UBase_t uxValue;
+    UBase_t uxState;
 
-    uxValue = (UBase_t) enStateArg;
+    if(WDT_enSTATE_DIS == enStateArg)
+    {
+        uxState = 1UL;
+    }
+    else
+    {
+        uxState = 0UL;
+    }
+
+    uxValue = (UBase_t) uxState;
     uxValue <<= WDT_CTL_R_HOLD_BIT;
     uxValue |= WDT_CTL_R_PW_WRITE;
 
@@ -78,7 +88,14 @@ WDT_nERROR WDT__enGetState(WDT_nMODULE enModuleArg, WDT_nSTATE* penStateArg)
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        *penStateArg = (WDT_nSTATE) pstRegisterData.uxValue;
+        if(0U == pstRegisterData.uxValue)
+        {
+            *penStateArg = WDT_enSTATE_ENA;
+        }
+        else
+        {
+            *penStateArg = WDT_enSTATE_DIS;
+        }
     }
 
     return (enErrorReg);

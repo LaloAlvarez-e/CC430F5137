@@ -25,8 +25,67 @@
 #ifndef XDRIVER_MCU_COMMON_XHEADER_MCU_VARIABLES_H_
 #define XDRIVER_MCU_COMMON_XHEADER_MCU_VARIABLES_H_
 
-#include "MSP430.h"
 #include <xUtils/Standard/Standard.h>
+
+#include "msp430.h"
+/*
+#include "in430.h"
+#include <intrinsics.h>
+*/
+
+/************************************************************
+* STANDARD BITS
+************************************************************/
+/*
+#define BIT0                   (0x0001)
+#define BIT1                   (0x0002)
+#define BIT2                   (0x0004)
+#define BIT3                   (0x0008)
+#define BIT4                   (0x0010)
+#define BIT5                   (0x0020)
+#define BIT6                   (0x0040)
+#define BIT7                   (0x0080)
+#define BIT8                   (0x0100)
+#define BIT9                   (0x0200)
+#define BITA                   (0x0400)
+#define BITB                   (0x0800)
+#define BITC                   (0x1000)
+#define BITD                   (0x2000)
+#define BITE                   (0x4000)
+#define BITF                   (0x8000)
+*/
+/************************************************************
+* STATUS REGISTER BITS
+************************************************************/
+/*
+#define C                      (0x0001)
+#define Z                      (0x0002)
+#define N                      (0x0004)
+#define V                      (0x0100)
+#define GIE                    (0x0008)
+#define CPUOFF                 (0x0010)
+#define OSCOFF                 (0x0020)
+#define SCG0                   (0x0040)
+#define SCG1                   (0x0080)
+
+#define LPM0_bits              (CPUOFF)
+#define LPM1_bits              (SCG0+CPUOFF)
+#define LPM2_bits              (SCG1+CPUOFF)
+#define LPM3_bits              (SCG1+SCG0+CPUOFF)
+#define LPM4_bits              (SCG1+SCG0+OSCOFF+CPUOFF)
+*/
+/*#define LPM0      __bis_SR_register(LPM0_bits)          Enter Low Power Mode 0 */
+/*#define LPM0_EXIT __bic_SR_register_on_exit(LPM0_bits)  Exit Low Power Mode 0 */
+/*#define LPM1      __bis_SR_register(LPM1_bits)          Enter Low Power Mode 1 */
+/*#define LPM1_EXIT __bic_SR_register_on_exit(LPM1_bits)  Exit Low Power Mode 1 */
+/*#define LPM2      __bis_SR_register(LPM2_bits)          Enter Low Power Mode 2 */
+/*#define LPM2_EXIT __bic_SR_register_on_exit(LPM2_bits)  Exit Low Power Mode 2 */
+/*#define LPM3      __bis_SR_register(LPM3_bits)          Enter Low Power Mode 3 */
+/*#define LPM3_EXIT __bic_SR_register_on_exit(LPM3_bits)  Exit Low Power Mode 3 */
+/*#define LPM4      __bis_SR_register(LPM4_bits)          Enter Low Power Mode 4 */
+/*#define LPM4_EXIT __bic_SR_register_on_exit(LPM4_bits)  Exit Low Power Mode 4 */
+
+
 
 #define MCU_MASK_8 (0xFFU)
 #define MCU_MASK_16 (0xFFFFU)

@@ -130,34 +130,43 @@ void InitTimer(void);
 
 void main( void )
 {  
-  // Stop watchdog timer to prevent time out reset 
+    WDT_ConfigExt_t stWdtConfig;
+    WDT__enSetState(WDT_enMODULE_0, WDT_enSTATE_DIS);
+    SYSCTL__enSetVectorInterrupt(SYSCTL_enMODULE_0, SYSCTL_enVECTOR_RAM);
+    stWdtConfig.stConfig.enClock = WDT_enCLOCK_ACLK;
+    stWdtConfig.stConfig.enInterval = WDT_enINTERVAL_32768;
+    stWdtConfig.stConfig.enMode = WDT_enMODE_INTERVAL;
+    stWdtConfig.stConfig.enEnable = WDT_enSTATE_ENA;
+    stWdtConfig.enInterruptStatus = WDT_enSTATUS_INACTIVE;
+    stWdtConfig.enInterruptEnable = WDT_enSTATE_ENA;
+    // Stop watchdog timer to prevent time out reset
+    WDT__enRegisterIRQSourceHandler(WDT_enMODULE_0, WDT_enINT_INTERVAL, &TIMERA_ISR);
+    WDT__enSetConfigExt(WDT_enMODULE_0, &stWdtConfig);
 
-  WDT->CTL = WDT_CTL_R_PW_WRITE | WDT_CTL_R_HOLD_STOP;
+    // Increase PMMCOREV level to 2 for proper radio operation
+    SetVCore(2);
+    RAM__enSetSectorState((UBase_t) (RAM_enSECTOR_7 | RAM_enSECTOR_6 | RAM_enSECTOR_5 | RAM_enSECTOR_4 | RAM_enSECTOR_3 | RAM_enSECTOR_2), RAM_enSTATE_DIS);
+    MAP__enSetReconfig(MAP_enSTATE_ENA);
+    MAP_PORT__enSetFunctionByMask(MAP_enMODULE_1, (MAP_nPINMASK) (MAP_enPINMASK_7 | MAP_enPINMASK_5 | MAP_enPINMASK_1), MAP_enFUNCTION_M_CLK);
+    InitTimer();
+    ResetRadioCore();
+    InitRadio();
+    InitButtonLeds();
+    ReceiveOn();
+    receiving = 1;
 
-  // Increase PMMCOREV level to 2 for proper radio operation
-  SetVCore(2);
-  RAM__enSetSectorState((UBase_t) (RAM_enSECTOR_7 | RAM_enSECTOR_6 | RAM_enSECTOR_5 | RAM_enSECTOR_4 | RAM_enSECTOR_3 | RAM_enSECTOR_2), RAM_enSTATE_DIS);
-  MAP__enSetReconfig(MAP_enSTATE_ENA);
-  MAP_PORT__enSetFunctionByMask(MAP_enMODULE_1, (MAP_nPINMASK) (MAP_enPINMASK_7 | MAP_enPINMASK_5 | MAP_enPINMASK_1), MAP_enFUNCTION_M_CLK);
-  InitTimer();
-  ResetRadioCore();     
-  InitRadio();
-  InitButtonLeds();
-  ReceiveOn(); 
-  receiving = 1; 
+    UBase_t uxResultByte;
+    UBase_t uxResultWord;
 
-  UBase_t uxResultByte;
-  UBase_t uxResultWord;
+    uxResultWord = 0;
+    uxResultByte = 0;
 
-  uxResultWord = 0;
-  uxResultByte = 0;
+    CRC__enComputeDataByteArray(CRC_enMODULE_0, 0xFFFFU, "123456789", 9, &uxResultByte);
+    CRC__enComputeDataByteArray_Opt(CRC_enMODULE_0, 0xFFFFU, "123456789", 9, &uxResultWord);
 
-  CRC__enComputeDataByteArray(CRC_enMODULE_0, 0xFFFFU, "123456789", 9, &uxResultByte);
-  CRC__enComputeDataByteArray_Opt(CRC_enMODULE_0, 0xFFFFU, "123456789", 9, &uxResultWord);
-
-  __bis_SR_register(GIE);
-  while (uxResultWord == uxResultByte)
-  { 
+    __bis_SR_register(GIE);
+    while (uxResultWord == uxResultByte)
+    {
     __no_operation(); 
     
     if (buttonPressed & !transmitting)                      // Process a button press->transmit
@@ -176,7 +185,7 @@ void main( void )
       ReceiveOn();      
       receiving = 1; 
     }
-  }
+    }
 }
 
 void InitButtonLeds(void)
@@ -214,9 +223,9 @@ void InitTimer(void)
     stConfig.enInterruptStatus = TIMERA_enSTATUS_INACTIVE;
     stConfig.enInterruptEnable = TIMERA_enSTATE_ENA;
 
-    TIMERA__enRegisterIRQSourceHandler(TIMERA_enMODULE_0, &TIMERA_ISR);
+    //TIMERA__enRegisterIRQSourceHandler(TIMERA_enMODULE_0, &TIMERA_ISR);
 
-    TIMERA__enSetConfigExt(TIMERA_enMODULE_0, &stConfig);
+    //TIMERA__enSetConfigExt(TIMERA_enMODULE_0, &stConfig);
 }
 
 void InitRadio(void)
@@ -249,7 +258,7 @@ uint16_t PORT1_ISR(uintptr_t uptrPort, void* pvPinNumber)
     uint8_t u8ValuePin;
 
     u8ValuePin = 1U;
-    u8ValuePin <<= (uint8_t) pvPinNumber;
+    u8ValuePin <<= (UBase_t) pvPinNumber;
 
     if(0UL == (pstPort->IN & u8ValuePin))
     {

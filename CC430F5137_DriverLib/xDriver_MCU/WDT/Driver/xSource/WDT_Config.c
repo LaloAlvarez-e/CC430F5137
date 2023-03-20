@@ -37,6 +37,7 @@ WDT_nERROR WDT__enSetConfig(WDT_nMODULE enModuleArg, WDT_Config_t* pstConfig)
     UBase_t uxClock;
     UBase_t uxInterval;
     UBase_t uxValue;
+    UBase_t uxState;
 
     enErrorReg = WDT_enERROR_OK;
     if(0UL == (uintptr_t) pstConfig)
@@ -49,7 +50,15 @@ WDT_nERROR WDT__enSetConfig(WDT_nMODULE enModuleArg, WDT_Config_t* pstConfig)
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        uxEnableReg = (uint16_t) (pstConfig->enEnable);
+        if(WDT_enSTATE_DIS == pstConfig->enEnable)
+        {
+            uxState = 1U;
+        }
+        else
+        {
+            uxState = 0U;
+        }
+        uxEnableReg = (uint16_t) uxState;
         uxEnableReg <<= WDT_CTL_R_HOLD_BIT;
 
         uxMode = (uint16_t) (pstConfig->enMode);
