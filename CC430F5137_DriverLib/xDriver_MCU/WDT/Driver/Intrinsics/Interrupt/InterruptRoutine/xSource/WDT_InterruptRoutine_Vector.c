@@ -32,7 +32,7 @@ __interrupt void WDT__IRQVectorHandler(void)
     WDT_puxfIRQSourceHandler_t IRQSourceHandlerReg;
     uint16_t u16Status = 0xFFU;
 
-    IRQSourceHandlerReg = WDT__puxfGetIRQSourceHandler(WDT_enMODULE_0, WDT_enINT_INTERVAL);
+    IRQSourceHandlerReg = WDT__puxfGetIRQSourceHandler(WDT_enINT_INTERVAL);
     u16Status &= IRQSourceHandlerReg(WDT_BASE, (void*) WDT_enINT_INTERVAL);
 
     if(0xFFU != u16Status)

@@ -26,7 +26,7 @@
 #include <xDriver_MCU/MCU/MCU.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-SYSCTL_nERROR SYSCTL__enReadRegister(SYSCTL_nMODULE enModuleArg, SYSCTL_Register_t* pstRegisterDataArg)
+SYSCTL_nERROR SYSCTL__enReadRegister(SYSCTL_Register_t* pstRegisterDataArg)
 {
     uintptr_t uptrModuleBase;
     SYSCTL_nERROR enErrorReg;
@@ -38,11 +38,7 @@ SYSCTL_nERROR SYSCTL__enReadRegister(SYSCTL_nMODULE enModuleArg, SYSCTL_Register
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (SYSCTL_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SYSCTL_enMODULE_MAX);
-    }
-    if(SYSCTL_enERROR_OK == enErrorReg)
-    {
-        uptrModuleBase = SYSCTL__uptrBlockBaseAddress(enModuleArg);
+        uptrModuleBase = SYSCTL__uptrBlockBaseAddress();
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (SYSCTL_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }

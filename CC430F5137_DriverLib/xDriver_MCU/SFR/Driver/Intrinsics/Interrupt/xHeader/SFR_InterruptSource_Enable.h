@@ -27,25 +27,25 @@
 
 #include <xDriver_MCU/SFR/Peripheral/xHeader/SFR_Enum.h>
 
-SFR_nERROR SFR__enSetEnableInterruptSourceByMask(SFR_nMODULE enModuleArg, SFR_nINTMASK enInterruptMaskArg,
+SFR_nERROR SFR__enSetEnableInterruptSourceByMask(SFR_nINTMASK enInterruptMaskArg,
                                                  SFR_nSTATE enStateArg);
-SFR_nERROR SFR__enEnableInterruptSourceByMask(SFR_nMODULE enModuleArg, SFR_nINTMASK enInterruptMaskArg);
-SFR_nERROR SFR__enDisableInterruptSourceByMask(SFR_nMODULE enModuleArg, SFR_nINTMASK enInterruptMaskArg);
+SFR_nERROR SFR__enEnableInterruptSourceByMask(SFR_nINTMASK enInterruptMaskArg);
+SFR_nERROR SFR__enDisableInterruptSourceByMask(SFR_nINTMASK enInterruptMaskArg);
 
-SFR_nERROR SFR__enSetEnableInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg,
+SFR_nERROR SFR__enSetEnableInterruptSourceByNumber(SFR_nINTERRUPT enInterruptArg,
                                                    SFR_nSTATE enStateArg);
-SFR_nERROR SFR__enEnableInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg);
-SFR_nERROR SFR__enDisableInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg);
+SFR_nERROR SFR__enEnableInterruptSourceByNumber(SFR_nINTERRUPT enInterruptArg);
+SFR_nERROR SFR__enDisableInterruptSourceByNumber(SFR_nINTERRUPT enInterruptArg);
 
-SFR_nERROR SFR__enSetEnableInterruptSource(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg,
+SFR_nERROR SFR__enSetEnableInterruptSource(SFR_nINTERRUPT enInterruptArg,
                                            SFR_nSTATE enStateArg);
-SFR_nERROR SFR__enEnableInterruptSource(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg);
-SFR_nERROR SFR__enDisableInterruptSource(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg);
+SFR_nERROR SFR__enEnableInterruptSource(SFR_nINTERRUPT enInterruptArg);
+SFR_nERROR SFR__enDisableInterruptSource(SFR_nINTERRUPT enInterruptArg);
 
 
-SFR_nERROR SFR__enGetInterruptSourceStateByMask(SFR_nMODULE enModuleArg, UBase_t uxInterruptMaskArg,
+SFR_nERROR SFR__enGetInterruptSourceStateByMask(UBase_t uxInterruptMaskArg,
                                                    UBase_t* puxInterruptMaskArg);
-SFR_nERROR SFR__enGetInterruptSourceStateByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, SFR_nSTATE* penStateArg);
-SFR_nERROR SFR__enGetInterruptSourceState(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, SFR_nSTATE* penStateArg);
+SFR_nERROR SFR__enGetInterruptSourceStateByNumber(SFR_nINTERRUPT enInterruptArg, SFR_nSTATE* penStateArg);
+SFR_nERROR SFR__enGetInterruptSourceState(SFR_nINTERRUPT enInterruptArg, SFR_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_SFR_DRIVER_INTRINSICS_INTERRUPT_XHEADER_SFR_INTERRUPTSOURCE_ENABLE_H_ */

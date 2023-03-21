@@ -26,7 +26,7 @@
 #include <xDriver_MCU/MCU/MCU.h>
 #include <xDriver_MCU/CRC/Peripheral/CRC_Peripheral.h>
 
-CRC_nERROR CRC__enWriteRegister8Bits(CRC_nMODULE enModuleArg, CRC_Register8Bits_t* pstRegisterDataArg)
+CRC_nERROR CRC__enWriteRegister8Bits(CRC_Register8Bits_t* pstRegisterDataArg)
 {
     uintptr_t uptrModuleBase;
     CRC_nERROR enErrorReg;
@@ -37,18 +37,14 @@ CRC_nERROR CRC__enWriteRegister8Bits(CRC_nMODULE enModuleArg, CRC_Register8Bits_
     }
     if(CRC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (CRC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) CRC_enMODULE_MAX);
-    }
-    if(CRC_enERROR_OK == enErrorReg)
-    {
-        uptrModuleBase = CRC__uptrBlockBaseAddress(enModuleArg);
+        uptrModuleBase = CRC__uptrBlockBaseAddress();
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (CRC_nERROR) MCU__enWriteRegister8Bits(pstRegisterDataArg);
     }
     return (enErrorReg);
 }
 
-CRC_nERROR CRC__enWriteRegister(CRC_nMODULE enModuleArg, CRC_Register_t* pstRegisterDataArg)
+CRC_nERROR CRC__enWriteRegister(CRC_Register_t* pstRegisterDataArg)
 {
     uintptr_t uptrModuleBase;
     CRC_nERROR enErrorReg;
@@ -59,11 +55,7 @@ CRC_nERROR CRC__enWriteRegister(CRC_nMODULE enModuleArg, CRC_Register_t* pstRegi
     }
     if(CRC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (CRC_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) CRC_enMODULE_MAX);
-    }
-    if(CRC_enERROR_OK == enErrorReg)
-    {
-        uptrModuleBase = CRC__uptrBlockBaseAddress(enModuleArg);
+        uptrModuleBase = CRC__uptrBlockBaseAddress();
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (CRC_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }

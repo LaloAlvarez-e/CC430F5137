@@ -23,13 +23,11 @@
  */
 #include <xDriver_MCU/PMM/Peripheral/xHeader/PMM_RegisterPeripheral.h>
 
-uintptr_t PMM__uptrBlockBaseAddress(PMM_nMODULE enModuleArg)
+uintptr_t PMM__uptrBlockBaseAddress(void)
 {
-    const uintptr_t PMM_BLOCK_BASE[(UBase_t) PMM_enMODULE_MAX] =
-    {
-     PMM_BASE,
-    };
-    return (PMM_BLOCK_BASE[(UBase_t) enModuleArg]);
+    uintptr_t uptrReg;
+    uptrReg = PMM_BASE;
+    return(uptrReg);
 }
 
 

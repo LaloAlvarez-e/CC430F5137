@@ -60,13 +60,6 @@ typedef enum
 
 typedef enum
 {
-    RAM_enMODULE_0 = 0U,
-    RAM_enMODULE_MAX = 1U,
-    RAM_enMODULE_UNDEF = UNDEF_VALUE,
-}RAM_nMODULE;
-
-typedef enum
-{
     RAM_enSECTOR_NONE = 0x0U,
     RAM_enSECTOR_0 = 0x1U,
     RAM_enSECTOR_1 = 0x2U,

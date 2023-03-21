@@ -48,6 +48,6 @@
 #define SFR_RPCR    ((SFR_RPCR_t*) (SFR_BASE + SFR_RPCR_OFFSET ))
 #define SFR_RPCR_R    (*((volatile UBase_t*) (SFR_BASE + SFR_RPCR_OFFSET)))
 
-uintptr_t SFR__uptrBlockBaseAddress(SFR_nMODULE enModuleArg);
+uintptr_t SFR__uptrBlockBaseAddress(void);
 
 #endif /* XDRIVER_MCU_SFR_PERIPHERAL_HEADER_SFR_REGISTERPERIPHERAL_H_ */

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/PMM/Peripheral/xHeader/PMM_Enum.h>
 
-PMM_nERROR PMM__enWriteRegister(PMM_nMODULE enModuleArg, PMM_Register_t* pstRegisterDataArg);
-PMM_nERROR PMM__enWriteRegisterDirect(PMM_nMODULE enModuleArg, PMM_Register_t* pstRegisterDataArg);
+PMM_nERROR PMM__enWriteRegister(PMM_Register_t* pstRegisterDataArg);
+PMM_nERROR PMM__enWriteRegisterDirect(PMM_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_PMM_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_PMM_WRITEREGISTER_H_ */

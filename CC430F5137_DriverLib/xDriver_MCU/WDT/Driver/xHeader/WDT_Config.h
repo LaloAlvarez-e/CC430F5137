@@ -27,7 +27,7 @@
 
 #include "xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h"
 
-WDT_nERROR WDT__enSetConfig(WDT_nMODULE enModuleArg, WDT_Config_t* pstConfig);
-WDT_nERROR WDT__enSetConfigExt(WDT_nMODULE enModuleArg, WDT_ConfigExt_t* pstConfig);
+WDT_nERROR WDT__enSetConfig(WDT_Config_t* pstConfig);
+WDT_nERROR WDT__enSetConfigExt(WDT_ConfigExt_t* pstConfig);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_XHEADER_WDT_CONFIG_H_ */

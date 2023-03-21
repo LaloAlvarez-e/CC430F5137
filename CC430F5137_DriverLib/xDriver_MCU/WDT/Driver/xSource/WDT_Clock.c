@@ -26,7 +26,7 @@
 #include "xDriver_MCU/WDT/Driver/Intrinsics/WDT_Intrinsics.h"
 #include "xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h"
 
-WDT_nERROR WDT__enSetClockSource(WDT_nMODULE enModuleArg, WDT_nCLOCK enClockSourceArg)
+WDT_nERROR WDT__enSetClockSource(WDT_nCLOCK enClockSourceArg)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -40,12 +40,12 @@ WDT_nERROR WDT__enSetClockSource(WDT_nMODULE enModuleArg, WDT_nCLOCK enClockSour
     pstRegisterData.uxValue = (UBase_t) uxValue;
     pstRegisterData.uxMask = WDT_CTL_R_PW_MASK | WDT_CTL_R_SSEL_MASK;
     pstRegisterData.uxShift = 0U;
-    enErrorReg = WDT__enWriteRegister(enModuleArg, &pstRegisterData);
+    enErrorReg = WDT__enWriteRegister(&pstRegisterData);
 
     return (enErrorReg);
 }
 
-WDT_nERROR WDT__enGetClockSource(WDT_nMODULE enModuleArg, WDT_nCLOCK* penClockSourceArg)
+WDT_nERROR WDT__enGetClockSource(WDT_nCLOCK* penClockSourceArg)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -60,7 +60,7 @@ WDT_nERROR WDT__enGetClockSource(WDT_nMODULE enModuleArg, WDT_nCLOCK* penClockSo
         pstRegisterData.uptrAddress = WDT_CTL_OFFSET;
         pstRegisterData.uxMask = WDT_CTL_SSEL_MASK;
         pstRegisterData.uxShift = WDT_CTL_R_SSEL_BIT;
-        enErrorReg = WDT__enReadRegister(enModuleArg, &pstRegisterData);
+        enErrorReg = WDT__enReadRegister(&pstRegisterData);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {

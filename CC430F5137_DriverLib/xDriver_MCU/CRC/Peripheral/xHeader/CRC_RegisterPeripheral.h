@@ -53,6 +53,6 @@
 #define CRC_INI    ((CRC_INI_t*) (CRC_BASE + CRC_INI_OFFSET))
 #define CRC_RES    ((CRC_RES_t*) (CRC_BASE + CRC_RES_OFFSET))
 
-uintptr_t CRC__uptrBlockBaseAddress(CRC_nMODULE enModuleArg);
+uintptr_t CRC__uptrBlockBaseAddress(void);
 
 #endif /* CRC_PERIPHERAL_REGISTERPERIPHERAL_CRC_REGISTERPERIPHERAL_H_ */

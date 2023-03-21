@@ -26,7 +26,7 @@
 #include <xDriver_MCU/MCU/MCU.h>
 #include <xDriver_MCU/PMM/Peripheral/PMM_Peripheral.h>
 
-PMM_nERROR PMM__enReadRegister(PMM_nMODULE enModuleArg, PMM_Register_t* pstRegisterDataArg)
+PMM_nERROR PMM__enReadRegister(PMM_Register_t* pstRegisterDataArg)
 {
     uintptr_t uptrModuleBase;
     PMM_nERROR enErrorReg;
@@ -38,11 +38,7 @@ PMM_nERROR PMM__enReadRegister(PMM_nMODULE enModuleArg, PMM_Register_t* pstRegis
     }
     if(PMM_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (PMM_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) PMM_enMODULE_MAX);
-    }
-    if(PMM_enERROR_OK == enErrorReg)
-    {
-        uptrModuleBase = PMM__uptrBlockBaseAddress(enModuleArg);
+        uptrModuleBase = PMM__uptrBlockBaseAddress();
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (PMM_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }

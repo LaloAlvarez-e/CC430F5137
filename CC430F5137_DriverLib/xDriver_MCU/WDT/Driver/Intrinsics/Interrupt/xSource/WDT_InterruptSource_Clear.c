@@ -27,7 +27,7 @@
 #include "xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h"
 #include <xDriver_MCU/MCU/MCU.h>
 
-WDT_nERROR WDT__enClearInterruptSource(WDT_nMODULE enModuleArg)
+WDT_nERROR WDT__enClearInterruptSource(void)
 {
     WDT_Register_t stRegister;
     WDT_nERROR enErrorReg;
@@ -37,7 +37,7 @@ WDT_nERROR WDT__enClearInterruptSource(WDT_nMODULE enModuleArg)
     stRegister.uxMask = (UBase_t) WDT_IFG1_IFG_MASK;
     stRegister.uptrAddress = WDT_IFG1_OFFSET;
     stRegister.uxValue = (UBase_t) WDT_IFG1_IFG_NOOCCUR;
-    enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
+    enErrorReg = WDT__enWriteRegister(&stRegister);
 
     return (enErrorReg);
 }

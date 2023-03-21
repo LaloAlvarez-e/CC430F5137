@@ -27,10 +27,10 @@
 #include "xDriver_MCU/SFR/Peripheral/SFR_Peripheral.h"
 #include <xDriver_MCU/MCU/MCU.h>
 
-static SFR_nERROR SFR__enGetInterruptSourceShift(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, UBase_t* puxShiftArg);
+static SFR_nERROR SFR__enGetInterruptSourceShift(SFR_nINTERRUPT enInterruptArg, UBase_t* puxShiftArg);
 
 
-static SFR_nERROR SFR__enGetInterruptSourceShift(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, UBase_t* puxShiftArg)
+static SFR_nERROR SFR__enGetInterruptSourceShift(SFR_nINTERRUPT enInterruptArg, UBase_t* puxShiftArg)
 {
     const UBase_t SFR_uxInterruptBit[(UBase_t) SFR_enINTERRUPT_MAX] =
     {
@@ -48,10 +48,6 @@ static SFR_nERROR SFR__enGetInterruptSourceShift(SFR_nMODULE enModuleArg, SFR_nI
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (SFR_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SFR_enMODULE_MAX);
-    }
-    if(SFR_enERROR_OK == enErrorReg)
-    {
         enErrorReg = (SFR_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SFR_enINTERRUPT_MAX);
     }
     if(SFR_enERROR_OK == enErrorReg)
@@ -62,7 +58,7 @@ static SFR_nERROR SFR__enGetInterruptSourceShift(SFR_nMODULE enModuleArg, SFR_nI
 }
 
 
-SFR_nERROR SFR__enSetEnableInterruptSourceByMask(SFR_nMODULE enModuleArg, SFR_nINTMASK enInterruptMaskArg,
+SFR_nERROR SFR__enSetEnableInterruptSourceByMask(SFR_nINTMASK enInterruptMaskArg,
                                                  SFR_nSTATE enStateArg)
 {
     SFR_nERROR enErrorReg;
@@ -84,26 +80,26 @@ SFR_nERROR SFR__enSetEnableInterruptSourceByMask(SFR_nMODULE enModuleArg, SFR_nI
         stRegister.uxMask = (UBase_t) enInterruptMaskArg;
         stRegister.uxShift = SFR_IE1_R_WDTIE_BIT;
 
-        enErrorReg = SFR__enWriteRegister(enModuleArg, &stRegister);
+        enErrorReg = SFR__enWriteRegister(&stRegister);
     }
     return (enErrorReg);
 }
 
-SFR_nERROR SFR__enEnableInterruptSourceByMask(SFR_nMODULE enModuleArg, SFR_nINTMASK enInterruptMaskArg)
+SFR_nERROR SFR__enEnableInterruptSourceByMask(SFR_nINTMASK enInterruptMaskArg)
 {
     SFR_nERROR enErrorReg;
-    enErrorReg = SFR__enSetEnableInterruptSourceByMask(enModuleArg, enInterruptMaskArg, SFR_enSTATE_ENA);
+    enErrorReg = SFR__enSetEnableInterruptSourceByMask(enInterruptMaskArg, SFR_enSTATE_ENA);
     return (enErrorReg);
 }
 
-SFR_nERROR SFR__enDisableInterruptSourceByMask(SFR_nMODULE enModuleArg, SFR_nINTMASK enInterruptMaskArg)
+SFR_nERROR SFR__enDisableInterruptSourceByMask(SFR_nINTMASK enInterruptMaskArg)
 {
     SFR_nERROR enErrorReg;
-    enErrorReg = SFR__enSetEnableInterruptSourceByMask(enModuleArg, enInterruptMaskArg, SFR_enSTATE_DIS);
+    enErrorReg = SFR__enSetEnableInterruptSourceByMask(enInterruptMaskArg, SFR_enSTATE_DIS);
     return (enErrorReg);
 }
 
-SFR_nERROR SFR__enSetEnableInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg,
+SFR_nERROR SFR__enSetEnableInterruptSourceByNumber(SFR_nINTERRUPT enInterruptArg,
                                                    SFR_nSTATE enStateArg)
 {
     SFR_nERROR enErrorReg;
@@ -114,7 +110,7 @@ SFR_nERROR SFR__enSetEnableInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_
     enErrorReg = (SFR_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) SFR_enINTERRUPT_MAX);
     if(SFR_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SFR__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
+        enErrorReg = SFR__enGetInterruptSourceShift(enInterruptArg, &uxShiftReg);
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
@@ -122,51 +118,51 @@ SFR_nERROR SFR__enSetEnableInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_
         stRegister.uxValue = (UBase_t) enStateArg;
         stRegister.uxMask = SFR_IE1_WDTIE_MASK;
         stRegister.uxShift = (UBase_t) uxShiftReg;
-        enErrorReg = SFR__enWriteRegister(enModuleArg, &stRegister);
+        enErrorReg = SFR__enWriteRegister(&stRegister);
     }
     return (enErrorReg);
 }
 
-SFR_nERROR SFR__enEnableInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg)
+SFR_nERROR SFR__enEnableInterruptSourceByNumber(SFR_nINTERRUPT enInterruptArg)
 {
     SFR_nERROR enErrorReg;
-    enErrorReg = SFR__enSetEnableInterruptSourceByNumber(enModuleArg, enInterruptArg, SFR_enSTATE_ENA);
+    enErrorReg = SFR__enSetEnableInterruptSourceByNumber(enInterruptArg, SFR_enSTATE_ENA);
     return (enErrorReg);
 }
 
-SFR_nERROR SFR__enDisableInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg)
+SFR_nERROR SFR__enDisableInterruptSourceByNumber(SFR_nINTERRUPT enInterruptArg)
 {
     SFR_nERROR enErrorReg;
-    enErrorReg = SFR__enSetEnableInterruptSourceByNumber(enModuleArg, enInterruptArg, SFR_enSTATE_DIS);
+    enErrorReg = SFR__enSetEnableInterruptSourceByNumber(enInterruptArg, SFR_enSTATE_DIS);
     return (enErrorReg);
 }
 
 
-SFR_nERROR SFR__enSetEnableInterruptSource(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg,
+SFR_nERROR SFR__enSetEnableInterruptSource(SFR_nINTERRUPT enInterruptArg,
                                            SFR_nSTATE enStateArg)
 {
     SFR_nERROR enErrorReg;
-    enErrorReg = SFR__enSetEnableInterruptSourceByNumber(enModuleArg, enInterruptArg, enStateArg);
+    enErrorReg = SFR__enSetEnableInterruptSourceByNumber(enInterruptArg, enStateArg);
     return (enErrorReg);
 }
 
 
-SFR_nERROR SFR__enEnableInterruptSource(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg)
+SFR_nERROR SFR__enEnableInterruptSource(SFR_nINTERRUPT enInterruptArg)
 {
     SFR_nERROR enErrorReg;
-    enErrorReg = SFR__enEnableInterruptSourceByNumber(enModuleArg, enInterruptArg);
+    enErrorReg = SFR__enEnableInterruptSourceByNumber(enInterruptArg);
     return (enErrorReg);
 }
 
-SFR_nERROR SFR__enDisableInterruptSource(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg)
+SFR_nERROR SFR__enDisableInterruptSource(SFR_nINTERRUPT enInterruptArg)
 {
     SFR_nERROR enErrorReg;
-    enErrorReg = SFR__enDisableInterruptSourceByNumber(enModuleArg, enInterruptArg);
+    enErrorReg = SFR__enDisableInterruptSourceByNumber(enInterruptArg);
     return (enErrorReg);
 }
 
 
-SFR_nERROR SFR__enGetInterruptSourceStateByMask(SFR_nMODULE enModuleArg, UBase_t uxInterruptMaskArg,
+SFR_nERROR SFR__enGetInterruptSourceStateByMask(UBase_t uxInterruptMaskArg,
                                                    UBase_t* puxInterruptMaskArg)
 {
     SFR_nERROR enErrorReg;
@@ -186,7 +182,7 @@ SFR_nERROR SFR__enGetInterruptSourceStateByMask(SFR_nMODULE enModuleArg, UBase_t
         stRegister.uptrAddress = SFR_IE1_OFFSET;
         stRegister.uxMask = (UBase_t) uxInterruptMaskArg;
         stRegister.uxShift = SFR_IE1_R_WDTIE_BIT;
-        enErrorReg = SFR__enReadRegister(enModuleArg, &stRegister);
+        enErrorReg = SFR__enReadRegister(&stRegister);
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
@@ -195,7 +191,7 @@ SFR_nERROR SFR__enGetInterruptSourceStateByMask(SFR_nMODULE enModuleArg, UBase_t
     return (enErrorReg);
 }
 
-SFR_nERROR SFR__enGetInterruptSourceStateByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, SFR_nSTATE* penStateArg)
+SFR_nERROR SFR__enGetInterruptSourceStateByNumber(SFR_nINTERRUPT enInterruptArg, SFR_nSTATE* penStateArg)
 {
     SFR_Register_t stRegister;
     UBase_t uxShiftReg;
@@ -213,14 +209,14 @@ SFR_nERROR SFR__enGetInterruptSourceStateByNumber(SFR_nMODULE enModuleArg, SFR_n
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SFR__enGetInterruptSourceShift(enModuleArg, enInterruptArg, &uxShiftReg);
+        enErrorReg = SFR__enGetInterruptSourceShift(enInterruptArg, &uxShiftReg);
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = uxShiftReg;
         stRegister.uxMask = SFR_IE1_WDTIE_MASK;
         stRegister.uptrAddress = SFR_IE1_OFFSET;
-        enErrorReg = SFR__enReadRegister(enModuleArg, &stRegister);
+        enErrorReg = SFR__enReadRegister(&stRegister);
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
@@ -229,9 +225,9 @@ SFR_nERROR SFR__enGetInterruptSourceStateByNumber(SFR_nMODULE enModuleArg, SFR_n
     return (enErrorReg);
 }
 
-SFR_nERROR SFR__enGetInterruptSourceState(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, SFR_nSTATE* penStateArg)
+SFR_nERROR SFR__enGetInterruptSourceState(SFR_nINTERRUPT enInterruptArg, SFR_nSTATE* penStateArg)
 {
     SFR_nERROR enErrorReg;
-    enErrorReg = SFR__enGetInterruptSourceStateByNumber(enModuleArg, enInterruptArg, penStateArg);
+    enErrorReg = SFR__enGetInterruptSourceStateByNumber(enInterruptArg, penStateArg);
     return (enErrorReg);
 }

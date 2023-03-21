@@ -96,6 +96,6 @@
 #define SYSCTL_RSTIV    ((SYSCTL_RSTIV_t*) (SYSCTL_BASE + SYSCTL_RSTIV_OFFSET ))
 #define SYSCTL_RSTIV_R    (*((volatile UBase_t*) (SYSCTL_BASE + SYSCTL_RSTIV_OFFSET)))
 
-uintptr_t SYSCTL__uptrBlockBaseAddress(SYSCTL_nMODULE enModuleArg);
+uintptr_t SYSCTL__uptrBlockBaseAddress(void);
 
 #endif /* XDRIVER_MCU_SYSCTL_PERIPHERAL_HEADER_SYSCTL_REGISTERPERIPHERAL_H_ */

@@ -27,7 +27,7 @@
 #include <xDriver_MCU/CRC/Driver/xHeader/CRC_Result.h>
 
 
-CRC_nERROR CRC__enComputeDataByteArray_Opt(CRC_nMODULE enModuleArg, UBase_t uxInitValueArg, uint8_t* pu8DataArg, UBase_t CounterArg, UBase_t* puxResultArg)
+CRC_nERROR CRC__enComputeDataByteArray_Opt(UBase_t uxInitValueArg, uint8_t* pu8DataArg, UBase_t CounterArg, UBase_t* puxResultArg)
 {
     CRC_nERROR enErrorReg;
     enErrorReg = CRC_enERROR_OK;
@@ -44,7 +44,7 @@ CRC_nERROR CRC__enComputeDataByteArray_Opt(CRC_nMODULE enModuleArg, UBase_t uxIn
     }
     if(CRC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = CRC__enSetInitData(enModuleArg, uxInitValueArg);
+        enErrorReg = CRC__enSetInitData(uxInitValueArg);
     }
 
     if(CRC_enERROR_OK == enErrorReg)
@@ -54,7 +54,7 @@ CRC_nERROR CRC__enComputeDataByteArray_Opt(CRC_nMODULE enModuleArg, UBase_t uxIn
         do
         {
             uint16_t u16DataValue = *((uint16_t*) pu8DataArg);
-            enErrorReg = CRC__enSetDataWord(enModuleArg, u16DataValue);
+            enErrorReg = CRC__enSetDataWord(u16DataValue);
             pu8DataArg += 2U;
             u16WordCount--;
         }while((0U != u16WordCount) && (CRC_enERROR_OK == enErrorReg));
@@ -62,14 +62,14 @@ CRC_nERROR CRC__enComputeDataByteArray_Opt(CRC_nMODULE enModuleArg, UBase_t uxIn
 
         if((CRC_enERROR_OK == enErrorReg) && (0U != u16BytesCount))
         {
-            enErrorReg = CRC__enSetDataByte(enModuleArg, *pu8DataArg);
+            enErrorReg = CRC__enSetDataByte(*pu8DataArg);
         }
 
     }
 
     if(CRC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = CRC__enGetResultData(enModuleArg, puxResultArg);
+        enErrorReg = CRC__enGetResultData(puxResultArg);
     }
 
     return (enErrorReg);
@@ -77,7 +77,7 @@ CRC_nERROR CRC__enComputeDataByteArray_Opt(CRC_nMODULE enModuleArg, UBase_t uxIn
 
 
 
-CRC_nERROR CRC__enComputeDataByteArray(CRC_nMODULE enModuleArg, UBase_t uxInitValueArg, uint8_t* pu8DataArg, UBase_t CounterArg, UBase_t* puxResultArg)
+CRC_nERROR CRC__enComputeDataByteArray(UBase_t uxInitValueArg, uint8_t* pu8DataArg, UBase_t CounterArg, UBase_t* puxResultArg)
 {
     CRC_nERROR enErrorReg;
     enErrorReg = CRC_enERROR_OK;
@@ -94,7 +94,7 @@ CRC_nERROR CRC__enComputeDataByteArray(CRC_nMODULE enModuleArg, UBase_t uxInitVa
     }
     if(CRC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = CRC__enSetInitData(enModuleArg, uxInitValueArg);
+        enErrorReg = CRC__enSetInitData(uxInitValueArg);
     }
 
     if(CRC_enERROR_OK == enErrorReg)
@@ -102,7 +102,7 @@ CRC_nERROR CRC__enComputeDataByteArray(CRC_nMODULE enModuleArg, UBase_t uxInitVa
         do
         {
             uint8_t u8DataValue = *pu8DataArg;
-            enErrorReg = CRC__enSetDataByte(enModuleArg, u8DataValue);
+            enErrorReg = CRC__enSetDataByte(u8DataValue);
             pu8DataArg ++;
             CounterArg--;
         }while((0U != CounterArg) && (CRC_enERROR_OK == enErrorReg));
@@ -110,13 +110,13 @@ CRC_nERROR CRC__enComputeDataByteArray(CRC_nMODULE enModuleArg, UBase_t uxInitVa
 
     if(CRC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = CRC__enGetResultData(enModuleArg, puxResultArg);
+        enErrorReg = CRC__enGetResultData(puxResultArg);
     }
 
     return (enErrorReg);
 }
 
-CRC_nERROR CRC__enComputeDataWordArray(CRC_nMODULE enModuleArg, UBase_t uxInitValueArg, uint16_t* pu16DataArg, UBase_t CounterArg, UBase_t* puxResultArg)
+CRC_nERROR CRC__enComputeDataWordArray(UBase_t uxInitValueArg, uint16_t* pu16DataArg, UBase_t CounterArg, UBase_t* puxResultArg)
 {
     CRC_nERROR enErrorReg;
     enErrorReg = CRC_enERROR_OK;
@@ -133,7 +133,7 @@ CRC_nERROR CRC__enComputeDataWordArray(CRC_nMODULE enModuleArg, UBase_t uxInitVa
     }
     if(CRC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = CRC__enSetInitData(enModuleArg, uxInitValueArg);
+        enErrorReg = CRC__enSetInitData(uxInitValueArg);
     }
 
     if(CRC_enERROR_OK == enErrorReg)
@@ -141,7 +141,7 @@ CRC_nERROR CRC__enComputeDataWordArray(CRC_nMODULE enModuleArg, UBase_t uxInitVa
         do
         {
             uint16_t u16DataValue = *pu16DataArg;
-            enErrorReg = CRC__enSetDataWord(enModuleArg, u16DataValue);
+            enErrorReg = CRC__enSetDataWord(u16DataValue);
             pu16DataArg++;
             CounterArg--;
         }while((0U != CounterArg) && (CRC_enERROR_OK == enErrorReg));
@@ -149,7 +149,7 @@ CRC_nERROR CRC__enComputeDataWordArray(CRC_nMODULE enModuleArg, UBase_t uxInitVa
 
     if(CRC_enERROR_OK == enErrorReg)
     {
-        enErrorReg = CRC__enGetResultData(enModuleArg, puxResultArg);
+        enErrorReg = CRC__enGetResultData(puxResultArg);
     }
 
     return (enErrorReg);

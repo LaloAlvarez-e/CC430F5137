@@ -27,6 +27,6 @@
 
 #include "xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h"
 
-WDT_nERROR WDT__enSetClear(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enSetClear(void);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_XHEADER_WDT_CLEAR_H_ */

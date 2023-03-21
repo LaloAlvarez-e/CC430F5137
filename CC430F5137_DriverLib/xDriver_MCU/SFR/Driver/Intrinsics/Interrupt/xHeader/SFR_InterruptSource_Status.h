@@ -28,13 +28,13 @@
 #include <xDriver_MCU/SFR/Peripheral/xHeader/SFR_Enum.h>
 
 
-SFR_nERROR SFR__enStatusInterruptSourceByMask(SFR_nMODULE enModuleArg, UBase_t uxInterruptMaskArg, UBase_t* puxInterruptStatusArg);
-SFR_nERROR SFR__enStatusInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, SFR_nSTATUS* penStatusArg);
-SFR_nERROR SFR__enStatusInterruptSource(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, SFR_nSTATUS* penStatusArg);
+SFR_nERROR SFR__enStatusInterruptSourceByMask(UBase_t uxInterruptMaskArg, UBase_t* puxInterruptStatusArg);
+SFR_nERROR SFR__enStatusInterruptSourceByNumber(SFR_nINTERRUPT enInterruptArg, SFR_nSTATUS* penStatusArg);
+SFR_nERROR SFR__enStatusInterruptSource(SFR_nINTERRUPT enInterruptArg, SFR_nSTATUS* penStatusArg);
 
-SFR_nERROR SFR__enStatusMaskedInterruptSourceByMask(SFR_nMODULE enModuleArg, UBase_t uxInterruptMaskArg, UBase_t* puxInterruptStatusArg);
-SFR_nERROR SFR__enStatusMaskedInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, SFR_nSTATUS* penStatusArg);
-SFR_nERROR SFR__enStatusMaskedInterruptSource(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg, SFR_nSTATUS* penStatusArg);
+SFR_nERROR SFR__enStatusMaskedInterruptSourceByMask(UBase_t uxInterruptMaskArg, UBase_t* puxInterruptStatusArg);
+SFR_nERROR SFR__enStatusMaskedInterruptSourceByNumber(SFR_nINTERRUPT enInterruptArg, SFR_nSTATUS* penStatusArg);
+SFR_nERROR SFR__enStatusMaskedInterruptSource(SFR_nINTERRUPT enInterruptArg, SFR_nSTATUS* penStatusArg);
 
 
 #endif /* XDRIVER_MCU_SFR_DRIVER_INTRINSICS_INTERRUPT_XHEADER_SFR_INTERRUPTSOURCE_STATUS_H_ */

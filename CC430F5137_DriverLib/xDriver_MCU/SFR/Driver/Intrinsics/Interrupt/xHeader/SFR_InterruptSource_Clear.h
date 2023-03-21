@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/SFR/Peripheral/xHeader/SFR_Enum.h>
 
-SFR_nERROR SFR__enClearInterruptSourceByMask(SFR_nMODULE enModuleArg, SFR_nINTMASK enInterruptMaskArg);
-SFR_nERROR SFR__enClearInterruptSourceByNumber(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg);
-SFR_nERROR SFR__enClearInterruptSource(SFR_nMODULE enModuleArg, SFR_nINTERRUPT enInterruptArg);
+SFR_nERROR SFR__enClearInterruptSourceByMask(SFR_nINTMASK enInterruptMaskArg);
+SFR_nERROR SFR__enClearInterruptSourceByNumber(SFR_nINTERRUPT enInterruptArg);
+SFR_nERROR SFR__enClearInterruptSource(SFR_nINTERRUPT enInterruptArg);
 
 #endif /* XDRIVER_MCU_SFR_DRIVER_INTRINSICS_INTERRUPT_XHEADER_SFR_INTERRUPTSOURCE_CLEAR_H_ */

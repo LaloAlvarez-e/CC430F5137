@@ -27,10 +27,10 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-WDT_nERROR WDT__enSetInterruptSourceState(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg);
-WDT_nERROR WDT__enEnableInterruptSource(WDT_nMODULE enModuleArg);
-WDT_nERROR WDT__enDisableInterruptSource(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enSetInterruptSourceState(WDT_nSTATE enStateArg);
+WDT_nERROR WDT__enEnableInterruptSource(void);
+WDT_nERROR WDT__enDisableInterruptSource(void);
 
-WDT_nERROR WDT__enGetInterruptSourceState(WDT_nMODULE enModuleArg, WDT_nSTATE* penStateArg);
+WDT_nERROR WDT__enGetInterruptSourceState(WDT_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_INTRINSICS_INTERRUPT_XHEADER_WDT_INTERRUPTSOURCE_ENABLE_H_ */

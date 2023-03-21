@@ -27,7 +27,7 @@
 
 #include "xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h"
 
-SYSCTL_nERROR SYSCTL__enSetVectorInterrupt(SYSCTL_nMODULE enModuleArg, SYSCTL_nVECTOR enVectorArg);
-SYSCTL_nERROR SYSCTL__enGetVectorInterrupt(SYSCTL_nMODULE enModuleArg, SYSCTL_nVECTOR* penVectorArg);
+SYSCTL_nERROR SYSCTL__enSetVectorInterrupt(SYSCTL_nVECTOR enVectorArg);
+SYSCTL_nERROR SYSCTL__enGetVectorInterrupt(SYSCTL_nVECTOR* penVectorArg);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_XHEADER_SYSCTL_VECTORINTERRUPT_H_ */

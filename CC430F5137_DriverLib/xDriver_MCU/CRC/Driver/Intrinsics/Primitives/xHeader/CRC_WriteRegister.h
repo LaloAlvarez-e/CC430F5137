@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_Enum.h>
 
-CRC_nERROR CRC__enWriteRegister8Bits(CRC_nMODULE enModuleArg, CRC_Register8Bits_t* pstRegisterDataArg);
-CRC_nERROR CRC__enWriteRegister(CRC_nMODULE enModuleArg, CRC_Register_t* pstRegisterDataArg);
+CRC_nERROR CRC__enWriteRegister8Bits(CRC_Register8Bits_t* pstRegisterDataArg);
+CRC_nERROR CRC__enWriteRegister(CRC_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_CRC_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_CRC_WRITEREGISTER_H_ */

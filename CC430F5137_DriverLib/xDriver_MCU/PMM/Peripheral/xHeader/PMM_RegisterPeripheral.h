@@ -84,6 +84,6 @@
 #define PMM_PM5CTL0    ((PMM_PM5CTL0_t*) (PMM_BASE + PMM_PM5CTL0_OFFSET ))
 #define PMM_PM5CTL0_R    (*((volatile UBase_t*) (PMM_BASE + PMM_PM5CTL0_OFFSET)))
 
-uintptr_t PMM__uptrBlockBaseAddress(PMM_nMODULE enModuleArg);
+uintptr_t PMM__uptrBlockBaseAddress(void);
 
 #endif /* XDRIVER_MCU_PMM_PERIPHERAL_HEADER_PMM_REGISTERPERIPHERAL_H_ */

@@ -26,7 +26,7 @@
 #include "xDriver_MCU/WDT/Driver/Intrinsics/WDT_Intrinsics.h"
 #include "xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h"
 
-WDT_nERROR WDT__enSetMode(WDT_nMODULE enModuleArg, WDT_nMODE enModeArg)
+WDT_nERROR WDT__enSetMode(WDT_nMODE enModeArg)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -40,12 +40,12 @@ WDT_nERROR WDT__enSetMode(WDT_nMODULE enModuleArg, WDT_nMODE enModeArg)
     pstRegisterData.uxValue = (UBase_t) uxValue;
     pstRegisterData.uxMask = WDT_CTL_R_PW_MASK | WDT_CTL_R_TMSEL_MASK;
     pstRegisterData.uxShift = 0U;
-    enErrorReg = WDT__enWriteRegister(enModuleArg, &pstRegisterData);
+    enErrorReg = WDT__enWriteRegister(&pstRegisterData);
 
     return (enErrorReg);
 }
 
-WDT_nERROR WDT__enGetMode(WDT_nMODULE enModuleArg, WDT_nMODE* penModeArg)
+WDT_nERROR WDT__enGetMode(WDT_nMODE* penModeArg)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -60,7 +60,7 @@ WDT_nERROR WDT__enGetMode(WDT_nMODULE enModuleArg, WDT_nMODE* penModeArg)
         pstRegisterData.uptrAddress = WDT_CTL_OFFSET;
         pstRegisterData.uxMask = WDT_CTL_TMSEL_MASK;
         pstRegisterData.uxShift = WDT_CTL_R_TMSEL_BIT;
-        enErrorReg = WDT__enReadRegister(enModuleArg, &pstRegisterData);
+        enErrorReg = WDT__enReadRegister(&pstRegisterData);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
@@ -72,7 +72,7 @@ WDT_nERROR WDT__enGetMode(WDT_nMODULE enModuleArg, WDT_nMODE* penModeArg)
 
 
 
-WDT_nERROR WDT__enSetMode_RAM(WDT_nMODULE enModuleArg, WDT_nMODE enModeArg)
+WDT_nERROR WDT__enSetMode_RAM(WDT_nMODE enModeArg)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -86,12 +86,12 @@ WDT_nERROR WDT__enSetMode_RAM(WDT_nMODULE enModuleArg, WDT_nMODE enModeArg)
     pstRegisterData.uxValue = (UBase_t) uxValue;
     pstRegisterData.uxMask = WDT_CTL_R_PW_MASK | WDT_CTL_R_TMSEL_MASK;
     pstRegisterData.uxShift = 0U;
-    enErrorReg = WDT__enWriteRegister_RAM(enModuleArg, &pstRegisterData);
+    enErrorReg = WDT__enWriteRegister_RAM(&pstRegisterData);
 
     return (enErrorReg);
 }
 
-WDT_nERROR WDT__enGetMode_RAM(WDT_nMODULE enModuleArg, WDT_nMODE* penModeArg)
+WDT_nERROR WDT__enGetMode_RAM(WDT_nMODE* penModeArg)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -106,7 +106,7 @@ WDT_nERROR WDT__enGetMode_RAM(WDT_nMODULE enModuleArg, WDT_nMODE* penModeArg)
         pstRegisterData.uptrAddress = WDT_CTL_OFFSET;
         pstRegisterData.uxMask = WDT_CTL_TMSEL_MASK;
         pstRegisterData.uxShift = WDT_CTL_R_TMSEL_BIT;
-        enErrorReg = WDT__enReadRegister_RAM(enModuleArg, &pstRegisterData);
+        enErrorReg = WDT__enReadRegister_RAM(&pstRegisterData);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {

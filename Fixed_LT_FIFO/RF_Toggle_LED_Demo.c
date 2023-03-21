@@ -126,32 +126,25 @@ unsigned char receiving = 0;
 
 uint16_t PORT1_ISR(uintptr_t uptrPort, void* pvPinNumber);
 uint16_t TIMERA_ISR(uintptr_t uptrPort, void* pvPinNumber);
+
+void InitWatchDog(void);
 void InitTimer(void);
+void InitButtonLeds(void);
 
 void main( void )
 {  
-    WDT_ConfigExt_t stWdtConfig;
-    WDT__enSetState(WDT_enMODULE_0, WDT_enSTATE_DIS);
-    SYSCTL__enSetVectorInterrupt(SYSCTL_enMODULE_0, SYSCTL_enVECTOR_RAM);
-    stWdtConfig.stConfig.enClock = WDT_enCLOCK_ACLK;
-    stWdtConfig.stConfig.enInterval = WDT_enINTERVAL_32768;
-    stWdtConfig.stConfig.enMode = WDT_enMODE_INTERVAL;
-    stWdtConfig.stConfig.enEnable = WDT_enSTATE_ENA;
-    stWdtConfig.enInterruptStatus = WDT_enSTATUS_INACTIVE;
-    stWdtConfig.enInterruptEnable = WDT_enSTATE_ENA;
-    // Stop watchdog timer to prevent time out reset
-    WDT__enRegisterIRQSourceHandler(WDT_enMODULE_0, WDT_enINT_INTERVAL, &TIMERA_ISR);
-    WDT__enSetConfigExt(WDT_enMODULE_0, &stWdtConfig);
-
+    SYSCTL__enSetVectorInterrupt(SYSCTL_enVECTOR_RAM);
+    InitWatchDog();
     // Increase PMMCOREV level to 2 for proper radio operation
     SetVCore(2);
     RAM__enSetSectorState((UBase_t) (RAM_enSECTOR_7 | RAM_enSECTOR_6 | RAM_enSECTOR_5 | RAM_enSECTOR_4 | RAM_enSECTOR_3 | RAM_enSECTOR_2), RAM_enSTATE_DIS);
     MAP__enSetReconfig(MAP_enSTATE_ENA);
     MAP_PORT__enSetFunctionByMask(MAP_enMODULE_1, (MAP_nPINMASK) (MAP_enPINMASK_7 | MAP_enPINMASK_5 | MAP_enPINMASK_1), MAP_enFUNCTION_M_CLK);
+
     InitTimer();
-    ResetRadioCore();
     InitRadio();
     InitButtonLeds();
+
     ReceiveOn();
     receiving = 1;
 
@@ -161,8 +154,8 @@ void main( void )
     uxResultWord = 0;
     uxResultByte = 0;
 
-    CRC__enComputeDataByteArray(CRC_enMODULE_0, 0xFFFFU, "123456789", 9, &uxResultByte);
-    CRC__enComputeDataByteArray_Opt(CRC_enMODULE_0, 0xFFFFU, "123456789", 9, &uxResultWord);
+    CRC__enComputeDataByteArray(0xFFFFU, "123456789", 9, &uxResultByte);
+    CRC__enComputeDataByteArray_Opt(0xFFFFU, "123456789", 9, &uxResultWord);
 
     __bis_SR_register(GIE);
     while (uxResultWord == uxResultByte)
@@ -187,6 +180,21 @@ void main( void )
     }
     }
 }
+
+void InitWatchDog(void)
+{
+    WDT_ConfigExt_t stWdtConfig;
+    stWdtConfig.stConfig.enClock = WDT_enCLOCK_ACLK;
+    stWdtConfig.stConfig.enInterval = WDT_enINTERVAL_32768;
+    stWdtConfig.stConfig.enMode = WDT_enMODE_INTERVAL;
+    stWdtConfig.stConfig.enEnable = WDT_enSTATE_ENA;
+    stWdtConfig.enInterruptStatus = WDT_enSTATUS_INACTIVE;
+    stWdtConfig.enInterruptEnable = WDT_enSTATE_ENA;
+    // Stop watchdog timer to prevent time out reset
+    WDT__enRegisterIRQSourceHandler(WDT_enINT_INTERVAL, &TIMERA_ISR);
+    WDT__enSetConfigExt(&stWdtConfig);
+}
+
 
 void InitButtonLeds(void)
 {
@@ -235,7 +243,8 @@ void InitRadio(void)
   PMMCTL0_H = 0xA5;
   PMMCTL0_L |= PMMHPMRE_L; 
   PMMCTL0_H = 0x00; 
-  
+
+  ResetRadioCore();
   WriteRfSettings(&rfSettings);
   
   WriteSinglePATable(PATABLE_VAL);

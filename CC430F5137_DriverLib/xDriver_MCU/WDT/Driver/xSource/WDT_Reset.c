@@ -26,7 +26,7 @@
 #include "xDriver_MCU/WDT/Driver/Intrinsics/WDT_Intrinsics.h"
 #include "xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h"
 
-WDT_nERROR WDT__enResetByPassword(WDT_nMODULE enModuleArg)
+WDT_nERROR WDT__enResetByPassword(void)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -35,7 +35,7 @@ WDT_nERROR WDT__enResetByPassword(WDT_nMODULE enModuleArg)
     pstRegisterData.uxValue = 0U;
     pstRegisterData.uxMask = MCU_MASK_BASE;
     pstRegisterData.uxShift = 0U;
-    enErrorReg = WDT__enWriteRegister(enModuleArg, &pstRegisterData);
+    enErrorReg = WDT__enWriteRegister(&pstRegisterData);
 
     return (enErrorReg);
 }

@@ -27,10 +27,10 @@
 
 #include "xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h"
 
-WDT_nERROR WDT__enSetMode(WDT_nMODULE enModuleArg, WDT_nMODE enModeArg);
-WDT_nERROR WDT__enGetMode(WDT_nMODULE enModuleArg, WDT_nMODE* penModeArg);
+WDT_nERROR WDT__enSetMode(WDT_nMODE enModeArg);
+WDT_nERROR WDT__enGetMode(WDT_nMODE* penModeArg);
 
-WDT_nERROR WDT__enSetMode_RAM(WDT_nMODULE enModuleArg, WDT_nMODE enModeArg);
-WDT_nERROR WDT__enGetMode_RAM(WDT_nMODULE enModuleArg, WDT_nMODE* penModeArg);
+WDT_nERROR WDT__enSetMode_RAM(WDT_nMODE enModeArg);
+WDT_nERROR WDT__enGetMode_RAM(WDT_nMODE* penModeArg);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_XHEADER_WDT_MODE_H_ */

@@ -27,7 +27,7 @@
 #include <xDriver_MCU/CRC/Driver/Intrinsics/Primitives/CRC_Primitives.h>
 #include <xDriver_MCU/CRC/Peripheral/CRC_Peripheral.h>
 
-CRC_nERROR CRC__enSetDataByte(CRC_nMODULE enModuleArg, uint8_t u8Data)
+CRC_nERROR CRC__enSetDataByte(uint8_t u8Data)
 {
     CRC_Register8Bits_t stRegister;
     CRC_nERROR enErrorReg;
@@ -36,12 +36,12 @@ CRC_nERROR CRC__enSetDataByte(CRC_nMODULE enModuleArg, uint8_t u8Data)
     stRegister.u8Mask = (uint8_t) CRC_DI_LOW_DATA_MASK;
     stRegister.uptrAddress = (uintptr_t) CRC_DI_LOW_OFFSET;
     stRegister.u8Value = (uint8_t) u8Data;
-    enErrorReg = CRC__enWriteRegister8Bits(enModuleArg, &stRegister);
+    enErrorReg = CRC__enWriteRegister8Bits(&stRegister);
 
     return (enErrorReg);
 }
 
-CRC_nERROR CRC__enSetDataWord(CRC_nMODULE enModuleArg, UBase_t uxData)
+CRC_nERROR CRC__enSetDataWord(UBase_t uxData)
 {
     CRC_Register_t stRegister;
     CRC_nERROR enErrorReg;
@@ -50,7 +50,7 @@ CRC_nERROR CRC__enSetDataWord(CRC_nMODULE enModuleArg, UBase_t uxData)
     stRegister.uxMask = (UBase_t) CRC_DI_DATA_MASK;
     stRegister.uptrAddress = (uintptr_t) CRC_DI_OFFSET;
     stRegister.uxValue = (UBase_t) uxData;
-    enErrorReg = CRC__enWriteRegister(enModuleArg, &stRegister);
+    enErrorReg = CRC__enWriteRegister(&stRegister);
 
     return (enErrorReg);
 }

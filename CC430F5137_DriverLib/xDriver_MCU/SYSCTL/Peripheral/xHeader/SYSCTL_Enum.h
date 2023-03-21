@@ -60,13 +60,6 @@ typedef enum
 
 typedef enum
 {
-    SYSCTL_enMODULE_0 = 0U,
-    SYSCTL_enMODULE_MAX = 1U,
-    SYSCTL_enMODULE_UNDEF = UNDEF_VALUE,
-}SYSCTL_nMODULE;
-
-typedef enum
-{
     SYSCTL_enVECTOR_FLASH = 0U,
     SYSCTL_enVECTOR_RAM = 1U,
     SYSCTL_enVECTOR_UNDEF = UNDEF_VALUE,

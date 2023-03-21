@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_Enum.h>
 
-CRC_nERROR CRC__enSetDataByte(CRC_nMODULE enModuleArg, uint8_t u8Data);
-CRC_nERROR CRC__enSetDataWord(CRC_nMODULE enModuleArg, UBase_t uxData);
+CRC_nERROR CRC__enSetDataByte(uint8_t u8Data);
+CRC_nERROR CRC__enSetDataWord(UBase_t uxData);
 
 #endif /* XDRIVER_MCU_CRC_DRIVER_XHEADER_CRC_DATA_H_ */

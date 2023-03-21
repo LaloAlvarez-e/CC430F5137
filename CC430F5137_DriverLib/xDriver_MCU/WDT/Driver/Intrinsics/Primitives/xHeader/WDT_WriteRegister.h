@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-WDT_nERROR WDT__enWriteRegister(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg);
-WDT_nERROR WDT__enWriteRegister_RAM(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg);
+WDT_nERROR WDT__enWriteRegister(WDT_Register_t* pstRegisterDataArg);
+WDT_nERROR WDT__enWriteRegister_RAM(WDT_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_WDT_WRITEREGISTER_H_ */

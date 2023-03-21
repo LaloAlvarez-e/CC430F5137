@@ -60,13 +60,6 @@ typedef enum
 
 typedef enum
 {
-    WDT_enMODULE_0 = 0U,
-    WDT_enMODULE_MAX = 1U,
-    WDT_enMODULE_UNDEF = UNDEF_VALUE,
-}WDT_nMODULE;
-
-typedef enum
-{
     WDT_enINT_TIMEOUT = 0U,
     WDT_enINT_PASSWORD = 1U,
     WDT_enINT_INTERVAL = 2U,

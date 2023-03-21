@@ -28,8 +28,7 @@
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 #include <xDriver_MCU/MCU/MCU.h>
 
-WDT_nERROR WDT__enRegisterIRQSourceHandler(WDT_nMODULE enModuleArg,
-                                             WDT_nINT enInterruptArg,
+WDT_nERROR WDT__enRegisterIRQSourceHandler(WDT_nINT enInterruptArg,
                                              WDT_puxfIRQSourceHandler_t pfIrqSourceHandler)
 {
     WDT_puxfIRQSourceHandler_t* puxfIrqHandler;
@@ -38,15 +37,15 @@ WDT_nERROR WDT__enRegisterIRQSourceHandler(WDT_nMODULE enModuleArg,
     enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enInterruptArg, (UBase_t) WDT_enINT_MAX);
     if(WDT_enERROR_OK == enErrorReg)
     {
-        puxfIrqHandler = WDT__puxfGetIRQSourceHandlerPointer(enModuleArg, enInterruptArg);
+        puxfIrqHandler = WDT__puxfGetIRQSourceHandlerPointer(enInterruptArg);
         switch(enInterruptArg)
         {
             case WDT_enINT_TIMEOUT:
-                enErrorReg = (WDT_nERROR) SYSCTL_RESET__enRegisterIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_WDT_TIMEOUT,
+                enErrorReg = (WDT_nERROR) SYSCTL_RESET__enRegisterIRQSourceHandler(SYSCTL_enINT_RESET_WDT_TIMEOUT,
                                                                                    (SYSCTL_puxfIRQSourceHandler_t) pfIrqSourceHandler);
                 break;
             case WDT_enINT_PASSWORD:
-                enErrorReg = (WDT_nERROR) SYSCTL_RESET__enRegisterIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_WDT_PASSWORD,
+                enErrorReg = (WDT_nERROR) SYSCTL_RESET__enRegisterIRQSourceHandler(SYSCTL_enINT_RESET_WDT_PASSWORD,
                                                                                    (SYSCTL_puxfIRQSourceHandler_t) pfIrqSourceHandler);
                 break;
             case WDT_enINT_INTERVAL:

@@ -27,14 +27,11 @@
 
 #include "xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h"
 
-SYSCTL_nERROR SYSCTL_RESET__enRegisterIRQSourceHandler(SYSCTL_nMODULE enModuleArg,
-                                                       SYSCTL_nINT_RESET enInterruptArg,
+SYSCTL_nERROR SYSCTL_RESET__enRegisterIRQSourceHandler(SYSCTL_nINT_RESET enInterruptArg,
                                                        SYSCTL_puxfIRQSourceHandler_t pfIrqSourceHandler);
-SYSCTL_nERROR SYSCTL_USERNMI__enRegisterIRQSourceHandler(SYSCTL_nMODULE enModuleArg,
-                                                         SYSCTL_nINT_USERNMI enInterruptArg,
+SYSCTL_nERROR SYSCTL_USERNMI__enRegisterIRQSourceHandler(SYSCTL_nINT_USERNMI enInterruptArg,
                                                          SYSCTL_puxfIRQSourceHandler_t pfIrqSourceHandler);
-SYSCTL_nERROR SYSCTL_SYSNMI__enRegisterIRQSourceHandler(SYSCTL_nMODULE enModuleArg,
-                                                        SYSCTL_nINT_SYSNMI enInterruptArg,
+SYSCTL_nERROR SYSCTL_SYSNMI__enRegisterIRQSourceHandler(SYSCTL_nINT_SYSNMI enInterruptArg,
                                                         SYSCTL_puxfIRQSourceHandler_t pfIrqSourceHandler);
 
 

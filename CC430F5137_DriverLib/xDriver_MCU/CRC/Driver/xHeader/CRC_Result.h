@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_Enum.h>
 
-CRC_nERROR CRC__enGetResultData(CRC_nMODULE enModuleArg, UBase_t* puxData);
+CRC_nERROR CRC__enGetResultData(UBase_t* puxData);
 
 #endif /* XDRIVER_MCU_CRC_DRIVER_XHEADER_CRC_RESULT_H_ */

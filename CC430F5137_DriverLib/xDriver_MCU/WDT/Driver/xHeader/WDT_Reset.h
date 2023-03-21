@@ -27,6 +27,6 @@
 
 #include "xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h"
 
-WDT_nERROR WDT__enResetByPassword(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enResetByPassword(void);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_XHEADER_WDT_RESET_H_ */

@@ -27,7 +27,7 @@
 #include <xDriver_MCU/SYSCTL/Driver/Intrinsics/Primitives/SYSCTL_Primitives.h>
 #include <xDriver_MCU/SYSCTL/Peripheral/SYSCTL_Peripheral.h>
 
-SYSCTL_nERROR SYSCTL__enSetVectorInterrupt(SYSCTL_nMODULE enModuleArg, SYSCTL_nVECTOR enVectorArg)
+SYSCTL_nERROR SYSCTL__enSetVectorInterrupt(SYSCTL_nVECTOR enVectorArg)
 {
     SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
@@ -36,13 +36,13 @@ SYSCTL_nERROR SYSCTL__enSetVectorInterrupt(SYSCTL_nMODULE enModuleArg, SYSCTL_nV
     stRegister.uxMask = SYSCTL_CTL_RIVECT_MASK;
     stRegister.uptrAddress = SYSCTL_CTL_OFFSET;
     stRegister.uxValue = (UBase_t) enVectorArg;
-    enErrorReg = SYSCTL__enWriteRegister(enModuleArg, &stRegister);
+    enErrorReg = SYSCTL__enWriteRegister(&stRegister);
 
     return (enErrorReg);
 }
 
 
-SYSCTL_nERROR SYSCTL__enGetVectorInterrupt(SYSCTL_nMODULE enModuleArg, SYSCTL_nVECTOR* penVectorArg)
+SYSCTL_nERROR SYSCTL__enGetVectorInterrupt(SYSCTL_nVECTOR* penVectorArg)
 {
     SYSCTL_Register_t stRegister;
     SYSCTL_nERROR enErrorReg;
@@ -57,7 +57,7 @@ SYSCTL_nERROR SYSCTL__enGetVectorInterrupt(SYSCTL_nMODULE enModuleArg, SYSCTL_nV
         stRegister.uxShift = SYSCTL_CTL_R_RIVECT_BIT;
         stRegister.uxMask = SYSCTL_CTL_RIVECT_MASK;
         stRegister.uptrAddress = SYSCTL_CTL_OFFSET;
-        enErrorReg = SYSCTL__enReadRegister(enModuleArg, &stRegister);
+        enErrorReg = SYSCTL__enReadRegister(&stRegister);
     }
     if(SYSCTL_enERROR_OK == enErrorReg)
     {

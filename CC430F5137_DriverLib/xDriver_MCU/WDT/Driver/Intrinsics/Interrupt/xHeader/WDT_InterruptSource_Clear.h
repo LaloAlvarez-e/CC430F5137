@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-WDT_nERROR WDT__enClearInterruptSource(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enClearInterruptSource(void);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_INTRINSICS_INTERRUPT_XHEADER_WDT_INTERRUPTSOURCE_CLEAR_H_ */

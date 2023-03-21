@@ -23,13 +23,11 @@
  */
 #include <xDriver_MCU/SFR/Peripheral/xHeader/SFR_RegisterPeripheral.h>
 
-uintptr_t SFR__uptrBlockBaseAddress(SFR_nMODULE enModuleArg)
+uintptr_t SFR__uptrBlockBaseAddress(void)
 {
-    const uintptr_t SFR_BLOCK_BASE[(UBase_t) SFR_enMODULE_MAX] =
-    {
-     SFR_BASE,
-    };
-    return (SFR_BLOCK_BASE[(UBase_t) enModuleArg]);
+    uintptr_t uptrReg;
+    uptrReg = SFR_BASE;
+    return(uptrReg);
 }
 
 

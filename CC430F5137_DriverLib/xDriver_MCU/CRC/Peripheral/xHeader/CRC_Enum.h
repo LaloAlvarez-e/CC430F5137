@@ -37,13 +37,6 @@ typedef enum
     CRC_enERROR_UNDEF = (UBase_t) MCU_enERROR_UNDEF,
 }CRC_nERROR;
 
-typedef enum
-{
-    CRC_enMODULE_0 = 0U,
-    CRC_enMODULE_MAX = 1U,
-    CRC_enMODULE_UNDEF = UNDEF_VALUE,
-}CRC_nMODULE;
-
 typedef MCU_Register_t CRC_Register_t;
 typedef MCU_Register8Bits_t CRC_Register8Bits_t;
 

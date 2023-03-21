@@ -35,15 +35,15 @@ __interrupt void SYSCTL_USERNMI__IRQVectorHandler(void)
     switch(SYSCTL_UNIV_R)
     {
     case SYSCTL_UNIV_R_UNVEC_NMIIFG:
-        IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_USERNMI_NMI);
+        IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enINT_USERNMI_NMI);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_NMI);
         break;
     case SYSCTL_UNIV_R_UNVEC_OFIFG:
-        IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_USERNMI_OSC);
+        IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enINT_USERNMI_OSC);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_OSC);
         break;
     case SYSCTL_UNIV_R_UNVEC_ACCVIFG:
-        IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_USERNMI_FLASH_ACCESS);
+        IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enINT_USERNMI_FLASH_ACCESS);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_FLASH_ACCESS);
         break;
     default:

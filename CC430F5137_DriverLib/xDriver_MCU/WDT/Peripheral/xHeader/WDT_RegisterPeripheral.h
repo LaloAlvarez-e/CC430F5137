@@ -50,6 +50,6 @@
 #define WDT_CTL ((WDT_CTL_t*) (WDT_BASE + WDT_CTL_OFFSET))
 
 
-uintptr_t WDT__uptrBlockBaseAddress(WDT_nMODULE enModuleArg);
+uintptr_t WDT__uptrBlockBaseAddress(void);
 
 #endif /* WDT_PERIPHERAL_REGISTERPERIPHERAL_WDT_REGISTERPERIPHERAL_H_ */

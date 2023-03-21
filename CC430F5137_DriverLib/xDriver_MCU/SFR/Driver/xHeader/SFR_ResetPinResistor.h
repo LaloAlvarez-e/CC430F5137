@@ -27,10 +27,10 @@
 
 #include "xDriver_MCU/SFR/Peripheral/xHeader/SFR_Enum.h"
 
-SFR_nERROR SFR__enSetNMIPinResistorState(SFR_nMODULE enModuleArg, SFR_nSTATE enStateArg);
-SFR_nERROR SFR__enSetNMIPinResistor(SFR_nMODULE enModuleArg, SFR_nRESETPIN_RESISTOR enResitorArg);
+SFR_nERROR SFR__enSetNMIPinResistorState(SFR_nSTATE enStateArg);
+SFR_nERROR SFR__enSetNMIPinResistor(SFR_nRESETPIN_RESISTOR enResitorArg);
 
-SFR_nERROR SFR__enGetNMIPinResistorState(SFR_nMODULE enModuleArg, SFR_nSTATE* penStateArg);
-SFR_nERROR SFR__enGetNMIPinResistor(SFR_nMODULE enModuleArg, SFR_nRESETPIN_RESISTOR* penResitorArg);
+SFR_nERROR SFR__enGetNMIPinResistorState(SFR_nSTATE* penStateArg);
+SFR_nERROR SFR__enGetNMIPinResistor(SFR_nRESETPIN_RESISTOR* penResitorArg);
 
 #endif /* XDRIVER_MCU_SFR_DRIVER_XHEADER_SFR_RESETPINRESISTOR_H_ */

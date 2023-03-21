@@ -27,7 +27,7 @@
 #include <xDriver_MCU/CRC/Driver/Intrinsics/Primitives/CRC_Primitives.h>
 #include <xDriver_MCU/CRC/Peripheral/CRC_Peripheral.h>
 
-CRC_nERROR CRC__enGetResultData(CRC_nMODULE enModuleArg, UBase_t* puxData)
+CRC_nERROR CRC__enGetResultData(UBase_t* puxData)
 {
     CRC_Register_t stRegister;
     CRC_nERROR enErrorReg;
@@ -42,7 +42,7 @@ CRC_nERROR CRC__enGetResultData(CRC_nMODULE enModuleArg, UBase_t* puxData)
         stRegister.uxShift = (UBase_t) CRC_RES_R_RESULT_BIT;
         stRegister.uxMask = (UBase_t) CRC_RES_RESULT_MASK;
         stRegister.uptrAddress = (uintptr_t) CRC_RES_OFFSET;
-        enErrorReg = CRC__enReadRegister(enModuleArg, &stRegister);
+        enErrorReg = CRC__enReadRegister(&stRegister);
     }
     if(CRC_enERROR_OK == enErrorReg)
     {

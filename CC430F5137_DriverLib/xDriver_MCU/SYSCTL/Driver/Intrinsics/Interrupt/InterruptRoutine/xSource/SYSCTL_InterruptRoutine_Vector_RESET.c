@@ -35,63 +35,63 @@ void SYSCTL_RESET__IRQVectorHandler(void)
     switch(SYSCTL_RSTIV_R)
     {
     case SYSCTL_RSTIV_R_RSTVEC_BROWNOUT:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_BROWNOUT);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_BROWNOUT);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_BROWNOUT);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_RST_NMI:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_NMI);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_NMI);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_NMI);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_PMMSWBOR:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_BOR_SW);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_BOR_SW);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_BOR_SW);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_WAKEUP:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_WAKEUP);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_WAKEUP);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_WAKEUP);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_SECURITY:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_SECURITY);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_SECURITY);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_SECURITY);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_SVSL:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_SVS_LOW);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_SVS_LOW);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_SVS_LOW);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_SVSH:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_SVS_HIGH);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_SVS_HIGH);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_SVS_HIGH);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_SVML_OVP:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_SVM_LOW);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_SVM_LOW);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_SVM_LOW);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_SVMH_OVP:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_SVM_HIGH);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_SVM_HIGH);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_SVM_HIGH);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_PMMSWPOR:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_POR_SW);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_POR_SW);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_POR_SW);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_WDT_TIMEOUT:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_WDT_TIMEOUT);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_WDT_TIMEOUT);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_WDT_TIMEOUT);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_WDT_PASSWORD:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_WDT_PASSWORD);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_WDT_PASSWORD);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_WDT_PASSWORD);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_FLASH_PASSWORD:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_FLASH_PASSWORD);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_FLASH_PASSWORD);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_FLASH_PASSWORD);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_PERF:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_FETCH);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_FETCH);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_FETCH);
         break;
     case SYSCTL_RSTIV_R_RSTVEC_PMM_PASSWORD:
-        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enMODULE_0, SYSCTL_enINT_RESET_PMM_PASSWORD);
+        IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_PMM_PASSWORD);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_RESET_PMM_PASSWORD);
         break;
     default:

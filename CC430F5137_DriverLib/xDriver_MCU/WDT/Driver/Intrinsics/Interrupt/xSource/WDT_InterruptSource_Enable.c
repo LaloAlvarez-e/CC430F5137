@@ -27,7 +27,7 @@
 #include "xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h"
 #include <xDriver_MCU/MCU/MCU.h>
 
-WDT_nERROR WDT__enSetInterruptSourceState(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg)
+WDT_nERROR WDT__enSetInterruptSourceState(WDT_nSTATE enStateArg)
 {
     WDT_nERROR enErrorReg;
     WDT_Register_t stRegister;
@@ -36,26 +36,26 @@ WDT_nERROR WDT__enSetInterruptSourceState(WDT_nMODULE enModuleArg, WDT_nSTATE en
     stRegister.uxValue = (UBase_t) enStateArg;
     stRegister.uxMask = (UBase_t) WDT_IE1_IE_MASK;
     stRegister.uxShift = (UBase_t) WDT_IE1_R_IE_BIT;
-    enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
+    enErrorReg = WDT__enWriteRegister(&stRegister);
 
     return (enErrorReg);
 }
 
-WDT_nERROR WDT__enEnableInterruptSource(WDT_nMODULE enModuleArg)
+WDT_nERROR WDT__enEnableInterruptSource(void)
 {
     WDT_nERROR enErrorReg;
-    enErrorReg = WDT__enSetInterruptSourceState(enModuleArg, WDT_enSTATE_ENA);
+    enErrorReg = WDT__enSetInterruptSourceState(WDT_enSTATE_ENA);
     return (enErrorReg);
 }
 
-WDT_nERROR WDT__enDisableInterruptSource(WDT_nMODULE enModuleArg)
+WDT_nERROR WDT__enDisableInterruptSource(void)
 {
     WDT_nERROR enErrorReg;
-    enErrorReg = WDT__enSetInterruptSourceState(enModuleArg, WDT_enSTATE_DIS);
+    enErrorReg = WDT__enSetInterruptSourceState(WDT_enSTATE_DIS);
     return (enErrorReg);
 }
 
-WDT_nERROR WDT__enGetInterruptSourceState(WDT_nMODULE enModuleArg, WDT_nSTATE* penStateArg)
+WDT_nERROR WDT__enGetInterruptSourceState(WDT_nSTATE* penStateArg)
 {
     WDT_Register_t stRegister;
     WDT_nERROR enErrorReg;
@@ -70,7 +70,7 @@ WDT_nERROR WDT__enGetInterruptSourceState(WDT_nMODULE enModuleArg, WDT_nSTATE* p
         stRegister.uxShift = WDT_IE1_R_IE_BIT;
         stRegister.uxMask = (uint8_t) WDT_IE1_IE_MASK;
         stRegister.uptrAddress = WDT_IE1_OFFSET;
-        enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+        enErrorReg = WDT__enReadRegister(&stRegister);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {

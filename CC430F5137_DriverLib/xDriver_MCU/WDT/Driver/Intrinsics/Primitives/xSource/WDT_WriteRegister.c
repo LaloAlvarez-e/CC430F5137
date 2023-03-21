@@ -26,7 +26,7 @@
 #include <xDriver_MCU/MCU/MCU.h>
 #include <xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h>
 
-WDT_nERROR WDT__enWriteRegister(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg)
+WDT_nERROR WDT__enWriteRegister(WDT_Register_t* pstRegisterDataArg)
 {
     uintptr_t uptrModuleBase;
     WDT_nERROR enErrorReg;
@@ -37,11 +37,7 @@ WDT_nERROR WDT__enWriteRegister(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegi
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
-    }
-    if(WDT_enERROR_OK == enErrorReg)
-    {
-        uptrModuleBase = WDT__uptrBlockBaseAddress(enModuleArg);
+        uptrModuleBase = WDT__uptrBlockBaseAddress();
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (WDT_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }
@@ -49,7 +45,7 @@ WDT_nERROR WDT__enWriteRegister(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegi
 }
 
 
-WDT_nERROR WDT__enWriteRegister_RAM(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg)
+WDT_nERROR WDT__enWriteRegister_RAM(WDT_Register_t* pstRegisterDataArg)
 {
     uintptr_t uptrModuleBase;
     WDT_nERROR enErrorReg;
@@ -60,11 +56,7 @@ WDT_nERROR WDT__enWriteRegister_RAM(WDT_nMODULE enModuleArg, WDT_Register_t* pst
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (WDT_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) WDT_enMODULE_MAX);
-    }
-    if(WDT_enERROR_OK == enErrorReg)
-    {
-        uptrModuleBase = WDT__uptrBlockBaseAddress(enModuleArg);
+        uptrModuleBase = WDT__uptrBlockBaseAddress();
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (WDT_nERROR) MCU__enWriteRegister(pstRegisterDataArg);
     }

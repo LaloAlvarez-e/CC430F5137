@@ -60,13 +60,6 @@ typedef enum
 
 typedef enum
 {
-    PMM_enMODULE_0 = 0U,
-    PMM_enMODULE_MAX = 1U,
-    PMM_enMODULE_UNDEF = UNDEF_VALUE,
-}PMM_nMODULE;
-
-typedef enum
-{
     PMM_enINTERRUPT_WDT = 0U,
     PMM_enINTERRUPT_OSC = 1U,
     PMM_enINTERRUPT_VMA = 2U,

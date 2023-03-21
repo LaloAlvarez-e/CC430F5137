@@ -60,13 +60,6 @@ typedef enum
 
 typedef enum
 {
-    SFR_enMODULE_0 = 0U,
-    SFR_enMODULE_MAX = 1U,
-    SFR_enMODULE_UNDEF = UNDEF_VALUE,
-}SFR_nMODULE;
-
-typedef enum
-{
     SFR_enRESETPIN_RESISTOR_NONE = 0U,
     SFR_enRESETPIN_RESISTOR_PULLDOWN = 0x10U,
     SFR_enRESETPIN_RESISTOR_PULLUP = 0x11U,

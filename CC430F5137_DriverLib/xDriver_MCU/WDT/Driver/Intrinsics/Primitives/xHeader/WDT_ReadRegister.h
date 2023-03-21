@@ -29,8 +29,8 @@
 
 #pragma CODE_SECTION(WDT__enReadRegister_RAM, ".TI.ramfunc")
 
-WDT_nERROR WDT__enReadRegister(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg);
-WDT_nERROR WDT__enReadRegister_RAM(WDT_nMODULE enModuleArg, WDT_Register_t* pstRegisterDataArg);
+WDT_nERROR WDT__enReadRegister(WDT_Register_t* pstRegisterDataArg);
+WDT_nERROR WDT__enReadRegister_RAM(WDT_Register_t* pstRegisterDataArg);
 
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_WDT_READREGISTER_H_ */

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_Enum.h>
 
-SYSCTL_nERROR SYSCTL__enWriteRegister(SYSCTL_nMODULE enModuleArg, SYSCTL_Register_t* pstRegisterDataArg);
-SYSCTL_nERROR SYSCTL__enWriteRegisterDirect(SYSCTL_nMODULE enModuleArg, SYSCTL_Register_t* pstRegisterDataArg);
+SYSCTL_nERROR SYSCTL__enWriteRegister(SYSCTL_Register_t* pstRegisterDataArg);
+SYSCTL_nERROR SYSCTL__enWriteRegisterDirect(SYSCTL_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_SYSCTL_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_SYSCTL_WRITEREGISTER_H_ */

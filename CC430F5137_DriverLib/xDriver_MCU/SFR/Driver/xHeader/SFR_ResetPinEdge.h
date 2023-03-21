@@ -27,7 +27,7 @@
 
 #include "xDriver_MCU/SFR/Peripheral/xHeader/SFR_Enum.h"
 
-SFR_nERROR SFR__enSetNMIPinEdge(SFR_nMODULE enModuleArg, SFR_nRESETPIN_EDGE enEdgeArg);
-SFR_nERROR SFR__enGetNMIPinEdge(SFR_nMODULE enModuleArg, SFR_nRESETPIN_EDGE* penEdgeArg);
+SFR_nERROR SFR__enSetNMIPinEdge(SFR_nRESETPIN_EDGE enEdgeArg);
+SFR_nERROR SFR__enGetNMIPinEdge(SFR_nRESETPIN_EDGE* penEdgeArg);
 
 #endif /* XDRIVER_MCU_SFR_DRIVER_XHEADER_SFR_RESETPINEDGE_H_ */

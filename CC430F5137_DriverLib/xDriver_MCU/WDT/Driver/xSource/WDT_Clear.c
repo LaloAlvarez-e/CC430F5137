@@ -26,7 +26,7 @@
 #include "xDriver_MCU/WDT/Driver/Intrinsics/WDT_Intrinsics.h"
 #include "xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h"
 
-WDT_nERROR WDT__enSetClear(WDT_nMODULE enModuleArg)
+WDT_nERROR WDT__enSetClear(void)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -41,7 +41,7 @@ WDT_nERROR WDT__enSetClear(WDT_nMODULE enModuleArg)
     pstRegisterData.uxValue = (UBase_t) uxValue;
     pstRegisterData.uxMask = WDT_CTL_R_PW_MASK | WDT_CTL_R_CNTCL_MASK;
     pstRegisterData.uxShift = 0U;
-    enErrorReg = WDT__enWriteRegister(enModuleArg, &pstRegisterData);
+    enErrorReg = WDT__enWriteRegister(&pstRegisterData);
 
     return (enErrorReg);
 }

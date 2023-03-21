@@ -27,7 +27,7 @@
 #include "xDriver_MCU/WDT/Driver/Intrinsics/WDT_Intrinsics.h"
 #include "xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h"
 
-WDT_nERROR WDT__enSetConfig(WDT_nMODULE enModuleArg, WDT_Config_t* pstConfig)
+WDT_nERROR WDT__enSetConfig(WDT_Config_t* pstConfig)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -46,7 +46,7 @@ WDT_nERROR WDT__enSetConfig(WDT_nMODULE enModuleArg, WDT_Config_t* pstConfig)
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        enErrorReg = WDT__enDisable(enModuleArg);
+        enErrorReg = WDT__enDisable();
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
@@ -82,14 +82,14 @@ WDT_nERROR WDT__enSetConfig(WDT_nMODULE enModuleArg, WDT_Config_t* pstConfig)
         pstRegisterData.uxValue = (UBase_t) uxValue;
         pstRegisterData.uxMask = MCU_MASK_BASE;
         pstRegisterData.uxShift = 0U;
-        enErrorReg = WDT__enWriteRegister(enModuleArg, &pstRegisterData);
+        enErrorReg = WDT__enWriteRegister(&pstRegisterData);
     }
 
     return (enErrorReg);
 }
 
 
-WDT_nERROR WDT__enSetConfigExt(WDT_nMODULE enModuleArg, WDT_ConfigExt_t* pstConfig)
+WDT_nERROR WDT__enSetConfigExt(WDT_ConfigExt_t* pstConfig)
 {
     WDT_nERROR enErrorReg;
 
@@ -100,19 +100,19 @@ WDT_nERROR WDT__enSetConfigExt(WDT_nMODULE enModuleArg, WDT_ConfigExt_t* pstConf
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        enErrorReg = WDT__enSetInterruptSourceState(enModuleArg, WDT_enSTATE_DIS);
+        enErrorReg = WDT__enSetInterruptSourceState(WDT_enSTATE_DIS);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        enErrorReg = WDT__enSetConfig(enModuleArg, &(pstConfig->stConfig));
+        enErrorReg = WDT__enSetConfig(&(pstConfig->stConfig));
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        enErrorReg = WDT__enSetStatusInterruptSource(enModuleArg, pstConfig->enInterruptStatus);
+        enErrorReg = WDT__enSetStatusInterruptSource(pstConfig->enInterruptStatus);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        enErrorReg = WDT__enSetInterruptSourceState(enModuleArg, pstConfig->enInterruptEnable);
+        enErrorReg = WDT__enSetInterruptSourceState(pstConfig->enInterruptEnable);
     }
 
     return (enErrorReg);

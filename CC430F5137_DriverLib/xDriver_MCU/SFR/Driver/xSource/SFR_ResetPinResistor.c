@@ -27,7 +27,7 @@
 #include <xDriver_MCU/SFR/Driver/Intrinsics/Primitives/SFR_Primitives.h>
 #include <xDriver_MCU/SFR/Peripheral/SFR_Peripheral.h>
 
-SFR_nERROR SFR__enSetNMIPinResistorState(SFR_nMODULE enModuleArg, SFR_nSTATE enStateArg)
+SFR_nERROR SFR__enSetNMIPinResistorState(SFR_nSTATE enStateArg)
 {
     SFR_Register_t stRegister;
     SFR_nERROR enErrorReg;
@@ -36,12 +36,12 @@ SFR_nERROR SFR__enSetNMIPinResistorState(SFR_nMODULE enModuleArg, SFR_nSTATE enS
     stRegister.uxMask = SFR_RPCR_SYSRSTRE_MASK;
     stRegister.uptrAddress = SFR_RPCR_OFFSET;
     stRegister.uxValue = (UBase_t) enStateArg;
-    enErrorReg = SFR__enWriteRegister(enModuleArg, &stRegister);
+    enErrorReg = SFR__enWriteRegister(&stRegister);
 
     return (enErrorReg);
 }
 
-SFR_nERROR SFR__enSetNMIPinResistor(SFR_nMODULE enModuleArg, SFR_nRESETPIN_RESISTOR enResitorArg)
+SFR_nERROR SFR__enSetNMIPinResistor(SFR_nRESETPIN_RESISTOR enResitorArg)
 {
     SFR_Register_t stRegister;
     UBase_t uxStateReg;
@@ -54,20 +54,20 @@ SFR_nERROR SFR__enSetNMIPinResistor(SFR_nMODULE enModuleArg, SFR_nRESETPIN_RESIS
     uxModeReg = (UBase_t) enResitorArg;
     uxModeReg &= 0xFU;
 
-    enErrorReg = SFR__enSetNMIPinResistorState(enModuleArg, (SFR_nSTATE) uxStateReg);
+    enErrorReg = SFR__enSetNMIPinResistorState((SFR_nSTATE) uxStateReg);
     if(SFR_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SFR_RPCR_R_SYSRSTUP_BIT;
         stRegister.uxMask = SFR_RPCR_SYSRSTUP_MASK;
         stRegister.uptrAddress = SFR_RPCR_OFFSET;
         stRegister.uxValue = (UBase_t) SFR_RPCR_SYSRSTUP_PULLDOWN;
-        enErrorReg = SFR__enWriteRegister(enModuleArg, &stRegister);
+        enErrorReg = SFR__enWriteRegister(&stRegister);
     }
     return (enErrorReg);
 }
 
 
-SFR_nERROR SFR__enGetNMIPinResistorState(SFR_nMODULE enModuleArg, SFR_nSTATE* penStateArg)
+SFR_nERROR SFR__enGetNMIPinResistorState(SFR_nSTATE* penStateArg)
 {
     SFR_Register_t stRegister;
     SFR_nERROR enErrorReg;
@@ -82,7 +82,7 @@ SFR_nERROR SFR__enGetNMIPinResistorState(SFR_nMODULE enModuleArg, SFR_nSTATE* pe
         stRegister.uxShift = SFR_RPCR_R_SYSRSTRE_BIT;
         stRegister.uxMask = SFR_RPCR_SYSRSTRE_MASK;
         stRegister.uptrAddress = SFR_RPCR_OFFSET;
-        enErrorReg = SFR__enReadRegister(enModuleArg, &stRegister);
+        enErrorReg = SFR__enReadRegister(&stRegister);
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
@@ -93,7 +93,7 @@ SFR_nERROR SFR__enGetNMIPinResistorState(SFR_nMODULE enModuleArg, SFR_nSTATE* pe
 }
 
 
-SFR_nERROR SFR__enGetNMIPinResistor(SFR_nMODULE enModuleArg, SFR_nRESETPIN_RESISTOR* penResitorArg)
+SFR_nERROR SFR__enGetNMIPinResistor(SFR_nRESETPIN_RESISTOR* penResitorArg)
 {
     SFR_Register_t stRegister;
     SFR_nERROR enErrorReg;
@@ -107,14 +107,14 @@ SFR_nERROR SFR__enGetNMIPinResistor(SFR_nMODULE enModuleArg, SFR_nRESETPIN_RESIS
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
-        enErrorReg = SFR__enGetNMIPinResistorState(enModuleArg, &enStateReg);
+        enErrorReg = SFR__enGetNMIPinResistorState(&enStateReg);
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
         stRegister.uxShift = SFR_RPCR_R_SYSRSTUP_BIT;
         stRegister.uxMask = SFR_RPCR_SYSRSTUP_MASK;
         stRegister.uptrAddress = SFR_RPCR_OFFSET;
-        enErrorReg = SFR__enReadRegister(enModuleArg, &stRegister);
+        enErrorReg = SFR__enReadRegister(&stRegister);
     }
     if(SFR_enERROR_OK == enErrorReg)
     {

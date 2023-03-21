@@ -26,7 +26,7 @@
 #include <xDriver_MCU/MCU/MCU.h>
 #include <xDriver_MCU/SFR/Peripheral/SFR_Peripheral.h>
 
-SFR_nERROR SFR__enReadRegister(SFR_nMODULE enModuleArg, SFR_Register_t* pstRegisterDataArg)
+SFR_nERROR SFR__enReadRegister(SFR_Register_t* pstRegisterDataArg)
 {
     uintptr_t uptrModuleBase;
     SFR_nERROR enErrorReg;
@@ -38,11 +38,7 @@ SFR_nERROR SFR__enReadRegister(SFR_nMODULE enModuleArg, SFR_Register_t* pstRegis
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
-        enErrorReg = (SFR_nERROR) MCU__enCheckParams((UBase_t) enModuleArg, (UBase_t) SFR_enMODULE_MAX);
-    }
-    if(SFR_enERROR_OK == enErrorReg)
-    {
-        uptrModuleBase = SFR__uptrBlockBaseAddress(enModuleArg);
+        uptrModuleBase = SFR__uptrBlockBaseAddress();
         pstRegisterDataArg->uptrAddress += uptrModuleBase;
         enErrorReg = (SFR_nERROR) MCU__enReadRegister(pstRegisterDataArg);
     }

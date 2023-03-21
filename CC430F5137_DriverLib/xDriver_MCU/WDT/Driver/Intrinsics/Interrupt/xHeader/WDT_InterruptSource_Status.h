@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h>
 
-WDT_nERROR WDT__enSetStatusInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTATUS enStatusArg);
-WDT_nERROR WDT__enStatusInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTATUS* penStatusArg);
-WDT_nERROR WDT__enStatusMaskedInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTATUS* penStatusArg);
+WDT_nERROR WDT__enSetStatusInterruptSource(WDT_nSTATUS enStatusArg);
+WDT_nERROR WDT__enStatusInterruptSource(WDT_nSTATUS* penStatusArg);
+WDT_nERROR WDT__enStatusMaskedInterruptSource(WDT_nSTATUS* penStatusArg);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_INTRINSICS_INTERRUPT_XHEADER_WDT_INTERRUPTSOURCE_STATUS_H_ */

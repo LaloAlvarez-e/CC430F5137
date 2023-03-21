@@ -27,17 +27,17 @@
 
 #include "xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h"
 
-WDT_nERROR WDT__enSetState(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg);
-WDT_nERROR WDT__enEnable(WDT_nMODULE enModuleArg);
-WDT_nERROR WDT__enDisable(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enSetState(WDT_nSTATE enStateArg);
+WDT_nERROR WDT__enEnable(void);
+WDT_nERROR WDT__enDisable(void);
 
-WDT_nERROR WDT__enGetState(WDT_nMODULE enModuleArg, WDT_nSTATE* penStateArg);
+WDT_nERROR WDT__enGetState(WDT_nSTATE* penStateArg);
 
 
-WDT_nERROR WDT__enSetState_RAM(WDT_nMODULE enModuleArg, WDT_nSTATE enStateArg);
-WDT_nERROR WDT__enEnable_RAM(WDT_nMODULE enModuleArg);
-WDT_nERROR WDT__enDisable_RAM(WDT_nMODULE enModuleArg);
+WDT_nERROR WDT__enSetState_RAM(WDT_nSTATE enStateArg);
+WDT_nERROR WDT__enEnable_RAM(void);
+WDT_nERROR WDT__enDisable_RAM(void);
 
-WDT_nERROR WDT__enGetState_RAM(WDT_nMODULE enModuleArg, WDT_nSTATE* penStateArg);
+WDT_nERROR WDT__enGetState_RAM(WDT_nSTATE* penStateArg);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_XHEADER_WDT_STATE_H_ */

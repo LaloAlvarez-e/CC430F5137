@@ -27,6 +27,6 @@
 
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_Enum.h>
 
-CRC_nERROR CRC__enSetInitData(CRC_nMODULE enModuleArg, UBase_t uxData);
+CRC_nERROR CRC__enSetInitData(UBase_t uxData);
 
 #endif /* XDRIVER_MCU_CRC_DRIVER_XHEADER_CRC_INIT_H_ */

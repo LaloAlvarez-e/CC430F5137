@@ -27,8 +27,8 @@
 
 #include "xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h"
 
-WDT_nERROR WDT__enSetClockSource(WDT_nMODULE enModuleArg, WDT_nCLOCK enClockSourceArg);
-WDT_nERROR WDT__enGetClockSource(WDT_nMODULE enModuleArg, WDT_nCLOCK* penClockSourceArg);
+WDT_nERROR WDT__enSetClockSource(WDT_nCLOCK enClockSourceArg);
+WDT_nERROR WDT__enGetClockSource(WDT_nCLOCK* penClockSourceArg);
 
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_XHEADER_WDT_CLOCK_H_ */

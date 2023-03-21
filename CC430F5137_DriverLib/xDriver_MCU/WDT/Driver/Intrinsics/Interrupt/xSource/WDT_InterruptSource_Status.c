@@ -28,7 +28,7 @@
 #include "xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h"
 #include <xDriver_MCU/MCU/MCU.h>
 
-WDT_nERROR WDT__enSetStatusInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTATUS enStatusArg)
+WDT_nERROR WDT__enSetStatusInterruptSource(WDT_nSTATUS enStatusArg)
 {
     WDT_Register_t stRegister;
     WDT_nERROR enErrorReg;
@@ -38,12 +38,12 @@ WDT_nERROR WDT__enSetStatusInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTATUS 
     stRegister.uxMask = (UBase_t) WDT_IFG1_IFG_MASK;
     stRegister.uptrAddress = WDT_IFG1_OFFSET;
     stRegister.uxValue = (UBase_t) enStatusArg;
-    enErrorReg = WDT__enWriteRegister(enModuleArg, &stRegister);
+    enErrorReg = WDT__enWriteRegister(&stRegister);
 
     return (enErrorReg);
 }
 
-WDT_nERROR WDT__enStatusInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTATUS* penStatusArg)
+WDT_nERROR WDT__enStatusInterruptSource(WDT_nSTATUS* penStatusArg)
 {
     WDT_Register_t stRegister;
     WDT_nERROR enErrorReg;
@@ -58,7 +58,7 @@ WDT_nERROR WDT__enStatusInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTATUS* pe
         stRegister.uxShift = (UBase_t) WDT_IFG1_R_IFG_BIT;
         stRegister.uxMask = (UBase_t) WDT_IFG1_IFG_MASK;
         stRegister.uptrAddress = WDT_IFG1_OFFSET;
-        enErrorReg = WDT__enReadRegister(enModuleArg, &stRegister);
+        enErrorReg = WDT__enReadRegister(&stRegister);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
@@ -67,7 +67,7 @@ WDT_nERROR WDT__enStatusInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTATUS* pe
     return (enErrorReg);
 }
 
-WDT_nERROR WDT__enStatusMaskedInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTATUS* penStatusArg)
+WDT_nERROR WDT__enStatusMaskedInterruptSource(WDT_nSTATUS* penStatusArg)
 {
     WDT_nERROR enErrorReg;
     WDT_nSTATE enStateReg;
@@ -82,11 +82,11 @@ WDT_nERROR WDT__enStatusMaskedInterruptSource(WDT_nMODULE enModuleArg, WDT_nSTAT
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        enErrorReg = WDT__enGetInterruptSourceState(enModuleArg, &enStateReg);
+        enErrorReg = WDT__enGetInterruptSourceState(&enStateReg);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
-        enErrorReg = WDT__enStatusInterruptSource(enModuleArg, &enStatusReg);
+        enErrorReg = WDT__enStatusInterruptSource(&enStatusReg);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {

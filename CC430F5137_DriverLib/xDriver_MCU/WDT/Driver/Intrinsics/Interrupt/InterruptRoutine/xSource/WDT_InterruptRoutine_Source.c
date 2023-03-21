@@ -23,27 +23,24 @@
  */
 #include <xDriver_MCU/WDT/Driver/Intrinsics/Interrupt/InterruptRoutine/xHeader/WDT_InterruptRoutine_Source.h>
 
-static WDT_puxfIRQSourceHandler_t WDT_uxIRQSourceHandler[(UBase_t) WDT_enMODULE_MAX]
-                                                         [(UBase_t) WDT_enINT_MAX] =
+static WDT_puxfIRQSourceHandler_t WDT_uxIRQSourceHandler[(UBase_t) WDT_enINT_MAX] =
 {
-    {
-        &MCU_uxIRQSourceHandler_Dummy, &MCU_uxIRQSourceHandler_Dummy, &MCU_uxIRQSourceHandler_Dummy
-    },
+ &MCU_uxIRQSourceHandler_Dummy, &MCU_uxIRQSourceHandler_Dummy, &MCU_uxIRQSourceHandler_Dummy
 };
 
 
-WDT_puxfIRQSourceHandler_t WDT__puxfGetIRQSourceHandler(WDT_nMODULE enModuleArg, WDT_nINT enInterruptArg)
+WDT_puxfIRQSourceHandler_t WDT__puxfGetIRQSourceHandler(WDT_nINT enInterruptArg)
 {
     WDT_puxfIRQSourceHandler_t puxfFunctionReg;
-    puxfFunctionReg = WDT_uxIRQSourceHandler[(UBase_t) enModuleArg] [(UBase_t) enInterruptArg];
+    puxfFunctionReg = WDT_uxIRQSourceHandler[(UBase_t) enInterruptArg];
 
     return (puxfFunctionReg);
 }
 
-WDT_puxfIRQSourceHandler_t* WDT__puxfGetIRQSourceHandlerPointer(WDT_nMODULE enModuleArg, WDT_nINT enInterruptArg)
+WDT_puxfIRQSourceHandler_t* WDT__puxfGetIRQSourceHandlerPointer(WDT_nINT enInterruptArg)
 {
     WDT_puxfIRQSourceHandler_t* puxfFunctionReg;
-    puxfFunctionReg = &WDT_uxIRQSourceHandler[(UBase_t) enModuleArg] [(UBase_t) enInterruptArg];
+    puxfFunctionReg = &WDT_uxIRQSourceHandler[(UBase_t) enInterruptArg];
 
     return (puxfFunctionReg);
 }

@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/SFR/Peripheral/xHeader/SFR_Enum.h>
 
-SFR_nERROR SFR__enWriteRegister(SFR_nMODULE enModuleArg, SFR_Register_t* pstRegisterDataArg);
-SFR_nERROR SFR__enWriteRegisterDirect(SFR_nMODULE enModuleArg, SFR_Register_t* pstRegisterDataArg);
+SFR_nERROR SFR__enWriteRegister(SFR_Register_t* pstRegisterDataArg);
+SFR_nERROR SFR__enWriteRegisterDirect(SFR_Register_t* pstRegisterDataArg);
 
 #endif /* XDRIVER_MCU_SFR_DRIVER_INTRINSICS_PRIMITIVES_XHEADER_SFR_WRITEREGISTER_H_ */

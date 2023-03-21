@@ -23,14 +23,10 @@
  */
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_RegisterPeripheral.h>
 
-uintptr_t CRC__uptrBlockBaseAddress(CRC_nMODULE enModuleArg)
+uintptr_t CRC__uptrBlockBaseAddress(void)
 {
-    const uintptr_t CRC_BLOCK_BASE[(uint8_t) CRC_enMODULE_MAX] =
-    {
-     CRC_BASE
-    };
     uintptr_t uptrReg;
-    uptrReg = CRC_BLOCK_BASE[(uint8_t) enModuleArg];
+    uptrReg = CRC_BASE;
     return(uptrReg);
 }
 

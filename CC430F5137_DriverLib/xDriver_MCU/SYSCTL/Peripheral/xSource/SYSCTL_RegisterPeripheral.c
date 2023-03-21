@@ -23,13 +23,11 @@
  */
 #include <xDriver_MCU/SYSCTL/Peripheral/xHeader/SYSCTL_RegisterPeripheral.h>
 
-uintptr_t SYSCTL__uptrBlockBaseAddress(SYSCTL_nMODULE enModuleArg)
+uintptr_t SYSCTL__uptrBlockBaseAddress(void)
 {
-    const uintptr_t SYSCTL_BLOCK_BASE[(UBase_t) SYSCTL_enMODULE_MAX] =
-    {
-     SYSCTL_BASE,
-    };
-    return (SYSCTL_BLOCK_BASE[(UBase_t) enModuleArg]);
+    uintptr_t uptrReg;
+    uptrReg = SYSCTL_BASE;
+    return(uptrReg);
 }
 
 

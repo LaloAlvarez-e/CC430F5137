@@ -27,8 +27,8 @@
 
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_Enum.h>
 
-CRC_nERROR CRC__enComputeDataByteArray_Opt(CRC_nMODULE enModuleArg, UBase_t uxInitValueArg, uint8_t* pu8DataArg, UBase_t CounterArg, UBase_t* puxResultArg);
-CRC_nERROR CRC__enComputeDataByteArray(CRC_nMODULE enModuleArg, UBase_t uxInitValueArg, uint8_t* pu8DataArg, UBase_t CounterArg, UBase_t* puxResultArg);
-CRC_nERROR CRC__enComputeDataWordArray(CRC_nMODULE enModuleArg, UBase_t uxInitValueArg, uint16_t* pu16DataArg, UBase_t CounterArg, UBase_t* puxResultArg);
+CRC_nERROR CRC__enComputeDataByteArray_Opt(UBase_t uxInitValueArg, uint8_t* pu8DataArg, UBase_t CounterArg, UBase_t* puxResultArg);
+CRC_nERROR CRC__enComputeDataByteArray(UBase_t uxInitValueArg, uint8_t* pu8DataArg, UBase_t CounterArg, UBase_t* puxResultArg);
+CRC_nERROR CRC__enComputeDataWordArray(UBase_t uxInitValueArg, uint16_t* pu16DataArg, UBase_t CounterArg, UBase_t* puxResultArg);
 
 #endif /* XDRIVER_MCU_CRC_DRIVER_XHEADER_CRC_DATAARRAY_H_ */

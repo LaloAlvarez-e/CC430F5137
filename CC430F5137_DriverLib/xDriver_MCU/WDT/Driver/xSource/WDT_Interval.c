@@ -26,7 +26,7 @@
 #include "xDriver_MCU/WDT/Driver/Intrinsics/WDT_Intrinsics.h"
 #include "xDriver_MCU/WDT/Peripheral/WDT_Peripheral.h"
 
-WDT_nERROR WDT__enSetInterval(WDT_nMODULE enModuleArg, WDT_nINTERVAL enIntervalArg)
+WDT_nERROR WDT__enSetInterval(WDT_nINTERVAL enIntervalArg)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -41,12 +41,12 @@ WDT_nERROR WDT__enSetInterval(WDT_nMODULE enModuleArg, WDT_nINTERVAL enIntervalA
     pstRegisterData.uxValue = (UBase_t) uxValue;
     pstRegisterData.uxMask = WDT_CTL_R_PW_MASK | WDT_CTL_R_CNTCL_CLEAR | WDT_CTL_R_IS_MASK;
     pstRegisterData.uxShift = 0U;
-    enErrorReg = WDT__enWriteRegister(enModuleArg, &pstRegisterData);
+    enErrorReg = WDT__enWriteRegister(&pstRegisterData);
 
     return (enErrorReg);
 }
 
-WDT_nERROR WDT__enGetInterval(WDT_nMODULE enModuleArg, WDT_nINTERVAL* penIntervalArg)
+WDT_nERROR WDT__enGetInterval(WDT_nINTERVAL* penIntervalArg)
 {
     WDT_Register_t pstRegisterData;
     WDT_nERROR enErrorReg;
@@ -61,7 +61,7 @@ WDT_nERROR WDT__enGetInterval(WDT_nMODULE enModuleArg, WDT_nINTERVAL* penInterva
         pstRegisterData.uptrAddress = WDT_CTL_OFFSET;
         pstRegisterData.uxMask = WDT_CTL_IS_MASK;
         pstRegisterData.uxShift = WDT_CTL_R_IS_BIT;
-        enErrorReg = WDT__enReadRegister(enModuleArg, &pstRegisterData);
+        enErrorReg = WDT__enReadRegister(&pstRegisterData);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {
@@ -72,7 +72,7 @@ WDT_nERROR WDT__enGetInterval(WDT_nMODULE enModuleArg, WDT_nINTERVAL* penInterva
 }
 
 
-WDT_nERROR WDT__enGetIntervalNum(WDT_nMODULE enModuleArg, uint32_t* pu32IntervalArg)
+WDT_nERROR WDT__enGetIntervalNum(uint32_t* pu32IntervalArg)
 {
     const uint32_t pu16LUTInterval[(UBase_t) WDT_enINTERVAL_MAX] =
     {
@@ -92,7 +92,7 @@ WDT_nERROR WDT__enGetIntervalNum(WDT_nMODULE enModuleArg, uint32_t* pu32Interval
     if(WDT_enERROR_OK == enErrorReg)
     {
         enIntervalReg = WDT_enINTERVAL_2147483648;
-        enErrorReg = WDT__enGetInterval(enModuleArg, &enIntervalReg);
+        enErrorReg = WDT__enGetInterval(&enIntervalReg);
     }
     if(WDT_enERROR_OK == enErrorReg)
     {

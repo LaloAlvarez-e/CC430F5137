@@ -27,7 +27,7 @@
 
 #include "xDriver_MCU/SFR/Peripheral/xHeader/SFR_Enum.h"
 
-SFR_nERROR SFR__enSetNMIPinMode(SFR_nMODULE enModuleArg, SFR_nRESETPIN_MODE enModeArg);
-SFR_nERROR SFR__enGetNMIPinMode(SFR_nMODULE enModuleArg, SFR_nRESETPIN_MODE* penModeArg);
+SFR_nERROR SFR__enSetNMIPinMode(SFR_nRESETPIN_MODE enModeArg);
+SFR_nERROR SFR__enGetNMIPinMode(SFR_nRESETPIN_MODE* penModeArg);
 
 #endif /* XDRIVER_MCU_SFR_DRIVER_XHEADER_SFR_RESETPINMODE_H_ */

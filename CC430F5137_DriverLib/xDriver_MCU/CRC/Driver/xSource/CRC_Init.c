@@ -28,7 +28,7 @@
 #include <xDriver_MCU/CRC/Peripheral/CRC_Peripheral.h>
 
 
-CRC_nERROR CRC__enSetInitData(CRC_nMODULE enModuleArg, UBase_t uxData)
+CRC_nERROR CRC__enSetInitData(UBase_t uxData)
 {
     CRC_Register_t stRegister;
     CRC_nERROR enErrorReg;
@@ -37,7 +37,7 @@ CRC_nERROR CRC__enSetInitData(CRC_nMODULE enModuleArg, UBase_t uxData)
     stRegister.uxMask = (UBase_t) CRC_INI_INIT_MASK;
     stRegister.uptrAddress = (uintptr_t) CRC_INI_OFFSET;
     stRegister.uxValue = (UBase_t) uxData;
-    enErrorReg = CRC__enWriteRegister(enModuleArg, &stRegister);
+    enErrorReg = CRC__enWriteRegister(&stRegister);
 
     return (enErrorReg);
 }

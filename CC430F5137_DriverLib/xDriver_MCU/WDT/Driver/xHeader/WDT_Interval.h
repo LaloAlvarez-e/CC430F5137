@@ -27,9 +27,9 @@
 
 #include "xDriver_MCU/WDT/Peripheral/xHeader/WDT_Enum.h"
 
-WDT_nERROR WDT__enSetInterval(WDT_nMODULE enModuleArg, WDT_nINTERVAL enIntervalArg);
+WDT_nERROR WDT__enSetInterval(WDT_nINTERVAL enIntervalArg);
 
-WDT_nERROR WDT__enGetInterval(WDT_nMODULE enModuleArg, WDT_nINTERVAL* penIntervalArg);
-WDT_nERROR WDT__enGetIntervalNum(WDT_nMODULE enModuleArg, uint32_t* pu32IntervalArg);
+WDT_nERROR WDT__enGetInterval(WDT_nINTERVAL* penIntervalArg);
+WDT_nERROR WDT__enGetIntervalNum(uint32_t* pu32IntervalArg);
 
 #endif /* XDRIVER_MCU_WDT_DRIVER_XHEADER_WDT_INTERVAL_H_ */

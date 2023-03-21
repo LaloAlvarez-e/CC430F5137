@@ -27,7 +27,7 @@
 #include <xDriver_MCU/SFR/Driver/Intrinsics/Primitives/SFR_Primitives.h>
 #include <xDriver_MCU/SFR/Peripheral/SFR_Peripheral.h>
 
-SFR_nERROR SFR__enSetNMIPinEdge(SFR_nMODULE enModuleArg, SFR_nRESETPIN_EDGE enEdgeArg)
+SFR_nERROR SFR__enSetNMIPinEdge(SFR_nRESETPIN_EDGE enEdgeArg)
 {
     SFR_Register_t stRegister;
     SFR_nERROR enErrorReg;
@@ -36,13 +36,13 @@ SFR_nERROR SFR__enSetNMIPinEdge(SFR_nMODULE enModuleArg, SFR_nRESETPIN_EDGE enEd
     stRegister.uxMask = SFR_RPCR_SYSNMIIES_MASK;
     stRegister.uptrAddress = SFR_RPCR_OFFSET;
     stRegister.uxValue = (UBase_t) enEdgeArg;
-    enErrorReg = SFR__enWriteRegister(enModuleArg, &stRegister);
+    enErrorReg = SFR__enWriteRegister(&stRegister);
 
     return (enErrorReg);
 }
 
 
-SFR_nERROR SFR__enGetNMIPinEdge(SFR_nMODULE enModuleArg, SFR_nRESETPIN_EDGE* penEdgeArg)
+SFR_nERROR SFR__enGetNMIPinEdge(SFR_nRESETPIN_EDGE* penEdgeArg)
 {
     SFR_Register_t stRegister;
     SFR_nERROR enErrorReg;
@@ -57,7 +57,7 @@ SFR_nERROR SFR__enGetNMIPinEdge(SFR_nMODULE enModuleArg, SFR_nRESETPIN_EDGE* pen
         stRegister.uxShift = SFR_RPCR_R_SYSNMIIES_BIT;
         stRegister.uxMask = SFR_RPCR_SYSNMIIES_MASK;
         stRegister.uptrAddress = SFR_RPCR_OFFSET;
-        enErrorReg = SFR__enReadRegister(enModuleArg, &stRegister);
+        enErrorReg = SFR__enReadRegister(&stRegister);
     }
     if(SFR_enERROR_OK == enErrorReg)
     {
