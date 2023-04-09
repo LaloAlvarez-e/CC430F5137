@@ -126,25 +126,46 @@ unsigned char receiving = 0;
 
 uint16_t PORT1_ISR(uintptr_t uptrPort, void* pvPinNumber);
 uint16_t TIMERA_ISR(uintptr_t uptrPort, void* pvPinNumber);
+uint16_t WDT_ISR(uintptr_t uptrPort, void* pvPinNumber);
 
 void InitWatchDog(void);
 void InitTimer(void);
 void InitButtonLeds(void);
+void InitClockSystem(void);
+
+uint32_t u32Frequencies[10U];
 
 void main( void )
 {  
     SYSCTL__enSetVectorInterrupt(SYSCTL_enVECTOR_RAM);
     InitWatchDog();
     // Increase PMMCOREV level to 2 for proper radio operation
-    SetVCore(2);
+    SetVCore(3);
+    InitClockSystem();
+
     RAM__enSetSectorState((UBase_t) (RAM_enSECTOR_7 | RAM_enSECTOR_6 | RAM_enSECTOR_5 | RAM_enSECTOR_4 | RAM_enSECTOR_3 | RAM_enSECTOR_2), RAM_enSTATE_DIS);
     MAP__enSetReconfig(MAP_enSTATE_ENA);
-    MAP_PORT__enSetFunctionByMask(MAP_enMODULE_1, (MAP_nPINMASK) (MAP_enPINMASK_7 | MAP_enPINMASK_5 | MAP_enPINMASK_1), MAP_enFUNCTION_M_CLK);
+    MAP_PORT__enSetFunctionByMask(MAP_enMODULE_3, (MAP_nPINMASK) (MAP_enPINMASK_1), MAP_enFUNCTION_SM_CLK);
+    MAP_PORT__enSetFunctionByMask(MAP_enMODULE_3, (MAP_nPINMASK) (MAP_enPINMASK_2), MAP_enFUNCTION_M_CLK);
+    MAP_PORT__enSetFunctionByMask(MAP_enMODULE_3, (MAP_nPINMASK) (MAP_enPINMASK_3), MAP_enFUNCTION_A_CLK);
+    PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_1, PORT_enMODE_PERIPHERAL_OUTPUT_FULL_HIGH);
+    PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_2, PORT_enMODE_PERIPHERAL_OUTPUT_FULL_HIGH);
+    PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_3, PORT_enMODE_PERIPHERAL_OUTPUT_FULL_HIGH);
 
     InitTimer();
     InitRadio();
     InitButtonLeds();
 
+    CLOCK_XT1__enGetFrequency(&u32Frequencies[0]);
+    CLOCK_VLO__enGetFrequency(&u32Frequencies[1]);
+    CLOCK_REFO__enGetFrequency(&u32Frequencies[2]);
+    CLOCK_FLL__enGetFrequency(&u32Frequencies[3]);
+    CLOCK_FLLDIV__enGetFrequency(&u32Frequencies[4]);
+    CLOCK_ACLK__enGetFrequency(&u32Frequencies[5]);
+    CLOCK_ACLK__enGetOutputFrequency(&u32Frequencies[6]);
+    CLOCK_SMCLK__enGetFrequency(&u32Frequencies[7]);
+    CLOCK_MCLK__enGetFrequency(&u32Frequencies[8]);
+    CLOCK_MODCLK__enGetFrequency(&u32Frequencies[9]);
     ReceiveOn();
     receiving = 1;
 
@@ -191,10 +212,40 @@ void InitWatchDog(void)
     stWdtConfig.enInterruptStatus = WDT_enSTATUS_INACTIVE;
     stWdtConfig.enInterruptEnable = WDT_enSTATE_ENA;
     // Stop watchdog timer to prevent time out reset
-    WDT__enRegisterIRQSourceHandler(WDT_enINT_INTERVAL, &TIMERA_ISR);
-    WDT__enSetConfigExt(&stWdtConfig);
+     WDT__enRegisterIRQSourceHandler(WDT_enINT_INTERVAL, &WDT_ISR);
+     WDT__enSetConfigExt(&stWdtConfig);
 }
 
+void InitClockSystem(void)
+{
+
+    CLOCK_ACLK__enSetClockSource(CLOCK_enSOURCE_REFO);
+    CLOCK_MCLK__enSetClockSource(CLOCK_enSOURCE_REFO);
+    CLOCK_SMCLK__enSetClockSource(CLOCK_enSOURCE_REFO);
+
+    CLOCK_XT1__enSetConditionalState(CLOCK_enSTATE_DIS);
+    CLOCK_XT1__enSetMode(CLOCK_enXT1_MODE_LOWFREQ);
+    CLOCK_XT1__enSetSource(CLOCK_enXT1_SOURCE_CRYSTAL);
+    CLOCK_XT1__enSetCapacitance(CLOCK_enXT1_CAP_12_0PF);
+
+    CLOCK_SMCLK__enSetConditionalState(CLOCK_enSTATE_DIS);
+
+    CLOCK_FLL__enSetDCORange(CLOCK_enDCO_RANGE_28_2MHZ);
+    CLOCK_FLL__enSetReference(CLOCK_enFLL_REFERENCE_XT1);
+    CLOCK_FLL__enSetReferenceDivider(CLOCK_enFLL_REFDIVIDER_4); //12 Division
+    CLOCK_FLL__enSetMultiplierLoop(CLOCK_enFLL_MULTI_LOOP_8); //32 Multiplicacion
+    CLOCK_FLL__enSetMultiplier(305); //512 18MHz Multiplicacion
+
+    CLOCK_ACLK__enSetDivider(CLOCK_enDIVIDER_1);
+    CLOCK_ACLK__enSetOutputDivider(CLOCK_enDIVIDER_1);
+    CLOCK_SMCLK__enSetDivider(CLOCK_enDIVIDER_1);
+    CLOCK_MCLK__enSetDivider(CLOCK_enDIVIDER_1);
+
+    CLOCK_ACLK__enSetClockSource(CLOCK_enSOURCE_XT1); /*32768*/
+    CLOCK_SMCLK__enSetClockSource(CLOCK_enSOURCE_FLL_DIV); /*2498560*/
+    CLOCK_MCLK__enSetClockSource(CLOCK_enSOURCE_FLL); /*19988480*/
+
+}
 
 void InitButtonLeds(void)
 {
@@ -205,6 +256,13 @@ void InitButtonLeds(void)
 
     PORT__enClearInterruptSourceByNumber(PORT_enMODULE_1, PORT_enPIN_0);
     PORT__enSetInterruptSourceStateByNumber(PORT_enMODULE_1, PORT_enPIN_0, PORT_enSTATE_DIS);
+
+    /*Set P3.5 as output as Direct Logic*/
+    PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_5, PORT_enMODE_IO_OUTPUT_FULL_LOW);
+
+    PORT__enClearInterruptSourceByNumber(PORT_enMODULE_3, PORT_enPIN_5);
+    PORT__enSetInterruptSourceStateByNumber(PORT_enMODULE_3, PORT_enPIN_5, PORT_enSTATE_DIS);
+
 
     /*Set P3.6 as output with inversed logic*/
     PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_6, PORT_enMODE_IO_OUTPUT_FULL_HIGH);
@@ -224,16 +282,16 @@ void InitTimer(void)
 {
     TIMERA_ConfigExt_t stConfig;
 
-    stConfig.stConfig.enClockDivider = TIMERA_enCLOCK_DIV_20;
+    stConfig.stConfig.enClockDivider = TIMERA_enCLOCK_DIV_64;
     stConfig.stConfig.enClockSource = TIMERA_enCLOCK_SMCLK;
     stConfig.stConfig.enOperationMode = TIMERA_enMODE_UP;
-    stConfig.stConfig.uxPeriodTicks = 49999U;
+    stConfig.stConfig.uxPeriodTicks = 39040U - 1U;
     stConfig.enInterruptStatus = TIMERA_enSTATUS_INACTIVE;
     stConfig.enInterruptEnable = TIMERA_enSTATE_ENA;
 
-    //TIMERA__enRegisterIRQSourceHandler(TIMERA_enMODULE_0, &TIMERA_ISR);
+    TIMERA__enRegisterIRQSourceHandler(TIMERA_enMODULE_0, &TIMERA_ISR);
 
-    //TIMERA__enSetConfigExt(TIMERA_enMODULE_0, &stConfig);
+    TIMERA__enSetConfigExt(TIMERA_enMODULE_0, &stConfig);
 }
 
 void InitRadio(void)
@@ -250,6 +308,14 @@ void InitRadio(void)
   WriteSinglePATable(PATABLE_VAL);
 }
 
+uint16_t WDT_ISR(uintptr_t uptrPort, void* pvPinNumber)
+{
+    static UBase_t uxValue = 0U;
+
+    uxValue ^= 1U;
+    PORT__enSetOutputByNumber(PORT_enMODULE_1, PORT_enPIN_0, (PORT_nLEVEL) uxValue);
+    return (0);
+}
 
 
 uint16_t TIMERA_ISR(uintptr_t uptrPort, void* pvPinNumber)
@@ -257,7 +323,7 @@ uint16_t TIMERA_ISR(uintptr_t uptrPort, void* pvPinNumber)
     static UBase_t uxValue = 0U;
 
     uxValue ^= 1U;
-    PORT__enSetOutputByNumber(PORT_enMODULE_1, PORT_enPIN_0, (PORT_nLEVEL) uxValue);
+    PORT__enSetOutputByNumber(PORT_enMODULE_3, PORT_enPIN_5, (PORT_nLEVEL) uxValue);
     return (0);
 }
 

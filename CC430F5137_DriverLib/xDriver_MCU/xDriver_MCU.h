@@ -28,6 +28,7 @@
 #include "xDriver_MCU/MCU/MCU.h"
 #include "xDriver_MCU/SFR/SFR.h"
 #include "xDriver_MCU/SYSCTL/SYSCTL.h"
+#include "xDriver_MCU/CLOCK/CLOCK.h"
 #include "xDriver_MCU/RAM/RAM.h"
 #include "xDriver_MCU/PMM/PMM.h"
 #include "xDriver_MCU/PORT/PORT.h"

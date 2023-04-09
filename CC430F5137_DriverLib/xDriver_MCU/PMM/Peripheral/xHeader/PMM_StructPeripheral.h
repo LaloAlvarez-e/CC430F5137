@@ -55,6 +55,7 @@ typedef volatile struct
         SVS_LCTL_t SVS_LCTL_Bit;
         SVM_LCTL_t SVM_LCTL_Bit;
     };
+    const UBase_t uxReserved[2U];
     union
     {
         volatile UBase_t IFG;
