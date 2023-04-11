@@ -38,7 +38,7 @@ uintptr_t DMA_CH__uptrBlockBaseAddress(DMA_nCH enChannelArg)
 uintptr_t DMA__uptrBlockBaseAddress(void)
 {
     uintptr_t uptrReg;
-    uptrReg = DMA_BASE;
+    uptrReg = DMA_BASE_;
     return(uptrReg);
 }
 

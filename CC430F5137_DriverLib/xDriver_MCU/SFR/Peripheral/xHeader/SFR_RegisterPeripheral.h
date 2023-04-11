@@ -28,25 +28,25 @@
 #include <xDriver_MCU/SFR/Peripheral/xHeader/SFR_RegisterAddress.h>
 #include <xDriver_MCU/SFR/Peripheral/xHeader/SFR_StructPeripheral.h>
 
-#define SFR    ((SFR_t*) (SFR_BASE))
+#define SFR    ((SFR_t*) (SFR_BASE_))
 
 /********************************************************************************************
 ************************************** 1 IE1 **********************************************
 ********************************************************************************************/
-#define SFR_IE1    ((SFR_IE1_t*) (SFR_BASE + SFR_IE1_OFFSET ))
-#define SFR_IE1_R    (*((volatile UBase_t*) (SFR_BASE + SFR_IE1_OFFSET)))
+#define SFR_IE1    ((SFR_IE1_t*) (SFR_BASE_ + SFR_IE1_OFFSET ))
+#define SFR_IE1_R    (*((volatile UBase_t*) (SFR_BASE_ + SFR_IE1_OFFSET)))
 
 /********************************************************************************************
 ************************************** 2 IFG1 **********************************************
 ********************************************************************************************/
-#define SFR_IFG1    ((SFR_IFG1_t*) (SFR_BASE + SFR_IFG1_OFFSET ))
-#define SFR_IFG1_R    (*((volatile UBase_t*) (SFR_BASE + SFR_IFG1_OFFSET)))
+#define SFR_IFG1    ((SFR_IFG1_t*) (SFR_BASE_ + SFR_IFG1_OFFSET ))
+#define SFR_IFG1_R    (*((volatile UBase_t*) (SFR_BASE_ + SFR_IFG1_OFFSET)))
 
 /********************************************************************************************
 ************************************** 3 RPCR **********************************************
 ********************************************************************************************/
-#define SFR_RPCR    ((SFR_RPCR_t*) (SFR_BASE + SFR_RPCR_OFFSET ))
-#define SFR_RPCR_R    (*((volatile UBase_t*) (SFR_BASE + SFR_RPCR_OFFSET)))
+#define SFR_RPCR    ((SFR_RPCR_t*) (SFR_BASE_ + SFR_RPCR_OFFSET ))
+#define SFR_RPCR_R    (*((volatile UBase_t*) (SFR_BASE_ + SFR_RPCR_OFFSET)))
 
 uintptr_t SFR__uptrBlockBaseAddress(void);
 

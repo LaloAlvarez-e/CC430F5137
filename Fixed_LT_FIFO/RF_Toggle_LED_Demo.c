@@ -166,6 +166,66 @@ void main( void )
     CLOCK_SMCLK__enGetFrequency(&u32Frequencies[7]);
     CLOCK_MCLK__enGetFrequency(&u32Frequencies[8]);
     CLOCK_MODCLK__enGetFrequency(&u32Frequencies[9]);
+
+
+    AES->ACTL0_bits.SWRST = AES_ACTL0_SWRST_RESET;
+    AES->ACTL0_bits.CM =AES_ACTL0_CM_ECB;
+    AES->ACTL0_bits.KL =AES_ACTL0_KL_128;
+    AES->ACTL0_bits.OP =AES_ACTL0_OP_ENCRYPTION;
+    AES->ACTL0_bits.CMEN = AES_ACTL0_CMEN_DIS;
+
+    uint8_t* pu8KeyArray = "ESA CLAVE ES MIA";
+    uint8_t* pu8DataInArray = "EJEMPLOS PRUEBAS";
+    volatile uint8_t pu8DataOutArray[16U];
+    volatile uint8_t pu8DataArray[16U];
+
+    while(AES_ASTAT_R_BUSY_BUSY == (AES_ASTAT_R & AES_ASTAT_R_BUSY_MASK));
+    for(uint8_t i = 0U; i < 16U; i++)
+    {
+        AES_AKEY8_R = (uint8_t) pu8KeyArray[i];
+    }
+    while(AES_ASTAT_R_KEYWR_MISSING == (AES_ASTAT_R & AES_ASTAT_R_KEYWR_MASK) );
+
+
+    AES->ACTL0_bits.OP =AES_ACTL0_OP_ENCRYPTION;
+    for(uint8_t i= 0U; i< 16U; i++)
+    {
+        AES_ADIN8_R = (uint8_t) pu8DataInArray[i];
+    }
+    while(AES_ASTAT_R_BUSY_BUSY == (AES_ASTAT_R & AES_ASTAT_R_BUSY_MASK));
+
+    for(uint8_t i=0U; i<16U; i++)
+    {
+        pu8DataOutArray[i] = AES_ADOUT8_R;
+    }
+
+    /*****************************/
+
+    AES->ACTL0_bits.OP = AES_ACTL0_OP_KEYGEN;
+
+
+    while(AES_ASTAT_R_BUSY_BUSY == (AES_ASTAT_R & AES_ASTAT_R_BUSY_MASK));
+    for(uint8_t i = 0U; i < 16U; i++)
+    {
+        AES_AKEY8_R = (uint8_t) pu8KeyArray[i];
+    }
+    while(AES_ASTAT_R_BUSY_BUSY == (AES_ASTAT_R & AES_ASTAT_R_BUSY_MASK));
+
+    AES->ACTL0_bits.OP =AES_ACTL0_OP_DECRYPTION_KEYGEN;
+
+    for(uint8_t i= 0U; i< 16U; i++)
+    {
+        AES_ADIN8_R = (uint8_t) pu8DataOutArray[i];
+    }
+    AES->ASTAT_bits.KEYWR = AES_ASTAT_KEYWR_COMPLETED;
+    while(AES_ASTAT_R_BUSY_BUSY == (AES_ASTAT_R & AES_ASTAT_R_BUSY_MASK));
+
+    for(uint8_t i=0U; i<16U; i++)
+    {
+        pu8DataArray[i] = AES_ADOUT8_R;
+    }
+
+
     ReceiveOn();
     receiving = 1;
 

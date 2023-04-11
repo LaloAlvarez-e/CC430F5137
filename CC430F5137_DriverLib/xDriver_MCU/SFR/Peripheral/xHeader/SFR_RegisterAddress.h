@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/SFR/Peripheral/xHeader/SFR_Enum.h>
 
-#define SFR_BASE    ((UBase_t) 0x0100UL)
+#define SFR_BASE_    ((UBase_t) 0x0100UL)
 
 #define SFR_IE1_OFFSET    ((UBase_t) 0x0000UL)
 #define SFR_IFG1_OFFSET    ((UBase_t) 0x0002UL)

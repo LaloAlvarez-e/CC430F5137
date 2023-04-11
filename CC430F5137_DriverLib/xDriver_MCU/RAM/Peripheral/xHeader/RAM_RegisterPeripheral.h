@@ -29,13 +29,13 @@
 #include <xDriver_MCU/RAM/Peripheral/xHeader/RAM_StructPeripheral.h>
 
 
-#define RAM ((RAM_t*) RAM_BASE)
+#define RAM ((RAM_t*) RAM_BASE_)
 
 /******************************************************************************************
  ************************************ 1 CTL0 *********************************************
  ******************************************************************************************/
-#define RAM_CTL0_R  (*(volatile UBase_t*) (RAM_BASE + RAM_CTL0_OFFSET))
-#define RAM_CTL0    ((RAM_CTL0_t*) (RAM_BASE + RAM_CTL0_OFFSET))
+#define RAM_CTL0_R  (*(volatile UBase_t*) (RAM_BASE_ + RAM_CTL0_OFFSET))
+#define RAM_CTL0    ((RAM_CTL0_t*) (RAM_BASE_ + RAM_CTL0_OFFSET))
 
 uintptr_t RAM__uptrBlockBaseAddress();
 

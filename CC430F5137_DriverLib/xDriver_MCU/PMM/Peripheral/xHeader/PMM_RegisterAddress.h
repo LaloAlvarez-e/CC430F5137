@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/PMM/Peripheral/xHeader/PMM_Enum.h>
 
-#define PMM_BASE    ((UBase_t) 0x0120UL)
+#define PMM_BASE_    ((UBase_t) 0x0120UL)
 
 #define PMM_CTL0_OFFSET    ((UBase_t) 0x0000UL)
 #define PMM_CTL1_OFFSET    ((UBase_t) 0x0002UL)

@@ -26,7 +26,7 @@
 uintptr_t SFR__uptrBlockBaseAddress(void)
 {
     uintptr_t uptrReg;
-    uptrReg = SFR_BASE;
+    uptrReg = SFR_BASE_;
     return(uptrReg);
 }
 

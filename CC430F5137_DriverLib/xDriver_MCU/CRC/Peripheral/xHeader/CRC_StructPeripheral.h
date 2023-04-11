@@ -35,6 +35,7 @@ typedef volatile struct
         volatile UBase_t DI16;
         CRC_DI8_t DI8_bits[2U];
         CRC_DI16_t DI16_bits;
+        CRC_DI_t DI_bits;
     };
     const UBase_t reserved0[1U];
     union

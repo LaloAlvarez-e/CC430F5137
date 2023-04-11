@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/RAM/Peripheral/xHeader/RAM_Enum.h>
 
-#define RAM_BASE (0x0158U)
+#define RAM_BASE_ (0x0158U)
 
 #define RAM_CTL0_OFFSET (0x00U)
 

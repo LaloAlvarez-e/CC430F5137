@@ -35,6 +35,7 @@
 #include "xDriver_MCU/MAP/MAP.h"
 #include "xDriver_MCU/DMA/DMA.h"
 #include "xDriver_MCU/CRC/CRC.h"
+#include "xDriver_MCU/AES/AES.h"
 #include "xDriver_MCU/WDT/WDT.h"
 #include "xDriver_MCU/TIMERA/TIMERA.h"
 

@@ -27,15 +27,15 @@
 
 #include <xDriver_MCU/DMA/Peripheral/xHeader/DMA_Enum.h>
 
-#define DMA_BASE (0x500U)
+#define DMA_BASE_ (0x500U)
 
 #define DMA_CH0_BASE (0x510U)
 #define DMA_CH1_BASE (0x520U)
 #define DMA_CH2_BASE (0x530U)
 
-#define DMA_CH0_OFFSET (DMA_CH0_BASE - DMA_BASE)
-#define DMA_CH1_OFFSET (DMA_CH1_BASE - DMA_BASE)
-#define DMA_CH2_OFFSET (DMA_CH2_BASE - DMA_BASE)
+#define DMA_CH0_OFFSET (DMA_CH0_BASE - DMA_BASE_)
+#define DMA_CH1_OFFSET (DMA_CH1_BASE - DMA_BASE_)
+#define DMA_CH2_OFFSET (DMA_CH2_BASE - DMA_BASE_)
 
 
 #define DMA_CH_TRIGGER_OFFSET (0x00U)

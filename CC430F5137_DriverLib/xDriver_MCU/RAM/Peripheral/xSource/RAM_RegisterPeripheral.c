@@ -26,7 +26,7 @@
 uintptr_t RAM__uptrBlockBaseAddress()
 {
     uintptr_t uptrReg;
-    uptrReg = RAM_BASE;
+    uptrReg = RAM_BASE_;
     return (uptrReg);
 }
 

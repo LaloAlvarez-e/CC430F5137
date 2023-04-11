@@ -26,7 +26,7 @@
 uintptr_t PMM__uptrBlockBaseAddress(void)
 {
     uintptr_t uptrReg;
-    uptrReg = PMM_BASE;
+    uptrReg = PMM_BASE_;
     return(uptrReg);
 }
 
