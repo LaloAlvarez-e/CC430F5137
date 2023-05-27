@@ -76,7 +76,7 @@ uint16_t INTERRUPT__pfvVector[63U] =
     (uint16_t) &IntDefaultHandler,                /* The Reserved42 handler*/
     (uint16_t) &IntDefaultHandler,                /* The Reserved43 handler*/
     (uint16_t) &IntDefaultHandler,                /* The Reserved44 handler*/
-    (uint16_t) &IntDefaultHandler,                /* The AES        handler*/
+    (uint16_t) &AES__IRQVectorHandler,            /* The AES        handler*/
     (uint16_t) &IntDefaultHandler,                /* The RTC        handler*/
     (uint16_t) &IntDefaultHandler,                /* The Reserved47 handler*/
     (uint16_t) &PORT2__IRQVectorHandler,          /* The PORT2      handler*/

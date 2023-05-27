@@ -74,438 +74,147 @@
  *
  *
  * --/COPYRIGHT--*/
-/******************************************************************************
-* CC430 RF Code Example - TX and RX (fixed packet length =< FIFO size)
-*
-* Simple RF Link to Toggle Receiver's LED by pressing Transmitter's Button    
-* Warning: This RF code example is setup to operate at either 868 or 915 MHz, 
-* which might be out of allowable range of operation in certain countries.
-* The frequency of operation is selectable as an active build configuration
-* in the project menu. 
-* 
-* Please refer to the appropriate legal sources before performing tests with 
-* this code example. 
-* 
-* This code example can be loaded to 2 CC430 devices. Each device will transmit 
-* a small packet, less than the FIFO size, upon a button pressed. Each device will also toggle its LED 
-* upon receiving the packet. 
-* 
-* The RF packet engine settings specify fixed-length-mode with CRC check 
-* enabled. The RX packet also appends 2 status bytes regarding CRC check, RSSI 
-* and LQI info. For specific register settings please refer to the comments for 
-* each register in RfRegSettings.c, the CC430x613x User's Guide, and/or 
-* SmartRF Studio.
-* 
-* G. Larmore
-* Texas Instruments Inc.
-* June 2012
-* Built with IAR v5.40.1 and CCS v5.2
-******************************************************************************/
 
-#include "RF_Toggle_LED_Demo.h"
-
-#define  PACKET_LEN         (0x05)			// PACKET_LEN <= 61
-#define  RSSI_IDX           (PACKET_LEN)    // Index of appended RSSI 
-#define  CRC_LQI_IDX        (PACKET_LEN+1)  // Index of appended LQI, checksum
-#define  CRC_OK             (BIT7)          // CRC_OK bit 
-#define  PATABLE_VAL        (0x51)          // 0 dBm output 
-
-extern RF_SETTINGS rfSettings;
-
-unsigned char packetReceived;
-unsigned char packetTransmit; 
-
-unsigned char RxBuffer[PACKET_LEN+2];
-unsigned char RxBufferLength = 0;
-const unsigned char TxBuffer[PACKET_LEN]= {0xAA, 0xBB, 0xCC, 0xDD, 0xEE};
-unsigned char buttonPressed = 0;
-unsigned int i = 0; 
-
-unsigned char transmitting = 0; 
-unsigned char receiving = 0; 
-
-uint16_t PORT1_ISR(uintptr_t uptrPort, void* pvPinNumber);
-uint16_t TIMERA_ISR(uintptr_t uptrPort, void* pvPinNumber);
-uint16_t WDT_ISR(uintptr_t uptrPort, void* pvPinNumber);
-
-void InitWatchDog(void);
-void InitTimer(void);
-void InitButtonLeds(void);
-void InitClockSystem(void);
-
-uint32_t u32Frequencies[10U];
-
-void main( void )
-{  
-    SYSCTL__enSetVectorInterrupt(SYSCTL_enVECTOR_RAM);
-    InitWatchDog();
-    // Increase PMMCOREV level to 2 for proper radio operation
-    SetVCore(3);
-    InitClockSystem();
-
-    RAM__enSetSectorState((UBase_t) (RAM_enSECTOR_7 | RAM_enSECTOR_6 | RAM_enSECTOR_5 | RAM_enSECTOR_4 | RAM_enSECTOR_3 | RAM_enSECTOR_2), RAM_enSTATE_DIS);
-    MAP__enSetReconfig(MAP_enSTATE_ENA);
-    MAP_PORT__enSetFunctionByMask(MAP_enMODULE_3, (MAP_nPINMASK) (MAP_enPINMASK_1), MAP_enFUNCTION_SM_CLK);
-    MAP_PORT__enSetFunctionByMask(MAP_enMODULE_3, (MAP_nPINMASK) (MAP_enPINMASK_2), MAP_enFUNCTION_M_CLK);
-    MAP_PORT__enSetFunctionByMask(MAP_enMODULE_3, (MAP_nPINMASK) (MAP_enPINMASK_3), MAP_enFUNCTION_A_CLK);
-    PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_1, PORT_enMODE_PERIPHERAL_OUTPUT_FULL_HIGH);
-    PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_2, PORT_enMODE_PERIPHERAL_OUTPUT_FULL_HIGH);
-    PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_3, PORT_enMODE_PERIPHERAL_OUTPUT_FULL_HIGH);
-
-    InitTimer();
-    InitRadio();
-    InitButtonLeds();
-
-    CLOCK_XT1__enGetFrequency(&u32Frequencies[0]);
-    CLOCK_VLO__enGetFrequency(&u32Frequencies[1]);
-    CLOCK_REFO__enGetFrequency(&u32Frequencies[2]);
-    CLOCK_FLL__enGetFrequency(&u32Frequencies[3]);
-    CLOCK_FLLDIV__enGetFrequency(&u32Frequencies[4]);
-    CLOCK_ACLK__enGetFrequency(&u32Frequencies[5]);
-    CLOCK_ACLK__enGetOutputFrequency(&u32Frequencies[6]);
-    CLOCK_SMCLK__enGetFrequency(&u32Frequencies[7]);
-    CLOCK_MCLK__enGetFrequency(&u32Frequencies[8]);
-    CLOCK_MODCLK__enGetFrequency(&u32Frequencies[9]);
-
-
-    uint8_t u8BytesRead;
-    uint8_t u8BytesWritten;
-    uint8_t pu8KeyArray[17U] = "ESA CLAVE ES MIA";
-    uint8_t pu8DataInArray[17U] = "EJEMPLOS PRUEBAS";
-    uint8_t pu8DataOutArray[16U] = {0U};
-    uint8_t pu8DataArray[16U] = {0U};
-
-
-    AES__enReset();
-
-    AES->ACTL0_bits.OP =AES_ACTL0_OP_ENCRYPTION;
-
-    {
-        AES_nBOOLEAN enIsBusy;
-        do{
-            AES__enIsBusy(&enIsBusy);
-        }while(AES_enTRUE == enIsBusy);
-    }
-
-    AES__enSetKeyByteArray(pu8KeyArray);
-    AES__enSetDataByteArray(pu8DataInArray, &u8BytesWritten);
-
-    {
-        AES_nBOOLEAN enIsBusy;
-        do{
-            AES__enIsBusy(&enIsBusy);
-        }while(AES_enTRUE == enIsBusy);
-    }
-
-    for(int i = 0;  i < 16; i++)
-    {
-        pu8DataOutArray[i] = 0U;
-    }
-    AES__enGetDataByteArray(pu8DataOutArray, &u8BytesRead);
-
-    /*****************************/
-
-    AES->ACTL0_bits.OP = AES_ACTL0_OP_KEYGEN;
-
-    {
-        AES_nBOOLEAN enIsBusy;
-        do{
-            AES__enIsBusy(&enIsBusy);
-        }while(AES_enTRUE == enIsBusy);
-    }
-
-    AES__enSetKeyByteArray(pu8KeyArray);
-
-    {
-        AES_nBOOLEAN enIsBusy;
-        do{
-            AES__enIsBusy(&enIsBusy);
-        }while(AES_enTRUE == enIsBusy);
-    }
-
-    AES->ACTL0_bits.OP =AES_ACTL0_OP_DECRYPTION_KEYGEN;
-
-    AES__enSetDataByteArray(pu8DataOutArray, &u8BytesWritten);
-    AES__enSetKeyValid();
-    {
-        AES_nBOOLEAN enIsBusy;
-        do{
-            AES__enIsBusy(&enIsBusy);
-        }while(AES_enTRUE == enIsBusy);
-    }
-
-    for(int i = 0;  i < 16; i++)
-    {
-        pu8DataArray[i] = 0U;
-    }
-    AES__enGetDataByteArray(pu8DataArray, &u8BytesRead);
-
-
-    ReceiveOn();
-    receiving = 1;
-
-    UBase_t uxResultByte;
-    UBase_t uxResultWord;
-
-    uxResultWord = 0;
-    uxResultByte = 0;
-
-    CRC__enComputeDataByteArray(0xFFFFU, "123456789", 9, &uxResultByte);
-    CRC__enComputeDataByteArray_Opt(0xFFFFU, "123456789", 9, &uxResultWord);
-
-    __bis_SR_register(GIE);
-    while (uxResultWord == uxResultByte)
-    {
-    __no_operation(); 
-    
-    if (buttonPressed & !transmitting)                      // Process a button press->transmit
-    {
-        PORT__enSetOutputByNumber(PORT_enMODULE_3, PORT_enPIN_6, PORT_enLEVEL_LOW); // Pulse LED during Transmit
-        buttonPressed = 0;
-
-        ReceiveOff();
-        receiving = 0;
-        Transmit( (unsigned char*)TxBuffer, sizeof TxBuffer);
-        transmitting = 1;
-
-    }
-    else if(!transmitting)
-    {
-      ReceiveOn();      
-      receiving = 1; 
-    }
-    }
-}
-
-void InitWatchDog(void)
-{
-    WDT_ConfigExt_t stWdtConfig;
-    stWdtConfig.stConfig.enClock = WDT_enCLOCK_ACLK;
-    stWdtConfig.stConfig.enInterval = WDT_enINTERVAL_32768;
-    stWdtConfig.stConfig.enMode = WDT_enMODE_INTERVAL;
-    stWdtConfig.stConfig.enEnable = WDT_enSTATE_ENA;
-    stWdtConfig.enInterruptStatus = WDT_enSTATUS_INACTIVE;
-    stWdtConfig.enInterruptEnable = WDT_enSTATE_ENA;
-    // Stop watchdog timer to prevent time out reset
-     WDT__enRegisterIRQSourceHandler(WDT_enINT_INTERVAL, &WDT_ISR);
-     WDT__enSetConfigExt(&stWdtConfig);
-}
-
-void InitClockSystem(void)
-{
-
-    CLOCK_ACLK__enSetClockSource(CLOCK_enSOURCE_REFO);
-    CLOCK_MCLK__enSetClockSource(CLOCK_enSOURCE_REFO);
-    CLOCK_SMCLK__enSetClockSource(CLOCK_enSOURCE_REFO);
-
-    CLOCK_XT1__enSetConditionalState(CLOCK_enSTATE_DIS);
-    CLOCK_XT1__enSetMode(CLOCK_enXT1_MODE_LOWFREQ);
-    CLOCK_XT1__enSetSource(CLOCK_enXT1_SOURCE_CRYSTAL);
-    CLOCK_XT1__enSetCapacitance(CLOCK_enXT1_CAP_12_0PF);
-
-    CLOCK_SMCLK__enSetConditionalState(CLOCK_enSTATE_DIS);
-
-    CLOCK_FLL__enSetDCORange(CLOCK_enDCO_RANGE_28_2MHZ);
-    CLOCK_FLL__enSetReference(CLOCK_enFLL_REFERENCE_XT1);
-    CLOCK_FLL__enSetReferenceDivider(CLOCK_enFLL_REFDIVIDER_4); //12 Division
-    CLOCK_FLL__enSetMultiplierLoop(CLOCK_enFLL_MULTI_LOOP_8); //32 Multiplicacion
-    CLOCK_FLL__enSetMultiplier(305); //512 18MHz Multiplicacion
-
-    CLOCK_ACLK__enSetDivider(CLOCK_enDIVIDER_1);
-    CLOCK_ACLK__enSetOutputDivider(CLOCK_enDIVIDER_1);
-    CLOCK_SMCLK__enSetDivider(CLOCK_enDIVIDER_1);
-    CLOCK_MCLK__enSetDivider(CLOCK_enDIVIDER_1);
-
-    CLOCK_ACLK__enSetClockSource(CLOCK_enSOURCE_XT1); /*32768*/
-    CLOCK_SMCLK__enSetClockSource(CLOCK_enSOURCE_FLL_DIV); /*2498560*/
-    CLOCK_MCLK__enSetClockSource(CLOCK_enSOURCE_FLL); /*19988480*/
-
-}
-
-void InitButtonLeds(void)
-{
-    PORT__enRegisterIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_7, &PORT1_ISR);
-
-    /*Set P1.0 as output as Direct Logic*/
-    PORT__enSetModeByNumber(PORT_enMODULE_1, PORT_enPIN_0, PORT_enMODE_IO_OUTPUT_FULL_LOW);
-
-    PORT__enClearInterruptSourceByNumber(PORT_enMODULE_1, PORT_enPIN_0);
-    PORT__enSetInterruptSourceStateByNumber(PORT_enMODULE_1, PORT_enPIN_0, PORT_enSTATE_DIS);
-
-    /*Set P3.5 as output as Direct Logic*/
-    PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_5, PORT_enMODE_IO_OUTPUT_FULL_LOW);
-
-    PORT__enClearInterruptSourceByNumber(PORT_enMODULE_3, PORT_enPIN_5);
-    PORT__enSetInterruptSourceStateByNumber(PORT_enMODULE_3, PORT_enPIN_5, PORT_enSTATE_DIS);
-
-
-    /*Set P3.6 as output with inversed logic*/
-    PORT__enSetModeByNumber(PORT_enMODULE_3, PORT_enPIN_6, PORT_enMODE_IO_OUTPUT_FULL_HIGH);
-
-    PORT__enClearInterruptSourceByNumber(PORT_enMODULE_3, PORT_enPIN_6);
-    PORT__enSetInterruptSourceStateByNumber(PORT_enMODULE_3, PORT_enPIN_6, PORT_enSTATE_DIS);
-
-    /*Set P1.7 as input with interruption Pull-Up*/
-    PORT__enSetModeByNumber(PORT_enMODULE_1, PORT_enPIN_7, PORT_enMODE_IO_INPUT_PULLUP);
-
-    PORT__enSetInterruptEdgeByNumber(PORT_enMODULE_1, PORT_enPIN_7, PORT_enEDGE_FALLING);
-    PORT__enClearInterruptSourceByNumber(PORT_enMODULE_1, PORT_enPIN_7);
-    PORT__enSetInterruptSourceStateByNumber(PORT_enMODULE_1, PORT_enPIN_7, PORT_enSTATE_ENA);
-}
-
-void InitTimer(void)
-{
-    TIMERA_ConfigExt_t stConfig;
-
-    stConfig.stConfig.enClockDivider = TIMERA_enCLOCK_DIV_64;
-    stConfig.stConfig.enClockSource = TIMERA_enCLOCK_SMCLK;
-    stConfig.stConfig.enOperationMode = TIMERA_enMODE_UP;
-    stConfig.stConfig.uxPeriodTicks = 39040U - 1U;
-    stConfig.enInterruptStatus = TIMERA_enSTATUS_INACTIVE;
-    stConfig.enInterruptEnable = TIMERA_enSTATE_ENA;
-
-    TIMERA__enRegisterIRQSourceHandler(TIMERA_enMODULE_0, &TIMERA_ISR);
-
-    TIMERA__enSetConfigExt(TIMERA_enMODULE_0, &stConfig);
-}
-
-void InitRadio(void)
-{
-  // Set the High-Power Mode Request Enable bit so LPM3 can be entered
-  // with active radio enabled 
-  PMMCTL0_H = 0xA5;
-  PMMCTL0_L |= PMMHPMRE_L; 
-  PMMCTL0_H = 0x00; 
-
-  ResetRadioCore();
-  WriteRfSettings(&rfSettings);
-  
-  WriteSinglePATable(PATABLE_VAL);
-}
-
-uint16_t WDT_ISR(uintptr_t uptrPort, void* pvPinNumber)
-{
-    static UBase_t uxValue = 0U;
-
-    uxValue ^= 1U;
-    PORT__enSetOutputByNumber(PORT_enMODULE_1, PORT_enPIN_0, (PORT_nLEVEL) uxValue);
-    return (0);
-}
-
-
-uint16_t TIMERA_ISR(uintptr_t uptrPort, void* pvPinNumber)
-{
-    static UBase_t uxValue = 0U;
-
-    uxValue ^= 1U;
-    PORT__enSetOutputByNumber(PORT_enMODULE_3, PORT_enPIN_5, (PORT_nLEVEL) uxValue);
-    return (0);
-}
-
-uint16_t PORT1_ISR(uintptr_t uptrPort, void* pvPinNumber)
-{
-    PORT1_t* pstPort = (PORT1_t*) uptrPort;
-    uint8_t u8ValuePin;
-
-    u8ValuePin = 1U;
-    u8ValuePin <<= (UBase_t) pvPinNumber;
-
-    if(0UL == (pstPort->IN & u8ValuePin))
-    {
-        if(0UL != (pstPort->IES & u8ValuePin)) /*High-To-Low*/
-        {
-            pstPort->IES &= ~u8ValuePin;
-            PORT__enSetOutputByNumber(PORT_enMODULE_1, PORT_enPIN_0, PORT_enLEVEL_HIGH);
-            buttonPressed = 1;
-        }
-    }
-    else
-    {
-        if(0UL == (pstPort->IES & u8ValuePin)) /*Low-To-High*/
-        {
-            pstPort->IES |= u8ValuePin;
-            PORT__enSetOutputByNumber(PORT_enMODULE_1, PORT_enPIN_0, PORT_enLEVEL_LOW);
-        }
-    }
-    return (0);
-}
-void Transmit(unsigned char *buffer, unsigned char length)
-{
-  RF1AIES |= BIT9;                          
-  RF1AIFG &= ~BIT9;                         // Clear pending interrupts
-  RF1AIE |= BIT9;                           // Enable TX end-of-packet interrupt
-  
-  WriteBurstReg(RF_TXFIFOWR, buffer, length);     
-  
-  Strobe( RF_STX );                         // Strobe STX   
-}
-
-void ReceiveOn(void)
-{  
-  RF1AIES |= BIT9;                          // Falling edge of RFIFG9
-  RF1AIFG &= ~BIT9;                         // Clear a pending interrupt
-  RF1AIE  |= BIT9;                          // Enable the interrupt 
-  
-  // Radio is in IDLE following a TX, so strobe SRX to enter Receive Mode
-  Strobe( RF_SRX );                      
-}
-
-void ReceiveOff(void)
-{
-  RF1AIE &= ~BIT9;                          // Disable RX interrupts
-  RF1AIFG &= ~BIT9;                         // Clear pending IFG
-
-  // It is possible that ReceiveOff is called while radio is receiving a packet.
-  // Therefore, it is necessary to flush the RX FIFO after issuing IDLE strobe 
-  // such that the RXFIFO is empty prior to receiving a packet.
-  Strobe( RF_SIDLE );
-  Strobe( RF_SFRX  );                       
-}
-
-__interrupt void CC1101_ISR(void)
-{
-  switch(__even_in_range(RF1AIV,32))        // Prioritizing Radio Core Interrupt 
-  {
-    case  0: break;                         // No RF core interrupt pending                                            
-    case  2: break;                         // RFIFG0 
-    case  4: break;                         // RFIFG1
-    case  6: break;                         // RFIFG2
-    case  8: break;                         // RFIFG3
-    case 10: break;                         // RFIFG4
-    case 12: break;                         // RFIFG5
-    case 14: break;                         // RFIFG6          
-    case 16: break;                         // RFIFG7
-    case 18: break;                         // RFIFG8
-    case 20:                                // RFIFG9
-      if(receiving)			    // RX end of packet
-      {
-        // Read the length byte from the FIFO       
-        RxBufferLength = ReadSingleReg( RXBYTES );               
-        ReadBurstReg(RF_RXFIFORD, RxBuffer, RxBufferLength); 
-        
-        // Stop here to see contents of RxBuffer
-        __no_operation(); 		   
-        
-        // Check the CRC results
-        if(RxBuffer[CRC_LQI_IDX] & CRC_OK)  
-        {
-          //P1OUT ^= BIT0;                    // Toggle LED1
-        }
-      }
-      else if(transmitting)		    // TX end of packet
-      {
-        RF1AIE &= ~BIT9;                    // Disable TX end-of-packet interrupt
-        PORT__enSetOutputByNumber(PORT_enMODULE_3, PORT_enPIN_6, PORT_enLEVEL_HIGH); // Pulse LED during Transmit
-        transmitting = 0; 
-      }
-      else while(1); 			    // trap 
-      break;
-    case 22: break;                         // RFIFG10
-    case 24: break;                         // RFIFG11
-    case 26: break;                         // RFIFG12
-    case 28: break;                         // RFIFG13
-    case 30: break;                         // RFIFG14
-    case 32: break;                         // RFIFG15
-  }  
-}
-
+#include "RF1A.h"
+
+#ifdef MHZ_915
+
+// Chipcon
+// Product = CC430Fx13x
+// Chip version = C   (PG 0.7)
+// Crystal accuracy = 10 ppm
+// X-tal frequency = 26 MHz
+// RF output power = 0 dBm
+// RX filterbandwidth = 101.562500 kHz
+// Deviation = 19 kHz
+// Datarate = 38.383484 kBaud
+// Modulation = (1) GFSK
+// Manchester enable = (0) Manchester disabled
+// RF Frequency = 914.999969 MHz
+// Channel spacing = 199.951172 kHz
+// Channel number = 0
+// Optimization = -
+// Sync mode = (3) 30/32 sync word bits detected
+// Format of RX/TX data = (0) Normal mode, use FIFOs for RX and TX
+// CRC operation = (1) CRC calculation in TX and CRC check in RX enabled
+// Forward Error Correction = 
+// Length configuration = (0) Fixed packet length, packet length configured by PKTLEN
+// Packetlength = 61
+// Preamble count = (2)  4 bytes
+// Append status = 1
+// Address check = (0) No address check
+// FIFO autoflush = 0
+// Device address = 0
+// GDO0 signal selection = ( 6) Asserts when sync word has been sent / received, and de-asserts at the end of the packet
+// GDO2 signal selection = (41) RF_RDY
+RF_SETTINGS rfSettings = {
+    0x08,   // FSCTRL1   Frequency synthesizer control.
+    0x00,   // FSCTRL0   Frequency synthesizer control.
+    0x23,   // FREQ2     Frequency control word, high byte.
+    0x31,   // FREQ1     Frequency control word, middle byte.
+    0x3B,   // FREQ0     Frequency control word, low byte.
+    0xCA,   // MDMCFG4   Modem configuration.
+    0x83,   // MDMCFG3   Modem configuration.
+    0x93,   // MDMCFG2   Modem configuration.
+    0x22,   // MDMCFG1   Modem configuration.
+    0xF8,   // MDMCFG0   Modem configuration.
+    0x00,   // CHANNR    Channel number.
+    0x34,   // DEVIATN   Modem deviation setting (when FSK modulation is enabled).
+    0x56,   // FREND1    Front end RX configuration.
+    0x10,   // FREND0    Front end TX configuration.
+    0x18,   // MCSM0     Main Radio Control State Machine configuration.
+    0x16,   // FOCCFG    Frequency Offset Compensation Configuration.
+    0x6C,   // BSCFG     Bit synchronization Configuration.
+    0x43,   // AGCCTRL2  AGC control.
+    0x40,   // AGCCTRL1  AGC control.
+    0x91,   // AGCCTRL0  AGC control.
+    0xE9,   // FSCAL3    Frequency synthesizer calibration.
+    0x2A,   // FSCAL2    Frequency synthesizer calibration.
+    0x00,   // FSCAL1    Frequency synthesizer calibration.
+    0x1F,   // FSCAL0    Frequency synthesizer calibration.
+    0x59,   // FSTEST    Frequency synthesizer calibration.
+    0x81,   // TEST2     Various test settings.
+    0x35,   // TEST1     Various test settings.
+    0x09,   // TEST0     Various test settings.
+    0x47,   // FIFOTHR   RXFIFO and TXFIFO thresholds.
+    0x29,   // IOCFG2    GDO2 output pin configuration.
+    0x06,   // IOCFG0    GDO0 output pin configuration. Refer to SmartRF? Studio User Manual for detailed pseudo register explanation.
+    0x04,   // PKTCTRL1  Packet automation control.
+    0x04,   // PKTCTRL0  Packet automation control.
+    0x00,   // ADDR      Device address.
+    0x64    // PKTLEN    Packet length.
+};
+
+#elif defined MHZ_868
+
+// Chipcon
+// Product = CC430Fx13x
+// Chip version = C   (PG 0.7)
+// Crystal accuracy = 10 ppm
+// X-tal frequency = 26 MHz
+// RF output power = 0 dBm
+// RX filterbandwidth = 101.562500 kHz
+// Deviation = 19 kHz
+// Datarate = 38.383484 kBaud
+// Modulation = (1) GFSK
+// Manchester enable = (0) Manchester disabled
+// RF Frequency = 867.999939 MHz
+// Channel spacing = 199.951172 kHz
+// Channel number = 0
+// Optimization = -
+// Sync mode = (3) 30/32 sync word bits detected
+// Format of RX/TX data = (0) Normal mode, use FIFOs for RX and TX
+// CRC operation = (1) CRC calculation in TX and CRC check in RX enabled
+// Forward Error Correction = 
+// Length configuration = (0) Fixed packet length, packet length configured by PKTLEN
+// Packetlength = 61
+// Preamble count = (2)  4 bytes
+// Append status = 1
+// Address check = (0) No address check
+// FIFO autoflush = 0
+// Device address = 0
+// GDO0 signal selection = ( 6) Asserts when sync word has been sent / received, and de-asserts at the end of the packet
+// GDO2 signal selection = (41) RF_RDY
+RF_SETTINGS rfSettings = {
+    0x08,   // FSCTRL1   Frequency synthesizer control.
+    0x00,   // FSCTRL0   Frequency synthesizer control.
+    0x21,   // FREQ2     Frequency control word, high byte.
+    0x62,   // FREQ1     Frequency control word, middle byte.
+    0x76,   // FREQ0     Frequency control word, low byte.
+    0xCA,   // MDMCFG4   Modem configuration.
+    0x83,   // MDMCFG3   Modem configuration.
+    0x93,   // MDMCFG2   Modem configuration.
+    0x22,   // MDMCFG1   Modem configuration.
+    0xF8,   // MDMCFG0   Modem configuration.
+    0x00,   // CHANNR    Channel number.
+    0x34,   // DEVIATN   Modem deviation setting (when FSK modulation is enabled).
+    0x56,   // FREND1    Front end RX configuration.
+    0x10,   // FREND0    Front end TX configuration.
+    0x18,   // MCSM0     Main Radio Control State Machine configuration.
+    0x16,   // FOCCFG    Frequency Offset Compensation Configuration.
+    0x6C,   // BSCFG     Bit synchronization Configuration.
+    0x43,   // AGCCTRL2  AGC control.
+    0x40,   // AGCCTRL1  AGC control.
+    0x91,   // AGCCTRL0  AGC control.
+    0xE9,   // FSCAL3    Frequency synthesizer calibration.
+    0x2A,   // FSCAL2    Frequency synthesizer calibration.
+    0x00,   // FSCAL1    Frequency synthesizer calibration.
+    0x1F,   // FSCAL0    Frequency synthesizer calibration.
+    0x59,   // FSTEST    Frequency synthesizer calibration.
+    0x81,   // TEST2     Various test settings.
+    0x35,   // TEST1     Various test settings.
+    0x09,   // TEST0     Various test settings.
+    0x47,   // FIFOTHR   RXFIFO and TXFIFO thresholds.
+    0x29,   // IOCFG2    GDO2 output pin configuration.
+    0x06,   // IOCFG0    GDO0 output pin configuration. Refer to SmartRF? Studio User Manual for detailed pseudo register explanation.
+    0x04,   // PKTCTRL1  Packet automation control.
+    0x04,   // PKTCTRL0  Packet automation control.
+    0x00,   // ADDR      Device address.
+    0x64    // PKTLEN    Packet length.
+};
+
+#endif
+
+#if !defined (MHZ_868) && !defined (MHZ_915)
+#error "Please select MHZ_868 or MHZ_915 as the active project configuration" 
+#endif
