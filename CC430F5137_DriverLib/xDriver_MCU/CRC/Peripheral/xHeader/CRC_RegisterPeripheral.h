@@ -28,7 +28,7 @@
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_RegisterAddress.h>
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_StructPeripheral.h>
 
-#define CRC ((CRC_t*) CRC_BASE)
+#define CRC ((CRC_t*) CRC_BASE_)
 
 /******************************************************************************************
  ************************************ 1 DI *********************************************

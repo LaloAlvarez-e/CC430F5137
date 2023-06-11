@@ -29,36 +29,36 @@
 
 typedef volatile struct
 {
-    volatile UBase_t WDTIE :1;
-    volatile UBase_t OFIE :1;
+    volatile UBase_t WDT_IE :1;
+    volatile UBase_t OF_IE :1;
     const UBase_t reserved:1;
-    volatile UBase_t VMAIE :1;
-    volatile UBase_t NMIIE :1;
-    volatile UBase_t ACCVIE :1;
-    volatile UBase_t JMBINIE :1;
-    volatile UBase_t JMBOUTIE :1;
+    volatile UBase_t VMA_IE :1;
+    volatile UBase_t NMI_IE :1;
+    volatile UBase_t ACCV_IE :1;
+    volatile UBase_t JMBIN_IE :1;
+    volatile UBase_t JMBOUT_IE :1;
     const UBase_t reserved1:8;
 }SFR_IE1_t;
 
 typedef volatile struct
 {
-    volatile UBase_t WDTIFG :1;
-    volatile UBase_t OFIFG :1;
+    volatile UBase_t WDT_IFG :1;
+    volatile UBase_t OF_IFG :1;
     const UBase_t reserved:1;
-    volatile UBase_t VMAIFG :1;
-    volatile UBase_t NMIIFG :1;
+    volatile UBase_t VMA_IFG :1;
+    volatile UBase_t NMI_IFG :1;
     const UBase_t reserved1:1;
-    volatile UBase_t JMBINIFG :1;
-    volatile UBase_t JMBOUTIFG :1;
+    volatile UBase_t JMBIN_IFG :1;
+    volatile UBase_t JMBOUT_IFG :1;
     const UBase_t reserved2:8;
 }SFR_IFG1_t;
 
 typedef volatile struct
 {
-    volatile UBase_t SYSNMI :1;
-    volatile UBase_t SYSNMIIES :1;
-    volatile UBase_t SYSRSTUP :1;
-    volatile UBase_t SYSRSTRE :1;
+    volatile UBase_t SYS_NMI :1;
+    volatile UBase_t SYS_NMIIES :1;
+    volatile UBase_t SYS_RSTUP :1;
+    volatile UBase_t SYS_RSTRE :1;
     const UBase_t reserved:12;
 }SFR_RPCR_t;
 

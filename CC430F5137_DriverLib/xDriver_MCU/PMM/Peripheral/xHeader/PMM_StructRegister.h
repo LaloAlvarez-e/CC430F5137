@@ -141,19 +141,19 @@ typedef volatile struct
 typedef volatile struct
 {
     volatile UBase_t SVLDLYIFG :1;
-    volatile UBase_t SVMLIFG :1;
-    volatile UBase_t SVMLVLRIFG :1;
+    volatile UBase_t SVML_IFG :1;
+    volatile UBase_t SVMLVLR_IFG :1;
     const UBase_t reserved:1;
     volatile UBase_t SVHDLYIFG :1;
-    volatile UBase_t SVMHIFG :1;
-    volatile UBase_t SVMHVLRIFG :1;
+    volatile UBase_t SVMH_IFG :1;
+    volatile UBase_t SVMHVLR_IFG :1;
     const UBase_t reserved2:1;
     volatile UBase_t BORIFG :1;
     volatile UBase_t RSTIFG :1;
     volatile UBase_t PORIFG :1;
     const UBase_t reserved3:1;
-    volatile UBase_t SVSHIFG :1;
-    volatile UBase_t SVSLIFG :1;
+    volatile UBase_t SVSH_IFG :1;
+    volatile UBase_t SVSL_IFG :1;
     const UBase_t reserved4:1;
     volatile UBase_t LPM5IFG :1;
 }PMM_IFG_t;
@@ -161,18 +161,18 @@ typedef volatile struct
 typedef volatile struct
 {
     volatile UBase_t SVLDLYIE :1;
-    volatile UBase_t SVMLIE :1;
-    volatile UBase_t SVMLVLRIE :1;
+    volatile UBase_t SVML_IE :1;
+    volatile UBase_t SVMLVLR_IE :1;
     const UBase_t reserved:1;
     volatile UBase_t SVHDLYIE :1;
-    volatile UBase_t SVMHIE :1;
-    volatile UBase_t SVMHVLRIE :1;
+    volatile UBase_t SVMH_IE :1;
+    volatile UBase_t SVMHVLR_IE :1;
     const UBase_t reserved2:1;
-    volatile UBase_t SVSLPE :1;
-    volatile UBase_t SVMLVLRPE :1;
+    volatile UBase_t SVS_LPE :1;
+    volatile UBase_t SVM_LVLRPE :1;
     const UBase_t reserved3:2;
-    volatile UBase_t SVSHPE :1;
-    volatile UBase_t SVMHVLRPE :1;
+    volatile UBase_t SVS_HPE :1;
+    volatile UBase_t SVM_HVLRPE :1;
     const UBase_t reserved4:2;
 }PMM_IE_t;
 

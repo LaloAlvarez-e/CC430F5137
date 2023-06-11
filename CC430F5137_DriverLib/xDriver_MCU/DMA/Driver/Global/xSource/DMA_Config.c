@@ -44,9 +44,9 @@ DMA_nERROR DMA__enSetConfig(DMA_Config_t* pstConfigArg)
     }
     if(DMA_enERROR_OK == enErrorReg)
     {
-        stConfigReg.DMARMWDIS = (UBase_t) pstConfigArg->enFetchMode;
-        stConfigReg.ENNMI = (UBase_t) pstConfigArg->enNmiStop;
-        stConfigReg.ROUNDROBIN = (UBase_t) pstConfigArg->enPriorityMode;
+        stConfigReg.DMA_RM_WDIS = (UBase_t) pstConfigArg->enFetchMode;
+        stConfigReg.EN_NMI = (UBase_t) pstConfigArg->enNmiStop;
+        stConfigReg.ROUND_ROBIN = (UBase_t) pstConfigArg->enPriorityMode;
 
         pstRegisterData.uptrAddress = DMA_CTL4_OFFSET;
         pstRegisterData.uxValue = (*(UBase_t*) &stConfigReg);

@@ -47,15 +47,15 @@ typedef volatile struct
 typedef volatile struct
 {
     volatile UBase_t IFG : 1;
-    volatile UBase_t COV : 1;
-    volatile UBase_t OUT : 1;
-    volatile UBase_t CCI : 1;
+    volatile UBase_t COV_ : 1;
+    volatile UBase_t OUT_ : 1;
+    volatile UBase_t CCI_ : 1;
     volatile UBase_t IE : 1;
     volatile UBase_t OUTMOD : 3;
-    volatile UBase_t CAP : 1;
+    volatile UBase_t CAP_ : 1;
     volatile const UBase_t reserved1 : 1;
-    volatile UBase_t SCCI : 1;
-    volatile UBase_t SCS : 1;
+    volatile UBase_t SCCI_ : 1;
+    volatile UBase_t SCS_ : 1;
     volatile UBase_t CCIS : 2;
     volatile UBase_t CM : 2;
 }TIMERA_CC_CTL_t;

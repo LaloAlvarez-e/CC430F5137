@@ -38,9 +38,9 @@ __interrupt void TIMERA0_CC0__IRQVectorHandler(void)
     uxControl = TIMERA1_CC0_CTL_R;
     pstControl = (TIMERA_CC_CTL_t*) &uxControl;
     stInterruptData.uxCounter = TIMERA0_CC0_COUNT_R;
-    stInterruptData.uxPinValue = pstControl->CCI;
-    stInterruptData.uxPinLatch = pstControl->SCCI;
-    stInterruptData.uxMode = pstControl->CAP;
+    stInterruptData.uxPinValue = pstControl->CCI_;
+    stInterruptData.uxPinLatch = pstControl->SCCI_;
+    stInterruptData.uxMode = pstControl->CAP_;
     IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_0,
                                                              (TIMERA_nCC_MODE) stInterruptData.uxMode);
     u16Status &= IRQSourceHandlerReg(TIMERA0_CC0_BASE, (void*) &stInterruptData);
@@ -64,9 +64,9 @@ __interrupt void TIMERA1_CC0__IRQVectorHandler(void)
     uxControl = TIMERA1_CC0_CTL_R;
     pstControl = (TIMERA_CC_CTL_t*) &uxControl ;
     stInterruptData.uxCounter = TIMERA1_CC0_COUNT_R;
-    stInterruptData.uxPinValue = pstControl->CCI;
-    stInterruptData.uxPinLatch = pstControl->SCCI;
-    stInterruptData.uxMode = pstControl->CAP;
+    stInterruptData.uxPinValue = pstControl->CCI_;
+    stInterruptData.uxPinLatch = pstControl->SCCI_;
+    stInterruptData.uxMode = pstControl->CAP_;
     IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_1, TIMERA_enCC_0,
                                                              (TIMERA_nCC_MODE) stInterruptData.uxMode);
     u16Status &= IRQSourceHandlerReg(TIMERA1_CC0_BASE, (void*) &stInterruptData);
@@ -95,9 +95,9 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
         uxControl = TIMERA0_CC1_CTL_R;
         pstControl = (TIMERA_CC_CTL_t*) &uxControl;
         stInterruptData.uxCounter = TIMERA0_CC1_COUNT_R;
-        stInterruptData.uxPinValue = pstControl->CCI;
-        stInterruptData.uxPinLatch = pstControl->SCCI;
-        stInterruptData.uxMode = pstControl->CAP;
+        stInterruptData.uxPinValue = pstControl->CCI_;
+        stInterruptData.uxPinLatch = pstControl->SCCI_;
+        stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_1,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
         u16Status &= IRQSourceHandlerReg(TIMERA0_CC1_BASE, (void*) &stInterruptData);
@@ -106,9 +106,9 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
         uxControl = TIMERA0_CC2_CTL_R;
         pstControl = (TIMERA_CC_CTL_t*) &uxControl;
         stInterruptData.uxCounter = TIMERA0_CC2_COUNT_R;
-        stInterruptData.uxPinValue = pstControl->CCI;
-        stInterruptData.uxPinLatch = pstControl->SCCI;
-        stInterruptData.uxMode = pstControl->CAP;
+        stInterruptData.uxPinValue = pstControl->CCI_;
+        stInterruptData.uxPinLatch = pstControl->SCCI_;
+        stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_2,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
         u16Status &= IRQSourceHandlerReg(TIMERA0_CC2_BASE, (void*) &stInterruptData);
@@ -117,9 +117,9 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
         uxControl = TIMERA0_CC3_CTL_R;
         pstControl = (TIMERA_CC_CTL_t*) &uxControl;
         stInterruptData.uxCounter = TIMERA0_CC3_COUNT_R;
-        stInterruptData.uxPinValue = pstControl->CCI;
-        stInterruptData.uxPinLatch = pstControl->SCCI;
-        stInterruptData.uxMode = pstControl->CAP;
+        stInterruptData.uxPinValue = pstControl->CCI_;
+        stInterruptData.uxPinLatch = pstControl->SCCI_;
+        stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_3,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
         u16Status &= IRQSourceHandlerReg(TIMERA0_CC3_BASE, (void*) &stInterruptData);
@@ -128,9 +128,9 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
         uxControl = TIMERA0_CC4_CTL_R;
         pstControl = (TIMERA_CC_CTL_t*) &uxControl;
         stInterruptData.uxCounter = TIMERA0_CC4_COUNT_R;
-        stInterruptData.uxPinValue = pstControl->CCI;
-        stInterruptData.uxPinLatch = pstControl->SCCI;
-        stInterruptData.uxMode = pstControl->CAP;
+        stInterruptData.uxPinValue = pstControl->CCI_;
+        stInterruptData.uxPinLatch = pstControl->SCCI_;
+        stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_4,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
         u16Status &= IRQSourceHandlerReg(TIMERA0_CC4_BASE, (void*) &stInterruptData);
@@ -169,9 +169,9 @@ __interrupt void TIMERA1__IRQVectorHandler(void)
         uxControl = TIMERA1_CC1_CTL_R;
         pstControl = (TIMERA_CC_CTL_t*) &uxControl;
         stInterruptData.uxCounter = TIMERA1_CC1_COUNT_R;
-        stInterruptData.uxPinValue = pstControl->CCI;
-        stInterruptData.uxPinLatch = pstControl->SCCI;
-        stInterruptData.uxMode = pstControl->CAP;
+        stInterruptData.uxPinValue = pstControl->CCI_;
+        stInterruptData.uxPinLatch = pstControl->SCCI_;
+        stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_1,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
         u16Status &= IRQSourceHandlerReg(TIMERA1_CC1_BASE, (void*) &stInterruptData);
@@ -180,9 +180,9 @@ __interrupt void TIMERA1__IRQVectorHandler(void)
         uxControl = TIMERA1_CC2_CTL_R;
         pstControl = (TIMERA_CC_CTL_t*) &uxControl;
         stInterruptData.uxCounter = TIMERA1_CC2_COUNT_R;
-        stInterruptData.uxPinValue = pstControl->CCI;
-        stInterruptData.uxPinLatch = pstControl->SCCI;
-        stInterruptData.uxMode = pstControl->CAP;
+        stInterruptData.uxPinValue = pstControl->CCI_;
+        stInterruptData.uxPinLatch = pstControl->SCCI_;
+        stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_2,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
         u16Status &= IRQSourceHandlerReg(TIMERA1_CC2_BASE, (void*) &stInterruptData);

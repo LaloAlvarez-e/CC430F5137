@@ -46,7 +46,7 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile const UBase_t BUSY : 1;
+    volatile const UBase_t BUSY_ : 1;
     volatile UBase_t KEYWR : 1;
     volatile UBase_t DINWR : 1;
     volatile const UBase_t DOUTRD : 1;

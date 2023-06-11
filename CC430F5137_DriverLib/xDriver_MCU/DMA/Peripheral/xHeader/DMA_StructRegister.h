@@ -35,9 +35,9 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile UBase_t ENNMI : 1;
-    volatile UBase_t ROUNDROBIN : 1;
-    volatile UBase_t DMARMWDIS : 1;
+    volatile UBase_t EN_NMI : 1;
+    volatile UBase_t ROUND_ROBIN : 1;
+    volatile UBase_t DMA_RMW_DIS : 1;
     volatile const UBase_t reserved1 : 13;
 }DMA_CTL_t;
 
@@ -75,9 +75,9 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile UBase_t ENNMI : 1;
-    volatile UBase_t ROUNDROBIN : 1;
-    volatile UBase_t DMARMWDIS : 1;
+    volatile UBase_t EN_NMI : 1;
+    volatile UBase_t ROUND_ROBIN : 1;
+    volatile UBase_t DMA_RM_WDIS : 1;
     volatile const UBase_t reserved1 : 13;
 }DMA_CTL4_t;
 

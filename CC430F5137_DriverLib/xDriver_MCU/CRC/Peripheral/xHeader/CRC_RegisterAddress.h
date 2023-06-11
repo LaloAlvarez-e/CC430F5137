@@ -27,7 +27,7 @@
 
 #include <xDriver_MCU/CRC/Peripheral/xHeader/CRC_Enum.h>
 
-#define CRC_BASE (0x150U)
+#define CRC_BASE_ (0x150U)
 
 #define CRC_DI_OFFSET (0x00U)
 #define CRC_DI_LOW_OFFSET (0x00U)

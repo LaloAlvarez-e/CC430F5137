@@ -49,14 +49,14 @@ typedef volatile struct
 
 typedef volatile struct
 {
-    volatile UBase_t JMBIN0FG :1;
-    volatile UBase_t JMBIN1FG :1;
-    volatile const UBase_t JMBOUT0FG :1;
-    volatile const UBase_t JMBOUT1FG :1;
+    volatile UBase_t JMB_IN0FG :1;
+    volatile UBase_t JMB_IN1FG :1;
+    volatile const UBase_t JMB_OUT0FG :1;
+    volatile const UBase_t JMB_OUT1FG :1;
     volatile UBase_t JMBM0DE :1;
     const UBase_t reserved :1;
-    volatile UBase_t JMBCLR0OFF :1;
-    volatile UBase_t JMBCLR1OFF :1;
+    volatile UBase_t JMB_CLR0OFF :1;
+    volatile UBase_t JMB_CLR1OFF :1;
     const UBase_t reserved1:8;
 }SYSCTL_JMBC_t;
 

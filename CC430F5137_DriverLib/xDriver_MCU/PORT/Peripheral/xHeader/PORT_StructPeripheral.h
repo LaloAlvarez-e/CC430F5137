@@ -37,7 +37,7 @@ typedef volatile struct
     const unsigned char reserved;
     union
     {
-        volatile unsigned char OUT;
+        volatile unsigned char OUT_;
         PORT_REG_t OUT_bits;
     };
     const unsigned char reserved2;
@@ -114,7 +114,7 @@ typedef volatile struct
     const unsigned char reserved2;
     union
     {
-        volatile unsigned char OUT;
+        volatile unsigned char OUT_;
         PORT_REG_t OUT_bits;
     };
     const unsigned char reserved3;
@@ -188,7 +188,7 @@ typedef volatile struct
     };
     union
     {
-        volatile unsigned int OUT;
+        volatile unsigned int OUT_;
         PORT16_REG_t OUT_bits;
     };
     union
@@ -246,7 +246,7 @@ typedef volatile struct
     const unsigned char reserved;
     union
     {
-        volatile unsigned char OUT;
+        volatile unsigned char OUT_;
         PORT_REG_t OUT_bits;
     };
     const unsigned char reserved2;
@@ -306,7 +306,7 @@ typedef volatile struct
     };
     union
     {
-        volatile unsigned int OUT;
+        volatile unsigned int OUT_;
         PORT16_REG_t OUT_bits;
     };
     union
@@ -348,7 +348,7 @@ typedef volatile struct
     const unsigned char reserved2;
     union
     {
-        volatile unsigned char OUT;
+        volatile unsigned char OUT_;
         PORT_REG_t OUT_bits;
     };
     const unsigned char reserved3;
@@ -406,7 +406,7 @@ typedef volatile struct
     };
     union
     {
-        volatile unsigned int OUT;
+        volatile unsigned int OUT_;
         PORT16_REG_t OUT_bits;
     };
     union
