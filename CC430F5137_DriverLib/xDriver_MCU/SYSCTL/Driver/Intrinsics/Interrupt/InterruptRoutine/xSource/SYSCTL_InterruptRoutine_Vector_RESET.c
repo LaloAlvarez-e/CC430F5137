@@ -31,8 +31,10 @@ void SYSCTL_RESET__IRQVectorHandler(void)
 {
     SYSCTL_puxfIRQSourceHandler_t IRQSourceHandlerReg;
     uint16_t u16Status = 0xFFU;
+    uint16_t u16SysctlInterruptSource;
 
-    switch(SYSCTL_RSTIV_R)
+    u16SysctlInterruptSource = SYSCTL_RSTIV_R;
+    switch(__even_in_range(u16SysctlInterruptSource, SYSCTL_RSTIV_R_RSTVEC_PMM_PASSWORD))
     {
     case SYSCTL_RSTIV_R_RSTVEC_BROWNOUT:
         IRQSourceHandlerReg = SYSCTL_RESET__puxfGetIRQSourceHandler(SYSCTL_enINT_RESET_BROWNOUT);

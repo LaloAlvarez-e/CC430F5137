@@ -88,8 +88,10 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
     TIMERA_InterruptInfo_t stInterruptData;
     UBase_t uxControl;
     TIMERA_CC_CTL_t* pstControl;
+    uint16_t u16TimerInterruptSource;
 
-    switch(TIMERA0_IV_R)
+    u16TimerInterruptSource = TIMERA0_IV_R;
+    switch(__even_in_range(u16TimerInterruptSource, TIMERA_IV_R_IV_OV))
     {
     case TIMERA_IV_R_IV_CC1:
         uxControl = TIMERA0_CC1_CTL_R;
@@ -162,8 +164,10 @@ __interrupt void TIMERA1__IRQVectorHandler(void)
     TIMERA_InterruptInfo_t stInterruptData;
     UBase_t uxControl;
     TIMERA_CC_CTL_t* pstControl;
+    uint16_t u16TimerInterruptSource;
 
-    switch(TIMERA1_IV_R)
+    u16TimerInterruptSource = TIMERA1_IV_R;
+    switch(__even_in_range(u16TimerInterruptSource, TIMERA_IV_R_IV_OV))
     {
     case TIMERA_IV_R_IV_CC1:
         uxControl = TIMERA1_CC1_CTL_R;

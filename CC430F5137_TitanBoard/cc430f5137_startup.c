@@ -79,12 +79,12 @@ void (* const INTERRUPT__pfvVector[63U])(void) =
     &IntDefaultHandler,                /* The Reserved47 handler*/
     &PORT2__IRQVectorHandler,          /* The PORT2      handler*/
     &PORT1__IRQVectorHandler,          /* The PORT1      handler*/
-    &IntDefaultHandler,                /* The TIMER1_A1  handler*/
-    &IntDefaultHandler,                /* The TIMER1_A0  handler*/
+    &TIMERA1__IRQVectorHandler,        /* The TIMER1_A1  handler*/
+    &TIMERA1_CC0__IRQVectorHandler,    /* The TIMER1_A0  handler*/
     &IntDefaultHandler,                /* The DMA        handler*/
     &IntDefaultHandler,                /* The CC1101     handler*/
-    &IntDefaultHandler,                /* The TIMER0_A1  handler*/
-    &IntDefaultHandler,                /* The TIMER0_A0  handler*/
+    &TIMERA0__IRQVectorHandler,        /* The TIMER0_A1  handler*/
+    &TIMERA0_CC0__IRQVectorHandler,    /* The TIMER0_A0  handler*/
     &IntDefaultHandler,                /* The ADC12      handler*/
     &IntDefaultHandler,                /* The USCI_B0    handler*/
     &IntDefaultHandler,                /* The USCI_A0    handler*/

@@ -89,15 +89,16 @@ CLOCK_nERROR CLOCK_FLLDIV__enGetFrequency(uint32_t* pu32FrequencyArg)
     }
     if(CLOCK_enERROR_OK == enErrorReg)
     {
-        switch(enReferenceReg)
+        enReferenceReg *= 2;
+        switch(__even_in_range(enReferenceReg, CLOCK_enFLL_REFERENCE_NONE * 2))
         {
-        case CLOCK_enFLL_REFERENCE_XT1:
+        case CLOCK_enFLL_REFERENCE_XT1 * 2:
             enErrorReg = CLOCK_XT1__enGetFrequency(&u32FrequencyReg);
             break;
-        case CLOCK_enFLL_REFERENCE_REFO:
+        case CLOCK_enFLL_REFERENCE_REFO * 2:
             enErrorReg = CLOCK_REFO__enGetFrequency(&u32FrequencyReg);
             break;
-        case CLOCK_enFLL_REFERENCE_NONE:
+        case CLOCK_enFLL_REFERENCE_NONE * 2:
             u32FrequencyReg = 0UL;
             break;
         default:

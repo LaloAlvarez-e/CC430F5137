@@ -44,18 +44,19 @@ TIMERA_nERROR TIMERA__enSetClockPredivider(TIMERA_nMODULE enModuleArg, TIMERA_nC
 TIMERA_nERROR TIMERA__enSetClockPredividerNum(TIMERA_nMODULE enModuleArg, UBase_t uxClockPredivederArg)
 {
     TIMERA_nERROR enErrorReg;
-    switch(uxClockPredivederArg)
+    uxClockPredivederArg *= 2;
+    switch(__even_in_range(uxClockPredivederArg, 8U * 2U))
     {
-    case 1U:
+    case 1U * 2U:
         enErrorReg = TIMERA__enSetClockPredivider(enModuleArg, TIMERA_enCLOCK_PREDIV_1);
         break;
-    case 2U:
+    case 2U * 2U:
         enErrorReg = TIMERA__enSetClockPredivider(enModuleArg, TIMERA_enCLOCK_PREDIV_2);
         break;
-    case 4U:
+    case 4U * 2U:
         enErrorReg = TIMERA__enSetClockPredivider(enModuleArg, TIMERA_enCLOCK_PREDIV_4);
         break;
-    case 8U:
+    case 8U * 2U:
         enErrorReg = TIMERA__enSetClockPredivider(enModuleArg, TIMERA_enCLOCK_PREDIV_8);
         break;
     default:
@@ -109,18 +110,19 @@ TIMERA_nERROR TIMERA__enGetClockPredividerNum(TIMERA_nMODULE enModuleArg, UBase_
     }
     if(TIMERA_enERROR_OK == enErrorReg)
     {
-        switch(enClockPredividerReg)
+        enClockPredividerReg *= 2;
+        switch(__even_in_range(enClockPredividerReg, TIMERA_enCLOCK_PREDIV_8 * 2U))
         {
-        case TIMERA_enCLOCK_PREDIV_1:
+        case TIMERA_enCLOCK_PREDIV_1 * 2:
             *puxClockPredivederArg = 1U;
             break;
-        case TIMERA_enCLOCK_PREDIV_2:
+        case TIMERA_enCLOCK_PREDIV_2 * 2:
             *puxClockPredivederArg = 2U;
             break;
-        case TIMERA_enCLOCK_PREDIV_4:
+        case TIMERA_enCLOCK_PREDIV_4 * 2:
             *puxClockPredivederArg = 4U;
             break;
-        case TIMERA_enCLOCK_PREDIV_8:
+        case TIMERA_enCLOCK_PREDIV_8 * 2:
             *puxClockPredivederArg = 8U;
             break;
         default:
@@ -150,30 +152,31 @@ TIMERA_nERROR TIMERA__enSetClockExdivider(TIMERA_nMODULE enModuleArg, TIMERA_nCL
 TIMERA_nERROR TIMERA__enSetClockExdividerNum(TIMERA_nMODULE enModuleArg, UBase_t enClockExdividerArg)
 {
     TIMERA_nERROR enErrorReg;
-    switch(enClockExdividerArg)
+    enClockExdividerArg *= 2;
+    switch(__even_in_range(enClockExdividerArg, 8U * 2U))
     {
-    case 1U:
+    case 1U * 2U:
         enErrorReg = TIMERA__enSetClockExdivider(enModuleArg, TIMERA_enCLOCK_EXDIV_1);
         break;
-    case 2U:
+    case 2U * 2U:
         enErrorReg = TIMERA__enSetClockExdivider(enModuleArg, TIMERA_enCLOCK_EXDIV_2);
         break;
-    case 3U:
+    case 3U * 2U:
         enErrorReg = TIMERA__enSetClockExdivider(enModuleArg, TIMERA_enCLOCK_EXDIV_3);
         break;
-    case 4U:
+    case 4U * 2U:
         enErrorReg = TIMERA__enSetClockExdivider(enModuleArg, TIMERA_enCLOCK_EXDIV_4);
         break;
-    case 5U:
+    case 5U * 2U:
         enErrorReg = TIMERA__enSetClockExdivider(enModuleArg, TIMERA_enCLOCK_EXDIV_5);
         break;
-    case 6U:
+    case 6U * 2U:
         enErrorReg = TIMERA__enSetClockExdivider(enModuleArg, TIMERA_enCLOCK_EXDIV_6);
         break;
-    case 7U:
+    case 7U * 2U:
         enErrorReg = TIMERA__enSetClockExdivider(enModuleArg, TIMERA_enCLOCK_EXDIV_7);
         break;
-    case 8U:
+    case 8U * 2U:
         enErrorReg = TIMERA__enSetClockExdivider(enModuleArg, TIMERA_enCLOCK_EXDIV_8);
         break;
     default:
@@ -227,30 +230,31 @@ TIMERA_nERROR TIMERA__enGetClockExdividerNum(TIMERA_nMODULE enModuleArg, UBase_t
     }
     if(TIMERA_enERROR_OK == enErrorReg)
     {
-        switch(enClockExdividerReg)
+        enClockExdividerReg *= 2;
+        switch(__even_in_range(enClockExdividerReg, TIMERA_enCLOCK_EXDIV_8 * 2U))
         {
-        case TIMERA_enCLOCK_EXDIV_1:
+        case TIMERA_enCLOCK_EXDIV_1 * 2U:
             *puxClockExdividerArg = 1U;
             break;
-        case TIMERA_enCLOCK_EXDIV_2:
+        case TIMERA_enCLOCK_EXDIV_2 * 2U:
             *puxClockExdividerArg = 2U;
             break;
-        case TIMERA_enCLOCK_EXDIV_3:
+        case TIMERA_enCLOCK_EXDIV_3 * 2U:
             *puxClockExdividerArg = 3U;
             break;
-        case TIMERA_enCLOCK_EXDIV_4:
+        case TIMERA_enCLOCK_EXDIV_4 * 2U:
             *puxClockExdividerArg = 4U;
             break;
-        case TIMERA_enCLOCK_EXDIV_5:
+        case TIMERA_enCLOCK_EXDIV_5 * 2U:
             *puxClockExdividerArg = 5U;
             break;
-        case TIMERA_enCLOCK_EXDIV_6:
+        case TIMERA_enCLOCK_EXDIV_6 * 2U:
             *puxClockExdividerArg = 6U;
             break;
-        case TIMERA_enCLOCK_EXDIV_7:
+        case TIMERA_enCLOCK_EXDIV_7 * 2U:
             *puxClockExdividerArg = 7U;
             break;
-        case TIMERA_enCLOCK_EXDIV_8:
+        case TIMERA_enCLOCK_EXDIV_8 * 2U:
             *puxClockExdividerArg = 8U;
             break;
         default:
@@ -293,66 +297,67 @@ TIMERA_nERROR TIMERA__enSetClockDivider(TIMERA_nMODULE enModuleArg, TIMERA_nCLOC
 TIMERA_nERROR TIMERA__enSetClockDividerNum(TIMERA_nMODULE enModuleArg, UBase_t enClockDividerArg)
 {
     TIMERA_nERROR enErrorReg;
-    switch(enClockDividerArg)
+    enClockDividerArg *= 2;
+    switch(__even_in_range(enClockDividerArg, 64U * 2U))
     {
-    case 1U:
+    case 1U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_1);
         break;
-    case 2U:
+    case 2U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_2);
         break;
-    case 3U:
+    case 3U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_3);
         break;
-    case 4U:
+    case 4U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_4);
         break;
-    case 5U:
+    case 5U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_5);
         break;
-    case 6U:
+    case 6U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_6);
         break;
-    case 7U:
+    case 7U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_7);
         break;
-    case 8U:
+    case 8U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_8);
         break;
-    case 10U:
+    case 10U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_10);
         break;
-    case 12U:
+    case 12U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_12);
         break;
-    case 14U:
+    case 14U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_14);
         break;
-    case 16U:
+    case 16U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_16);
         break;
-    case 20U:
+    case 20U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_20);
         break;
-    case 24U:
+    case 24U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_24);
         break;
-    case 28U:
+    case 28U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_28);
         break;
-    case 32U:
+    case 32U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_32);
         break;
-    case 40U:
+    case 40U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_40);
         break;
-    case 48U:
+    case 48U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_48);
         break;
-    case 46U:
+    case 46U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_56);
         break;
-    case 64U:
+    case 64U * 2U:
         enErrorReg = TIMERA__enSetClockDivider(enModuleArg, TIMERA_enCLOCK_DIV_64);
         break;
     default:
@@ -422,66 +427,67 @@ TIMERA_nERROR TIMERA__enGetClockDividerNum(TIMERA_nMODULE enModuleArg, UBase_t* 
     }
     if(TIMERA_enERROR_OK == enErrorReg)
     {
-        switch(enClockDividerArg)
+        enClockDividerArg *= 2;
+        switch(__even_in_range(enClockDividerArg, TIMERA_enCLOCK_DIV_64 * 2U))
         {
-        case TIMERA_enCLOCK_DIV_1:
+        case TIMERA_enCLOCK_DIV_1 * 2U:
             *puxClockDividerArg = 1U;
             break;
-        case TIMERA_enCLOCK_DIV_2:
+        case TIMERA_enCLOCK_DIV_2 * 2U:
             *puxClockDividerArg = 2U;
             break;
-        case TIMERA_enCLOCK_DIV_3:
+        case TIMERA_enCLOCK_DIV_3 * 2U:
             *puxClockDividerArg = 3U;
             break;
-        case TIMERA_enCLOCK_DIV_4:
+        case TIMERA_enCLOCK_DIV_4 * 2U:
             *puxClockDividerArg = 4U;
             break;
-        case TIMERA_enCLOCK_DIV_5:
+        case TIMERA_enCLOCK_DIV_5 * 2U:
             *puxClockDividerArg = 5U;
             break;
-        case TIMERA_enCLOCK_DIV_6:
+        case TIMERA_enCLOCK_DIV_6 * 2U:
             *puxClockDividerArg = 6U;
             break;
-        case TIMERA_enCLOCK_DIV_7:
+        case TIMERA_enCLOCK_DIV_7 * 2U:
             *puxClockDividerArg = 7U;
             break;
-        case TIMERA_enCLOCK_DIV_8:
+        case TIMERA_enCLOCK_DIV_8 * 2U:
             *puxClockDividerArg = 8U;
             break;
-        case TIMERA_enCLOCK_DIV_10:
+        case TIMERA_enCLOCK_DIV_10 * 2U:
             *puxClockDividerArg = 10U;
             break;
-        case TIMERA_enCLOCK_DIV_12:
+        case TIMERA_enCLOCK_DIV_12 * 2U:
             *puxClockDividerArg = 12U;
             break;
-        case TIMERA_enCLOCK_DIV_14:
+        case TIMERA_enCLOCK_DIV_14 * 2U:
             *puxClockDividerArg = 14U;
             break;
-        case TIMERA_enCLOCK_DIV_16:
+        case TIMERA_enCLOCK_DIV_16 * 2U:
             *puxClockDividerArg = 16U;
             break;
-        case TIMERA_enCLOCK_DIV_20:
+        case TIMERA_enCLOCK_DIV_20 * 2U:
             *puxClockDividerArg = 20U;
             break;
-        case TIMERA_enCLOCK_DIV_24:
+        case TIMERA_enCLOCK_DIV_24 * 2U:
             *puxClockDividerArg = 24U;
             break;
-        case TIMERA_enCLOCK_DIV_28:
+        case TIMERA_enCLOCK_DIV_28 * 2U:
             *puxClockDividerArg = 28U;
             break;
-        case TIMERA_enCLOCK_DIV_32:
+        case TIMERA_enCLOCK_DIV_32 * 2U:
             *puxClockDividerArg = 32U;
             break;
-        case TIMERA_enCLOCK_DIV_40:
+        case TIMERA_enCLOCK_DIV_40 * 2U:
             *puxClockDividerArg = 40U;
             break;
-        case TIMERA_enCLOCK_DIV_48:
+        case TIMERA_enCLOCK_DIV_48 * 2U:
             *puxClockDividerArg = 48U;
             break;
-        case TIMERA_enCLOCK_DIV_56:
+        case TIMERA_enCLOCK_DIV_56 * 2U:
             *puxClockDividerArg = 56U;
             break;
-        case TIMERA_enCLOCK_DIV_64:
+        case TIMERA_enCLOCK_DIV_64 * 2U:
             *puxClockDividerArg = 64U;
             break;
         default:

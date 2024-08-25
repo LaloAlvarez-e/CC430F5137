@@ -32,8 +32,10 @@ __interrupt void DMA__IRQVectorHandler(void)
     DMA_puxfIRQSourceHandler_t IRQSourceHandlerReg;
     uint16_t u16Status = 0xFFU;
     DMA_nTRIGGER enTrigger;
+    uint16_t u16DMAInterruptSource;
 
-    switch(DMA_IV_R)
+    u16DMAInterruptSource = DMA_IV_R;
+    switch(__even_in_range(u16DMAInterruptSource, DMA_IV_R_IV_CH2))
     {
     case DMA_IV_R_IV_CH0:
         enTrigger = (DMA_nTRIGGER) (DMA_CH0_TRIGGER_R & DMA_CH0_TRIGGER_TSEL_MASK);

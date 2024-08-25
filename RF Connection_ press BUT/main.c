@@ -143,9 +143,9 @@ int main(void){
   WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
   init_devices();
   while(1){ 
-    asm("NOP");
+    __asm(" NOP");
     RF_Connection_Test();
-    asm("NOP");
+    __asm(" NOP");
   }
   
 }

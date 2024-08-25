@@ -28,6 +28,10 @@
   #include "HAL/RF_config_Olimex/smartrf_CC430F5137_868MHz_38k4Baud.h"
 #endif
 
+
+void InitRadio(void);
+void WriteRfSettings(RF_SETTINGS *pRfSettings);
+void WriteSinglePATable(unsigned char value);
 uint16_t PORT1_ISR(uintptr_t uptrPort, void* pvPinNumber);
 
 #define LED_Togg    P2OUT ^= BIT6;  P2DIR |= BIT6;

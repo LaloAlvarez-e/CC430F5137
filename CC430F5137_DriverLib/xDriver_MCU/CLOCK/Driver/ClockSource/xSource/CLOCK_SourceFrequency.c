@@ -45,21 +45,22 @@ CLOCK_nERROR CLOCK__enGetSourceFrequency(CLOCK_nSOURCE enSourceArg, uint32_t* pu
     }
     if(CLOCK_enERROR_OK == enErrorReg)
     {
-        switch(enSourceArg)
+        enSourceArg *= 2;
+        switch(__even_in_range(enSourceArg, CLOCK_enSOURCE_FLL_DIV * 2))
         {
-        case CLOCK_enSOURCE_XT1:
+        case CLOCK_enSOURCE_XT1 * 2:
             enErrorReg = CLOCK_XT1__enGetFrequency(&u32Frequency);
             break;
-        case CLOCK_enSOURCE_VLO:
+        case CLOCK_enSOURCE_VLO * 2:
             enErrorReg = CLOCK_VLO__enGetFrequency(&u32Frequency);
             break;
-        case CLOCK_enSOURCE_REFO:
+        case CLOCK_enSOURCE_REFO * 2:
             enErrorReg = CLOCK_REFO__enGetFrequency(&u32Frequency);
             break;
-        case CLOCK_enSOURCE_FLL:
+        case CLOCK_enSOURCE_FLL * 2:
             enErrorReg = CLOCK_FLL__enGetFrequency(&u32Frequency);
             break;
-        case CLOCK_enSOURCE_FLL_DIV:
+        case CLOCK_enSOURCE_FLL_DIV * 2:
             enErrorReg = CLOCK_FLLDIV__enGetFrequency(&u32Frequency);
             break;
         default:

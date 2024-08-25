@@ -31,8 +31,10 @@ __interrupt void SYSCTL_USERNMI__IRQVectorHandler(void)
 {
     SYSCTL_puxfIRQSourceHandler_t IRQSourceHandlerReg;
     uint16_t u16Status = 0xFFU;
+    uint16_t u16UserNMIInterruptSource;
 
-    switch(SYSCTL_UNIV_R)
+    u16UserNMIInterruptSource = SYSCTL_UNIV_R;
+    switch(__even_in_range(u16UserNMIInterruptSource, SYSCTL_UNIV_R_UNVEC_BUSIFG))
     {
     case SYSCTL_UNIV_R_UNVEC_NMIIFG:
         IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enINT_USERNMI_NMI);
@@ -45,6 +47,8 @@ __interrupt void SYSCTL_USERNMI__IRQVectorHandler(void)
     case SYSCTL_UNIV_R_UNVEC_ACCVIFG:
         IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enINT_USERNMI_FLASH_ACCESS);
         u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_FLASH_ACCESS);
+        break;
+    case SYSCTL_UNIV_R_UNVEC_BUSIFG:
         break;
     default:
         break;

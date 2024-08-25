@@ -31,8 +31,10 @@ __interrupt void PORT1__IRQVectorHandler(void)
 {
     PORT_puxfIRQSourceHandler_t IRQSourceHandlerReg;
     uint16_t u16Status = 0xFFU;
+    uint16_t u16PortInterruptSource;
 
-    switch(PORT1_IV_R)
+    u16PortInterruptSource = PORT1_IV_R;
+    switch(__even_in_range(u16PortInterruptSource, PORT_IV_R_PIN_7))
     {
     case PORT_IV_R_PIN_0:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_0);
@@ -81,8 +83,10 @@ __interrupt void PORT2__IRQVectorHandler(void)
 {
     PORT_puxfIRQSourceHandler_t IRQSourceHandlerReg;
     uint16_t u16Status = 0xFFU;
+    uint16_t u16PortInterruptSource;
 
-    switch(PORT2_IV_R)
+    u16PortInterruptSource = PORT2_IV_R;
+    switch(__even_in_range(u16PortInterruptSource, PORT_IV_R_PIN_7))
     {
     case PORT_IV_R_PIN_0:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_2, PORT_enPIN_0);

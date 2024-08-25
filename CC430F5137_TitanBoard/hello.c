@@ -4,7 +4,8 @@
 
 
 uint16_t MAIN_u16Switch(uintptr_t uptrPort, void* pvPinNumber);
-
+uint16_t MAIN_u16Timer(uintptr_t uptrModuleArg, void* pvArgument);
+volatile uint16_t u16TimerReady = 0;
 /**
  * hello.c
  */
@@ -12,7 +13,8 @@ int main(void)
 {
     WDTCTL = WDTPW | WDTHOLD;       // stop watchdog timer
     RCCTL0 = 0x5AFC;
-    SYSCTL__enSetVectorInterrupt(SYSCTL_enMODULE_0, SYSCTL_enVECTOR_RAM);
+    TIMERA_Config_t TIMERAConfig;
+    SYSCTL__enSetVectorInterrupt(SYSCTL_enVECTOR_RAM);
     PORT->P1.DIR_bits.PIN0 = 1;
     PORT->P2.DIR_bits.PIN6 = 1;
     PORT->P3.DIR_bits.PIN1 = 1;
@@ -28,6 +30,16 @@ int main(void)
     PORT__enClearInterruptSourceByNumber(PORT_enMODULE_1, PORT_enPIN_7);
     PORT__enSetInterruptSourceStateByNumber(PORT_enMODULE_1, PORT_enPIN_7, PORT_enSTATE_ENA);
 
+
+    TIMERA__enRegisterIRQSourceHandler(TIMERA_enMODULE_0, &MAIN_u16Timer);
+    TIMERA__enClearInterruptSource(TIMERA_enMODULE_0);
+    TIMERA__enSetInterruptSourceState(TIMERA_enMODULE_0, TIMERA_enSTATE_ENA);
+
+    TIMERAConfig.enClockDivider = TIMERA_enCLOCK_DIV_16;
+    TIMERAConfig.enClockSource = TIMERA_enCLOCK_SMCLK;
+    TIMERAConfig.enOperationMode = TIMERA_enMODE_UP;
+    TIMERAConfig.uxPeriodTicks = 10000;
+    TIMERA__enSetConfig(TIMERA_enMODULE_0, &TIMERAConfig);
     _EINT();
     _NOP();
 
@@ -39,12 +51,19 @@ int main(void)
 
     while(1)
     {
-        PORT->P2.OUT_bits.PIN6 ^= 1;
+        PORT->P1.OUT_bits.PIN0 ^= 1;
         PORT->P3.OUT_bits.PIN1 ^= 1;
-        for(i=50000UL; i>0UL; i--);     // delay
+        LPM0;
+
     }
 
     return 0;
+}
+
+uint16_t MAIN_u16Timer(uintptr_t uptrModuleArg, void* pvArgument)
+{
+    u16TimerReady = 1;
+    return (0x0);
 }
 
 
@@ -61,7 +80,7 @@ uint16_t MAIN_u16Switch(uintptr_t uptrPort, void* pvPinNumber)
         if(0UL != (pstPort->IES & u8ValuePin)) /*High-To-Low*/
         {
             pstPort->IES &= ~u8ValuePin;
-            PORT1->OUT_bits.PIN0 = 1U;
+            PORT2->OUT_bits.PIN6 = 1U;
         }
     }
     else
@@ -70,7 +89,7 @@ uint16_t MAIN_u16Switch(uintptr_t uptrPort, void* pvPinNumber)
         {
 
             pstPort->IES |= u8ValuePin;
-            PORT1->OUT_bits.PIN0 = 0U;
+            PORT2->OUT_bits.PIN6 = 0U;
         }
     }
     return (0xFF);

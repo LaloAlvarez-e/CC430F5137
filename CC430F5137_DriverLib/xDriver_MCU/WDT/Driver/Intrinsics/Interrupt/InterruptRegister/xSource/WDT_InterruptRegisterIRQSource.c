@@ -38,17 +38,18 @@ WDT_nERROR WDT__enRegisterIRQSourceHandler(WDT_nINT enInterruptArg,
     if(WDT_enERROR_OK == enErrorReg)
     {
         puxfIrqHandler = WDT__puxfGetIRQSourceHandlerPointer(enInterruptArg);
-        switch(enInterruptArg)
+        uint16_t u16WDTInterruptSource = enInterruptArg * 2U;
+        switch(__even_in_range(u16WDTInterruptSource, WDT_enINT_INTERVAL * 2U))
         {
-            case WDT_enINT_TIMEOUT:
+            case WDT_enINT_TIMEOUT * 2U:
                 enErrorReg = (WDT_nERROR) SYSCTL_RESET__enRegisterIRQSourceHandler(SYSCTL_enINT_RESET_WDT_TIMEOUT,
                                                                                    (SYSCTL_puxfIRQSourceHandler_t) pfIrqSourceHandler);
                 break;
-            case WDT_enINT_PASSWORD:
+            case WDT_enINT_PASSWORD * 2U:
                 enErrorReg = (WDT_nERROR) SYSCTL_RESET__enRegisterIRQSourceHandler(SYSCTL_enINT_RESET_WDT_PASSWORD,
                                                                                    (SYSCTL_puxfIRQSourceHandler_t) pfIrqSourceHandler);
                 break;
-            case WDT_enINT_INTERVAL:
+            case WDT_enINT_INTERVAL * 2U:
                 enErrorReg = (WDT_nERROR) MCU__enRegisterIRQSourceHandler(pfIrqSourceHandler, puxfIrqHandler, 0UL, 1UL);
             default:
                 break;

@@ -31,8 +31,10 @@ __interrupt void SYSCTL_SYSNMI__IRQVectorHandler(void)
 {
     SYSCTL_puxfIRQSourceHandler_t IRQSourceHandlerReg;
     uint16_t u16Status = 0xFFU;
+    uint16_t u16SysNMIInterruptSource;
 
-    switch(SYSCTL_SNIV_R)
+    u16SysNMIInterruptSource = SYSCTL_SNIV_R;
+    switch(__even_in_range(u16SysNMIInterruptSource, SYSCTL_SNIV_R_SNVEC_SVMHVLRIFG))
     {
     case SYSCTL_SNIV_R_SNVEC_SVMLIFG:
         IRQSourceHandlerReg = SYSCTL_SYSNMI__puxfGetIRQSourceHandler(SYSCTL_enINT_SYSNMI_SVM_LOW);

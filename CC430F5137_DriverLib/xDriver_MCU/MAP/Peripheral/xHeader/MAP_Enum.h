@@ -141,8 +141,8 @@ typedef enum
 
 typedef enum
 {
-    MAP_enKEY_WRITE = 0x2D52UL,
-    MAP_enKEY_READ = 0x96A5UL,
+    MAP_enKEY_WRITE = 0x2D52,
+    MAP_enKEY_READ = 0x96A5,
 }MAP_nKEY;
 
 typedef MCU_Register8Bits_t MAP_Register8Bits_t;
