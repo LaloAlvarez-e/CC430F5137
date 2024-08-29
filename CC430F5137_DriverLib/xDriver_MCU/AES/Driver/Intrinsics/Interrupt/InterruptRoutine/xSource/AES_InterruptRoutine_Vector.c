@@ -30,15 +30,15 @@
 __interrupt void AES__IRQVectorHandler(void)
 {
     AES_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
 
     IRQSourceHandlerReg = AES__puxfGetIRQSourceHandler();
-    u16Status &= IRQSourceHandlerReg(AES_BASE, (void*) 0U);
+    enStatus = IRQSourceHandlerReg(AES_BASE, (void*) 0U);
 
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }

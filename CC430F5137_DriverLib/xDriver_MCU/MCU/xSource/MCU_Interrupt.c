@@ -25,7 +25,7 @@
 
 
 
-UBase_t MCU_uxIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument)
+MCU_nISR_RETURN MCU_uxIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument)
 {
     while(1U)
     {
@@ -33,7 +33,7 @@ UBase_t MCU_uxIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument)
     }
 }
 
-UBase_t MCU_uxIRQSourceHandler_DummyNonBlocking(uintptr_t uptrModuleArg, void* pvArgument)
+MCU_nISR_RETURN MCU_uxIRQSourceHandler_DummyNonBlocking(uintptr_t uptrModuleArg, void* pvArgument)
 {
     while(1U)
     {

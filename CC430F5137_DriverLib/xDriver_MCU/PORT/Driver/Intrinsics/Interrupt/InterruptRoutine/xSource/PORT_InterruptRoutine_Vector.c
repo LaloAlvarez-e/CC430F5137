@@ -30,7 +30,7 @@
 __interrupt void PORT1__IRQVectorHandler(void)
 {
     PORT_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
     uint16_t u16PortInterruptSource;
 
     u16PortInterruptSource = PORT1_IV_R;
@@ -38,43 +38,44 @@ __interrupt void PORT1__IRQVectorHandler(void)
     {
     case PORT_IV_R_PIN_0:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_0);
-        u16Status &= IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_0);
+        enStatus = IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_0);
         break;
     case PORT_IV_R_PIN_1:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_1);
-        u16Status &= IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_1);
+        enStatus = IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_1);
         break;
     case PORT_IV_R_PIN_2:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_2);
-        u16Status &= IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_2);
+        enStatus = IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_2);
         break;
     case PORT_IV_R_PIN_3:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_3);
-        u16Status &= IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_3);
+        enStatus = IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_3);
         break;
     case PORT_IV_R_PIN_4:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_4);
-        u16Status &= IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_4);
+        enStatus = IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_4);
         break;
     case PORT_IV_R_PIN_5:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_5);
-        u16Status &= IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_5);
+        enStatus = IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_5);
         break;
     case PORT_IV_R_PIN_6:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_6);
-        u16Status &= IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_6);
+        enStatus = IRQSourceHandlerReg(PORT1_BASE, (void*) PORT_enPIN_6);
         break;
     case PORT_IV_R_PIN_7:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_1, PORT_enPIN_7);
-        u16Status &= IRQSourceHandlerReg(PORT_BASE, (void*) PORT_enPIN_7);
+        enStatus = IRQSourceHandlerReg(PORT_BASE, (void*) PORT_enPIN_7);
         break;
     default:
+        enStatus = MCU_enISR_RETURN_UNCHANGED;
         break;
     }
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }
@@ -82,7 +83,7 @@ __interrupt void PORT1__IRQVectorHandler(void)
 __interrupt void PORT2__IRQVectorHandler(void)
 {
     PORT_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
     uint16_t u16PortInterruptSource;
 
     u16PortInterruptSource = PORT2_IV_R;
@@ -90,43 +91,44 @@ __interrupt void PORT2__IRQVectorHandler(void)
     {
     case PORT_IV_R_PIN_0:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_2, PORT_enPIN_0);
-        u16Status &= IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_0);
+        enStatus = IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_0);
         break;
     case PORT_IV_R_PIN_1:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_2, PORT_enPIN_1);
-        u16Status &= IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_1);
+        enStatus = IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_1);
         break;
     case PORT_IV_R_PIN_2:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_2, PORT_enPIN_2);
-        u16Status &= IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_2);
+        enStatus = IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_2);
         break;
     case PORT_IV_R_PIN_3:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_2, PORT_enPIN_3);
-        u16Status &= IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_3);
+        enStatus = IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_3);
         break;
     case PORT_IV_R_PIN_4:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_2, PORT_enPIN_4);
-        u16Status &= IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_4);
+        enStatus = IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_4);
         break;
     case PORT_IV_R_PIN_5:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_2, PORT_enPIN_5);
-        u16Status &= IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_5);
+        enStatus = IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_5);
         break;
     case PORT_IV_R_PIN_6:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_2, PORT_enPIN_6);
-        u16Status &= IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_6);
+        enStatus = IRQSourceHandlerReg(PORT2_BASE, (void*) PORT_enPIN_6);
         break;
     case PORT_IV_R_PIN_7:
         IRQSourceHandlerReg = PORT__puxfGetIRQSourceHandler(PORT_enMODULE_2, PORT_enPIN_7);
-        u16Status &= IRQSourceHandlerReg(PORT_BASE, (void*) PORT_enPIN_7);
+        enStatus = IRQSourceHandlerReg(PORT_BASE, (void*) PORT_enPIN_7);
         break;
     default:
+        enStatus = MCU_enISR_RETURN_UNCHANGED;
         break;
     }
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }

@@ -30,7 +30,7 @@
 __interrupt void TIMERA0_CC0__IRQVectorHandler(void)
 {
     TIMERA_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
     TIMERA_InterruptInfo_t stInterruptData;
     UBase_t uxControl;
     TIMERA_CC_CTL_t* pstControl;
@@ -43,12 +43,12 @@ __interrupt void TIMERA0_CC0__IRQVectorHandler(void)
     stInterruptData.uxMode = pstControl->CAP_;
     IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_0,
                                                              (TIMERA_nCC_MODE) stInterruptData.uxMode);
-    u16Status &= IRQSourceHandlerReg(TIMERA0_CC0_BASE, (void*) &stInterruptData);
+    enStatus = IRQSourceHandlerReg(TIMERA0_CC0_BASE, (void*) &stInterruptData);
 
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }
@@ -56,7 +56,7 @@ __interrupt void TIMERA0_CC0__IRQVectorHandler(void)
 __interrupt void TIMERA1_CC0__IRQVectorHandler(void)
 {
     TIMERA_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
     TIMERA_InterruptInfo_t stInterruptData;
     UBase_t uxControl;
     TIMERA_CC_CTL_t* pstControl;
@@ -69,12 +69,12 @@ __interrupt void TIMERA1_CC0__IRQVectorHandler(void)
     stInterruptData.uxMode = pstControl->CAP_;
     IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_1, TIMERA_enCC_0,
                                                              (TIMERA_nCC_MODE) stInterruptData.uxMode);
-    u16Status &= IRQSourceHandlerReg(TIMERA1_CC0_BASE, (void*) &stInterruptData);
+    enStatus = IRQSourceHandlerReg(TIMERA1_CC0_BASE, (void*) &stInterruptData);
 
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }
@@ -84,7 +84,7 @@ __interrupt void TIMERA1_CC0__IRQVectorHandler(void)
 __interrupt void TIMERA0__IRQVectorHandler(void)
 {
     TIMERA_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
     TIMERA_InterruptInfo_t stInterruptData;
     UBase_t uxControl;
     TIMERA_CC_CTL_t* pstControl;
@@ -102,7 +102,7 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
         stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_1,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
-        u16Status &= IRQSourceHandlerReg(TIMERA0_CC1_BASE, (void*) &stInterruptData);
+        enStatus = IRQSourceHandlerReg(TIMERA0_CC1_BASE, (void*) &stInterruptData);
         break;
     case TIMERA_IV_R_IV_CC2:
         uxControl = TIMERA0_CC2_CTL_R;
@@ -113,7 +113,7 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
         stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_2,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
-        u16Status &= IRQSourceHandlerReg(TIMERA0_CC2_BASE, (void*) &stInterruptData);
+        enStatus = IRQSourceHandlerReg(TIMERA0_CC2_BASE, (void*) &stInterruptData);
         break;
     case TIMERA_IV_R_IV_CC3:
         uxControl = TIMERA0_CC3_CTL_R;
@@ -124,7 +124,7 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
         stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_3,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
-        u16Status &= IRQSourceHandlerReg(TIMERA0_CC3_BASE, (void*) &stInterruptData);
+        enStatus = IRQSourceHandlerReg(TIMERA0_CC3_BASE, (void*) &stInterruptData);
         break;
     case TIMERA_IV_R_IV_CC4:
         uxControl = TIMERA0_CC4_CTL_R;
@@ -135,22 +135,23 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
         stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_4,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
-        u16Status &= IRQSourceHandlerReg(TIMERA0_CC4_BASE, (void*) &stInterruptData);
+        enStatus = IRQSourceHandlerReg(TIMERA0_CC4_BASE, (void*) &stInterruptData);
         break;
     case TIMERA_IV_R_IV_OV:
         uxControl = TIMERA0_COUNT_R;
         IRQSourceHandlerReg = TIMERA__puxfGetIRQSourceHandler(TIMERA_enMODULE_0);
-        u16Status &= IRQSourceHandlerReg(TIMERA_BASE, (void*) uxControl);
+        enStatus = IRQSourceHandlerReg(TIMERA_BASE, (void*) uxControl);
         break;
 
     default:
-        while(1);
+        enStatus = MCU_enISR_RETURN_UNCHANGED;
+        break;
     }
 
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }
@@ -160,7 +161,7 @@ __interrupt void TIMERA0__IRQVectorHandler(void)
 __interrupt void TIMERA1__IRQVectorHandler(void)
 {
     TIMERA_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
     TIMERA_InterruptInfo_t stInterruptData;
     UBase_t uxControl;
     TIMERA_CC_CTL_t* pstControl;
@@ -178,7 +179,7 @@ __interrupt void TIMERA1__IRQVectorHandler(void)
         stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_1,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
-        u16Status &= IRQSourceHandlerReg(TIMERA1_CC1_BASE, (void*) &stInterruptData);
+        enStatus = IRQSourceHandlerReg(TIMERA1_CC1_BASE, (void*) &stInterruptData);
         break;
     case TIMERA_IV_R_IV_CC2:
         uxControl = TIMERA1_CC2_CTL_R;
@@ -189,21 +190,22 @@ __interrupt void TIMERA1__IRQVectorHandler(void)
         stInterruptData.uxMode = pstControl->CAP_;
         IRQSourceHandlerReg = TIMERA_CC__puxfGetIRQSourceHandler(TIMERA_enMODULE_0, TIMERA_enCC_2,
                                                                  (TIMERA_nCC_MODE) stInterruptData.uxMode);
-        u16Status &= IRQSourceHandlerReg(TIMERA1_CC2_BASE, (void*) &stInterruptData);
+        enStatus = IRQSourceHandlerReg(TIMERA1_CC2_BASE, (void*) &stInterruptData);
         break;
     case TIMERA_IV_R_IV_OV:
         uxControl = TIMERA1_COUNT_R;
         IRQSourceHandlerReg = TIMERA__puxfGetIRQSourceHandler(TIMERA_enMODULE_0);
-        u16Status &= IRQSourceHandlerReg(TIMERA_BASE, (void*) uxControl);
+        enStatus = IRQSourceHandlerReg(TIMERA_BASE, (void*) uxControl);
         break;
     default:
-        while(1);
+        enStatus = MCU_enISR_RETURN_UNCHANGED;
+        break;
     }
 
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }

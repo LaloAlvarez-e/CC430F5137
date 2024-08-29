@@ -92,11 +92,23 @@
 #define MCU_MASK_32 (0xFFFFFFFFUL)
 #define MCU_MASK_BASE (MCU_MASK_16)
 
+typedef enum
+{
+    MCU_enISR_RETURN_RUN = 0UL,
+    MCU_enISR_RETURN_LOW_MODE_0 = LPM0_bits,
+    MCU_enISR_RETURN_LOW_MODE_1 = LPM1_bits,
+    MCU_enISR_RETURN_LOW_MODE_2 = LPM2_bits,
+    MCU_enISR_RETURN_LOW_MODE_3 = LPM3_bits,
+    MCU_enISR_RETURN_LOW_MODE_4 = LPM4_bits,
+    MCU_enISR_RETURN_UNCHANGED = 0xFFU,
+    MCU_enISR_RETURN_UNDEF = UNDEF_VALUE,
+}MCU_nISR_RETURN;
+
 
 typedef void (*MCU_pvfIRQVectorHandler_t)(void);
-typedef UBase_t (*MCU_puxfIRQSourceHandler_t)(uintptr_t uptrModuleArg, void* pvArgument);
+typedef MCU_nISR_RETURN (*MCU_puxfIRQSourceHandler_t)(uintptr_t uptrModuleArg, void* pvArgument);
 
-UBase_t MCU_uxIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument);
-UBase_t MCU_uxIRQSourceHandler_DummyNonBlocking(uintptr_t uptrModuleArg, void* pvArgument);
+MCU_nISR_RETURN MCU_uxIRQSourceHandler_Dummy(uintptr_t uptrModuleArg, void* pvArgument);
+MCU_nISR_RETURN MCU_uxIRQSourceHandler_DummyNonBlocking(uintptr_t uptrModuleArg, void* pvArgument);
 
 #endif /* XDRIVER_MCU_COMMON_XHEADER_MCU_VARIABLES_H_ */

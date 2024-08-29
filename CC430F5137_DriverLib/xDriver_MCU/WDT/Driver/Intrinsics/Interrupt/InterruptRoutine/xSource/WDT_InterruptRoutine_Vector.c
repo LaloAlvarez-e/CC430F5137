@@ -30,15 +30,15 @@
 __interrupt void WDT__IRQVectorHandler(void)
 {
     WDT_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
 
     IRQSourceHandlerReg = WDT__puxfGetIRQSourceHandler(WDT_enINT_INTERVAL);
-    u16Status &= IRQSourceHandlerReg(WDT_BASE, (void*) WDT_enINT_INTERVAL);
+    enStatus = IRQSourceHandlerReg(WDT_BASE, (void*) WDT_enINT_INTERVAL);
 
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }

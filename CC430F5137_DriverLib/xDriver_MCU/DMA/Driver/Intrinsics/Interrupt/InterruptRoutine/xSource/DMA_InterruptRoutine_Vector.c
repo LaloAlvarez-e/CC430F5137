@@ -30,7 +30,7 @@
 __interrupt void DMA__IRQVectorHandler(void)
 {
     DMA_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
     DMA_nTRIGGER enTrigger;
     uint16_t u16DMAInterruptSource;
 
@@ -40,25 +40,26 @@ __interrupt void DMA__IRQVectorHandler(void)
     case DMA_IV_R_IV_CH0:
         enTrigger = (DMA_nTRIGGER) (DMA_CH0_TRIGGER_R & DMA_CH0_TRIGGER_TSEL_MASK);
         IRQSourceHandlerReg = DMA_CH__puxfGetIRQSourceHandler(DMA_enCH0, enTrigger);
-        u16Status &= IRQSourceHandlerReg(DMA_CH0_BASE, (void*) enTrigger);
+        enStatus = IRQSourceHandlerReg(DMA_CH0_BASE, (void*) enTrigger);
         break;
     case DMA_IV_R_IV_CH1:
         enTrigger = (DMA_nTRIGGER) (DMA_CH1_TRIGGER_R & DMA_CH1_TRIGGER_TSEL_MASK);
         IRQSourceHandlerReg = DMA_CH__puxfGetIRQSourceHandler(DMA_enCH1, enTrigger);
-        u16Status &= IRQSourceHandlerReg(DMA_CH1_BASE, (void*) enTrigger);
+        enStatus = IRQSourceHandlerReg(DMA_CH1_BASE, (void*) enTrigger);
         break;
     case DMA_IV_R_IV_CH2:
         enTrigger = (DMA_nTRIGGER) (DMA_CH2_TRIGGER_R & DMA_CH2_TRIGGER_TSEL_MASK);
         IRQSourceHandlerReg = DMA_CH__puxfGetIRQSourceHandler(DMA_enCH2, enTrigger);
-        u16Status &= IRQSourceHandlerReg(DMA_CH2_BASE, (void*) enTrigger);
+        enStatus = IRQSourceHandlerReg(DMA_CH2_BASE, (void*) enTrigger);
         break;
     default:
+        enStatus = MCU_enISR_RETURN_UNCHANGED;
         break;
     }
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }

@@ -30,7 +30,7 @@
 __interrupt void SYSCTL_USERNMI__IRQVectorHandler(void)
 {
     SYSCTL_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus;
     uint16_t u16UserNMIInterruptSource;
 
     u16UserNMIInterruptSource = SYSCTL_UNIV_R;
@@ -38,25 +38,27 @@ __interrupt void SYSCTL_USERNMI__IRQVectorHandler(void)
     {
     case SYSCTL_UNIV_R_UNVEC_NMIIFG:
         IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enINT_USERNMI_NMI);
-        u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_NMI);
+        enStatus = IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_NMI);
         break;
     case SYSCTL_UNIV_R_UNVEC_OFIFG:
         IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enINT_USERNMI_OSC);
-        u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_OSC);
+        enStatus = IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_OSC);
         break;
     case SYSCTL_UNIV_R_UNVEC_ACCVIFG:
         IRQSourceHandlerReg = SYSCTL_USERNMI__puxfGetIRQSourceHandler(SYSCTL_enINT_USERNMI_FLASH_ACCESS);
-        u16Status &= IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_FLASH_ACCESS);
+        enStatus = IRQSourceHandlerReg(SYSCTL_BASE, (void*) SYSCTL_enINT_USERNMI_FLASH_ACCESS);
         break;
     case SYSCTL_UNIV_R_UNVEC_BUSIFG:
+        enStatus = MCU_enISR_RETURN_UNCHANGED;
         break;
     default:
+        enStatus = MCU_enISR_RETURN_UNCHANGED;
         break;
     }
-    if(0xFFU != u16Status)
+    if(MCU_enISR_RETURN_UNCHANGED != enStatus)
     {
         __low_power_mode_off_on_exit();
-        __bis_SR_register_on_exit(u16Status);
+        __bis_SR_register_on_exit((uint16_t) enStatus);
         _NOP();
     }
 }

@@ -30,7 +30,7 @@
 UBase_t CLOCK__IRQVectorHandler(uintptr_t uptrModuleArg, void* pvArgument)
 {
     CLOCK_puxfIRQSourceHandler_t IRQSourceHandlerReg;
-    uint16_t u16Status = 0xFFU;
+    MCU_nISR_RETURN enStatus = MCU_enISR_RETURN_UNCHANGED;
     uint16_t u16FlagReg;
 
     u16FlagReg = CLOCK_CTL7_R;
@@ -38,16 +38,16 @@ UBase_t CLOCK__IRQVectorHandler(uintptr_t uptrModuleArg, void* pvArgument)
     {
         CLOCK_CTL7_R &= ~CLOCK_CTL7_R_DCO_FFG_MASK;
         IRQSourceHandlerReg = CLOCK__puxfGetIRQSourceHandler(CLOCK_enINT_DCO_FAULT);
-        u16Status &= IRQSourceHandlerReg(CLOCK_BASE, (void*) CLOCK_enINT_DCO_FAULT);
+        enStatus &= IRQSourceHandlerReg(CLOCK_BASE, (void*) CLOCK_enINT_DCO_FAULT);
     }
     if(0U != (CLOCK_CTL7_R_XT1_LFOSC_FFG_MASK & u16FlagReg))
     {
         CLOCK_CTL7_R &= ~CLOCK_CTL7_R_XT1_LFOSC_FFG_MASK;
         IRQSourceHandlerReg = CLOCK__puxfGetIRQSourceHandler(CLOCK_enINT_XT1_LF_FAULT);
-        u16Status &= IRQSourceHandlerReg(CLOCK_BASE, (void*) CLOCK_enINT_XT1_LF_FAULT);
+        enStatus &= IRQSourceHandlerReg(CLOCK_BASE, (void*) CLOCK_enINT_XT1_LF_FAULT);
     }
 
-    return (u16Status);
+    return (enStatus);
 }
 
 
